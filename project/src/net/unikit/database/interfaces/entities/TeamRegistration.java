@@ -4,7 +4,7 @@ import net.unikit.database.interfaces.ids.TeamRegistrationId;
 
 import java.util.Date;
 
-public interface TeamRegistration {
+public interface TeamRegistration extends AbstractEntity {
 	TeamRegistrationId getId();
 
 	Student getStudent();

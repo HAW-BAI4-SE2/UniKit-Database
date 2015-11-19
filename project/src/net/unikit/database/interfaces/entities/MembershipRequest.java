@@ -4,7 +4,7 @@ import net.unikit.database.interfaces.ids.MembershipRequestId;
 
 import java.util.Date;
 
-public interface MembershipRequest {
+public interface MembershipRequest extends AbstractEntity {
 	MembershipRequestId getId();
 
 	Student getApplicant();

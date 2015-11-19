@@ -5,7 +5,7 @@ import net.unikit.database.interfaces.ids.TeamId;
 import java.util.Date;
 import java.util.List;
 
-public interface Team {
+public interface Team extends AbstractEntity {
 	TeamId getId();
 
 	Course getCourse();

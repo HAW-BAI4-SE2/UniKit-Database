@@ -4,7 +4,7 @@ import net.unikit.database.interfaces.ids.CourseId;
 
 import java.util.List;
 
-public interface Course {
+public interface Course extends AbstractEntity {
 	CourseId getId();
 
 	String getName();

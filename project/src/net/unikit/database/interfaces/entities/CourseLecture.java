@@ -4,7 +4,7 @@ import net.unikit.database.interfaces.ids.CourseLectureId;
 
 import java.util.List;
 
-public interface CourseLecture extends DidacticUnit {
+public interface CourseLecture extends DidacticUnit, AbstractEntity {
     CourseLectureId getId();
 
     Course getCourse();

@@ -4,7 +4,7 @@ import net.unikit.database.interfaces.ids.AppointmentId;
 
 import java.util.Date;
 
-public interface Appointment {
+public interface Appointment extends AbstractEntity {
 	AppointmentId getId();
 
 	DidacticUnit getDidacticUnit();

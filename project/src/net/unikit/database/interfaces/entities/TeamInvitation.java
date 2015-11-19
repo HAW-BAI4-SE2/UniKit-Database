@@ -4,7 +4,7 @@ import net.unikit.database.interfaces.ids.TeamInvitationId;
 
 import java.util.Date;
 
-public interface TeamInvitation {
+public interface TeamInvitation extends AbstractEntity {
 	TeamInvitationId getId();
 
 	Student getInvitee();

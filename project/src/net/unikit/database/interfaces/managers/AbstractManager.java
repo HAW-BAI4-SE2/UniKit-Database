@@ -1,12 +1,14 @@
 package net.unikit.database.interfaces.managers;
 
+import net.unikit.database.interfaces.entities.AbstractEntity;
+
 import java.util.List;
 
-public interface AbstractManager<E, I> {
-    List<E> getAllEntities();
-    E getEntity(I id);
-    void updateEntity(E entity);
-    void deleteEntity(E entity);
-    I addEntity(E entity);
-    E createEntity();
+public interface AbstractManager<EntityType extends AbstractEntity, IdType> {
+    List<EntityType> getAllEntities();
+    EntityType getEntity(IdType id);
+    void updateEntity(EntityType entity);
+    void deleteEntity(EntityType entity);
+    IdType addEntity(EntityType entity);
+    EntityType createEntity();
 }
