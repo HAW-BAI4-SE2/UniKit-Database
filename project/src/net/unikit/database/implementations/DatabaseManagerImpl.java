@@ -2,9 +2,7 @@ package net.unikit.database.implementations;
 
 import net.unikit.database.interfaces.DatabaseConfiguration;
 import net.unikit.database.interfaces.DatabaseManager;
-import net.unikit.database.interfaces.managers.CourseManager;
-import net.unikit.database.interfaces.managers.StudentManager;
-import net.unikit.database.interfaces.managers.TeamManager;
+import net.unikit.database.interfaces.managers.*;
 
 final class DatabaseManagerImpl implements DatabaseManager {
     private DatabaseManagerImpl(DatabaseConfiguration internalConfiguration, DatabaseConfiguration externalConfiguration) {
@@ -16,7 +14,17 @@ final class DatabaseManagerImpl implements DatabaseManager {
     }
 
     @Override
-    public StudentManager getStudentManager() {
+    public AppointmentManager getAppointmentManager() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public CourseGroupManager getCourseGroupManager() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public CourseLectureManager getCourseLectureManager() {
         throw new UnsupportedOperationException();
     }
 
@@ -26,7 +34,42 @@ final class DatabaseManagerImpl implements DatabaseManager {
     }
 
     @Override
+    public CourseRegistrationManager getCourseRegistrationManager() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public DidacticUnitManager getDidacticUnitManager() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public FieldOfStudyManager getFieldOfStudyManager() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public MembershipRequestManager getMembershipRequestManager() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public StudentManager getStudentManager() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public TeamInvitationManager getTeamInvitationManager() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public TeamManager getTeamManager() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public TeamRegistrationManager getTeamRegistrationManager() {
         throw new UnsupportedOperationException();
     }
 }

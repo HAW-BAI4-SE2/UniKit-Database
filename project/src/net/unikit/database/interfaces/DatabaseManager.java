@@ -1,11 +1,18 @@
 package net.unikit.database.interfaces;
 
-import net.unikit.database.interfaces.managers.CourseManager;
-import net.unikit.database.interfaces.managers.StudentManager;
-import net.unikit.database.interfaces.managers.TeamManager;
+import net.unikit.database.interfaces.managers.*;
 
 public interface DatabaseManager {
-    StudentManager getStudentManager();
+    AppointmentManager getAppointmentManager();
+    CourseGroupManager getCourseGroupManager();
+    CourseLectureManager getCourseLectureManager();
     CourseManager getCourseManager();
+    CourseRegistrationManager getCourseRegistrationManager();
+    DidacticUnitManager getDidacticUnitManager();
+    FieldOfStudyManager getFieldOfStudyManager();
+    MembershipRequestManager getMembershipRequestManager();
+    StudentManager getStudentManager();
+    TeamInvitationManager getTeamInvitationManager();
     TeamManager getTeamManager();
+    TeamRegistrationManager getTeamRegistrationManager();
 }
