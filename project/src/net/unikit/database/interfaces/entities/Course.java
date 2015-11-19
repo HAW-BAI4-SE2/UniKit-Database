@@ -5,16 +5,6 @@ import net.unikit.database.interfaces.ids.CourseId;
 import java.util.List;
 
 public interface Course {
-//	private CourseId id;
-//	private String name;
-//	private String abbreviation;
-//	private Integer semester;
-//	private int minTeamSize;
-//	private int maxTeamSize;
-//	private List<CourseGroup> courseGroups;
-//	private List<FieldOfStudy> fieldOfStudies;
-//	private List<CourseRegistration> courseRegistrations;
-
 	CourseId getId();
 
 	String getName();
@@ -32,15 +22,10 @@ public interface Course {
 	int getMaxTeamSize();
 	void setMaxTeamSize(int maxTeamSize);
 
+	CourseLecture getCourseLecture();
+	void setCourseLecture(CourseLecture courseLecture);
+
 	List<CourseGroup> getCourseGroups();
-	void setCourseGroups(List<CourseGroup> courseGroups);
 
 	List<FieldOfStudy> getFieldOfStudies();
-	void setFieldOfStudies(List<FieldOfStudy> fieldOfStudies);
-
-	List<CourseRegistration> getSingleRegistrations();
-	void setCourseRegistrations(List<CourseRegistration> courseRegistrations);
-
-	List<Team> getTeams();
-	void setTeams(List<Team> teams);
 }

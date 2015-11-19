@@ -4,24 +4,17 @@ import net.unikit.database.interfaces.ids.CourseGroupId;
 
 import java.util.List;
 
-public interface CourseGroup {
-//	private CourseGroupId id;
-//	private Course course;
-//	private List<Appointment> appointments;
-//	private int groupNumber;
-//	private int maxGroupSize;
-
+public interface CourseGroup extends DidacticUnit {
 	CourseGroupId getId();
 
 	Course getCourse();
 	void setCourse(Course course);
-
-	List<Appointment> getAppointments();
-	void setAppointments(List<Appointment> appointments);
 
 	int getGroupNumber();
 	void setGroupNumber(int groupNumber);
 
 	int getMaxGroupSize();
 	void setMaxGroupSize(int maxGroupSize);
+
+	List<Appointment> getAppointments();
 }

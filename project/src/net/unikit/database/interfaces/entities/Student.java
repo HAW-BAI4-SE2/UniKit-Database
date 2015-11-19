@@ -5,14 +5,6 @@ import net.unikit.database.interfaces.ids.StudentNumber;
 import java.util.List;
 
 public interface Student {
-//	private StudentNumber studentNumber;
-//	private String firstName;
-//	private String lastName;
-//	private String email;
-//	private FieldOfStudy fieldOfStudy;
-//	private int semester;
-//	private List<Course> completedCourses;
-
 	StudentNumber getStudentNumber();
 	void setStudentNumber(StudentNumber studentNumber);
 
@@ -32,11 +24,4 @@ public interface Student {
 	void setSemester(int semester);
 
 	List<Course> getCompletedCourses();
-	void setCompletedCourses(List<Course> completedCourses);
-
-	List<Course> getRegisteredCourses();
-	void setRegisteredCourses(List<Course> registeredCourses);
-
-	List<Team> getRegisteredTeams();
-	void setRegisteredTeams(List<Team> registeredTeams);
 }

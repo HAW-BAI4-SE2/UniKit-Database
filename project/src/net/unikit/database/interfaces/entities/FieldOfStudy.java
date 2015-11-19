@@ -2,11 +2,9 @@ package net.unikit.database.interfaces.entities;
 
 import net.unikit.database.interfaces.ids.FieldOfStudyId;
 
-public interface FieldOfStudy {
-//	private FieldOfStudyId id;
-//	private String name;
-//	private String abbreviation;
+import java.util.List;
 
+public interface FieldOfStudy {
 	FieldOfStudyId getId();
 
 	String getName();

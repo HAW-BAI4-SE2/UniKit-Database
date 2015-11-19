@@ -5,11 +5,10 @@ import net.unikit.database.interfaces.ids.AppointmentId;
 import java.util.Date;
 
 public interface Appointment {
-//	private AppointmentId id;
-//	private Date startDate;
-//	private Date endDate;
-
 	AppointmentId getId();
+
+	DidacticUnit getDidacticUnit();
+	void setDidacticUnit(DidacticUnit didacticUnit);
 
 	Date getStartDate();
 	void setStartDate(Date startDate);
