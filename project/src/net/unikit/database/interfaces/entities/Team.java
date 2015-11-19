@@ -3,14 +3,9 @@ package net.unikit.database.interfaces.entities;
 import net.unikit.database.interfaces.ids.TeamId;
 
 import java.util.Date;
+import java.util.List;
 
 public interface Team {
-//	private TeamId id;
-//	private Course course;
-//	private Student createdBy;
-//	private Date createdAt;
-//	private Date updatedAt;
-
 	TeamId getId();
 
 	Course getCourse();
@@ -18,6 +13,12 @@ public interface Team {
 
 	Student getCreatedBy();
 	void setCreatedBy(Student createdBy);
+
+	List<MembershipRequest> getMembershipRequests();
+
+	List<TeamInvitation> getTeamInvitations();
+
+	List<TeamRegistration> getTeamRegistrations();
 
 	Date getCreatedAt();
 

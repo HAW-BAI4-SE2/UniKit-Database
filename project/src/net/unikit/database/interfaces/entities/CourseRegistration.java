@@ -5,13 +5,6 @@ import net.unikit.database.interfaces.ids.CourseRegistrationId;
 import java.util.Date;
 
 public interface CourseRegistration {
-//	private CourseRegistrationId id;
-//	private Student student;
-//	private Course course;
-//	private boolean currentlyAssignedToTeam;
-//	private Date createdAt;
-//	private Date updatedAt;
-
 	CourseRegistrationId getId();
 
 	Student getStudent();

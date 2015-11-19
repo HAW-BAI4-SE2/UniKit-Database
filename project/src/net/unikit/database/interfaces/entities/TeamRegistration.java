@@ -5,12 +5,6 @@ import net.unikit.database.interfaces.ids.TeamRegistrationId;
 import java.util.Date;
 
 public interface TeamRegistration {
-//	private TeamRegistrationId id;
-//	private Student student;
-//	private Team team;
-//	private Date createdAt;
-//	private Date updatedAt;
-
 	TeamRegistrationId getId();
 
 	Student getStudent();
