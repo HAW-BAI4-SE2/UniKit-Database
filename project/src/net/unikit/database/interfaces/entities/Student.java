@@ -24,4 +24,12 @@ public interface Student {
 	void setSemester(int semester);
 
 	List<Course> getCompletedCourses();
+
+	List<CourseRegistration> getCourseRegistrations();
+
+	List<MembershipRequest> getMembershipRequests();
+
+	List<TeamInvitation> getTeamInvitations();
+
+	List<TeamRegistration> getTeamRegistrations();
 }

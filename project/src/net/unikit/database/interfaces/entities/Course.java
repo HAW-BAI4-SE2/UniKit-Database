@@ -28,4 +28,10 @@ public interface Course {
 	List<CourseGroup> getCourseGroups();
 
 	List<FieldOfStudy> getFieldOfStudies();
+
+	List<CourseRegistration> getSingleRegistrations();
+
+	List<CourseRegistration> getAllCourseRegistrations();
+
+	List<Team> getTeams();
 }
