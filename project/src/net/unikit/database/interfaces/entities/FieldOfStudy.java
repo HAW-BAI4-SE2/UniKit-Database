@@ -2,8 +2,6 @@ package net.unikit.database.interfaces.entities;
 
 import net.unikit.database.interfaces.ids.FieldOfStudyId;
 
-import java.util.List;
-
 public interface FieldOfStudy {
 	FieldOfStudyId getId();
 
