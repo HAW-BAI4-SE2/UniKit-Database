@@ -4,7 +4,7 @@ import net.unikit.database.interfaces.ids.CourseGroupAppointmentId;
 
 import java.util.Date;
 
-public interface CourseGroupAppointment extends AbstractEntity {
+public interface CourseGroupAppointment extends Appointment, AbstractEntity {
 	CourseGroupAppointmentId getId();
 
 	CourseGroup getCourseGroup();
