@@ -3,12 +3,12 @@ package net.unikit.database.interfaces;
 import net.unikit.database.interfaces.managers.*;
 
 public interface DatabaseManager {
-    AppointmentManager getAppointmentManager();
+    CourseGroupAppointmentManager getCourseGroupAppointmentManager();
     CourseGroupManager getCourseGroupManager();
+    CourseLectureAppointmentManager getCourseLectureAppointmentManager();
     CourseLectureManager getCourseLectureManager();
     CourseManager getCourseManager();
     CourseRegistrationManager getCourseRegistrationManager();
-    DidacticUnitManager getDidacticUnitManager();
     FieldOfStudyManager getFieldOfStudyManager();
     MembershipRequestManager getMembershipRequestManager();
     StudentManager getStudentManager();

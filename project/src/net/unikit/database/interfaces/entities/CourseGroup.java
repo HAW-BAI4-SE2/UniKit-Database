@@ -4,7 +4,7 @@ import net.unikit.database.interfaces.ids.CourseGroupId;
 
 import java.util.List;
 
-public interface CourseGroup extends DidacticUnit, AbstractEntity {
+public interface CourseGroup extends AbstractEntity {
 	CourseGroupId getId();
 
 	Course getCourse();
@@ -16,5 +16,5 @@ public interface CourseGroup extends DidacticUnit, AbstractEntity {
 	int getMaxGroupSize();
 	void setMaxGroupSize(int maxGroupSize);
 
-	List<Appointment> getAppointments();
+	List<CourseGroupAppointment> getAppointments();
 }

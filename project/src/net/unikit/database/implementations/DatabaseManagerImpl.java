@@ -14,12 +14,17 @@ final class DatabaseManagerImpl implements DatabaseManager {
     }
 
     @Override
-    public AppointmentManager getAppointmentManager() {
+    public CourseGroupAppointmentManager getCourseGroupAppointmentManager() {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public CourseGroupManager getCourseGroupManager() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public CourseLectureAppointmentManager getCourseLectureAppointmentManager() {
         throw new UnsupportedOperationException();
     }
 
@@ -35,11 +40,6 @@ final class DatabaseManagerImpl implements DatabaseManager {
 
     @Override
     public CourseRegistrationManager getCourseRegistrationManager() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public DidacticUnitManager getDidacticUnitManager() {
         throw new UnsupportedOperationException();
     }
 
