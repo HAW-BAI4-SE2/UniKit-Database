@@ -1,4 +1,4 @@
 package net.unikit.database.interfaces.ids;
 
-public interface TeamRegistrationId extends AbstractId<Integer> {
+public interface TeamRegistrationID extends AbstractID<Integer> {
 }

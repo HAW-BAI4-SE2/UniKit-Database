@@ -1,7 +1,7 @@
 package net.unikit.database.interfaces.managers;
 
 import net.unikit.database.interfaces.entities.CourseLecture;
-import net.unikit.database.interfaces.ids.CourseLectureId;
+import net.unikit.database.interfaces.ids.CourseLectureID;
 
-public interface CourseLectureManager extends AbstractManager<CourseLecture, CourseLectureId> {
+public interface CourseLectureManager extends AbstractManager<CourseLecture, CourseLectureID> {
 }

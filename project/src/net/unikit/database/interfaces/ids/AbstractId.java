@@ -1,5 +1,5 @@
 package net.unikit.database.interfaces.ids;
 
-public interface AbstractId<T> {
+public interface AbstractID<T> {
     T getValue();
 }
