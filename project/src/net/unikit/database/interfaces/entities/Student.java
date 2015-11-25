@@ -14,13 +14,13 @@ public interface Student extends AbstractEntity {
 	 * Getter for the student number which identifies the student.
 	 * @return The student number which identifies the student
 	 */
-	String getStudentNumber();
+	StudentNumber getStudentNumber();
 
 	/**
 	 * Setter for the student number which identifies the student.
 	 * @param studentNumber The student number which identifies the student
 	 */
-	void setStudentNumber(String studentNumber);
+	void setStudentNumber(StudentNumber studentNumber);
 
 	String getFirstName();
 	void setFirstName(String firstName);
