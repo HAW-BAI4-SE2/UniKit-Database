@@ -1,9 +1,9 @@
 package net.unikit.database.interfaces.entities;
 
-import net.unikit.database.interfaces.ids.FieldOfStudyId;
+import net.unikit.database.interfaces.ids.FieldOfStudyID;
 
 public interface FieldOfStudy extends AbstractEntity {
-	FieldOfStudyId getId();
+	FieldOfStudyID getId();
 
 	String getName();
 	void setName(String name);

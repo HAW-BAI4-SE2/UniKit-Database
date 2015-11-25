@@ -1,11 +1,11 @@
 package net.unikit.database.interfaces.entities;
 
-import net.unikit.database.interfaces.ids.CourseId;
+import net.unikit.database.interfaces.ids.CourseID;
 
 import java.util.List;
 
 public interface Course extends AbstractEntity {
-	CourseId getId();
+	CourseID getId();
 
 	String getName();
 	void setName(String name);

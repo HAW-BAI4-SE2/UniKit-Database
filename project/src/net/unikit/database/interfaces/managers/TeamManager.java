@@ -1,7 +1,7 @@
 package net.unikit.database.interfaces.managers;
 
 import net.unikit.database.interfaces.entities.Team;
-import net.unikit.database.interfaces.ids.TeamId;
+import net.unikit.database.interfaces.ids.TeamID;
 
-public interface TeamManager extends AbstractManager<Team, TeamId> {
+public interface TeamManager extends AbstractManager<Team, TeamID> {
 }

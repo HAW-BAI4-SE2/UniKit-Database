@@ -1,6 +1,6 @@
 package net.unikit.database.interfaces.entities;
 
-import net.unikit.database.interfaces.ids.AppointmentId;
+import net.unikit.database.interfaces.ids.AppointmentID;
 
 import java.util.Date;
 
@@ -8,7 +8,7 @@ import java.util.Date;
  * Created by Andreas on 20.11.2015.
  */
 public interface Appointment {
-    AppointmentId getId();
+    AppointmentID getId();
 
     DidacticUnit getDidacticUnit();
     void setDidacticUnit(DidacticUnit didacticUnit);

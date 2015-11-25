@@ -1,4 +1,4 @@
 package net.unikit.database.interfaces.ids;
 
-public interface TeamInvitationId extends AbstractId<Integer> {
+public interface TeamInvitationID extends AbstractID<Integer> {
 }

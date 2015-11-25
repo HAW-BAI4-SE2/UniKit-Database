@@ -1,11 +1,11 @@
 package net.unikit.database.interfaces.entities;
 
-import net.unikit.database.interfaces.ids.TeamRegistrationId;
+import net.unikit.database.interfaces.ids.TeamRegistrationID;
 
 import java.util.Date;
 
 public interface TeamRegistration extends AbstractEntity {
-	TeamRegistrationId getId();
+	TeamRegistrationID getId();
 
 	Student getStudent();
 	void setStudent(Student student);
