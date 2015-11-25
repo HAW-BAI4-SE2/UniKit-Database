@@ -1,7 +1,7 @@
 package net.unikit.database.interfaces.managers;
 
 import net.unikit.database.interfaces.entities.Student;
-import net.unikit.database.interfaces.ids.StudentNumber;
+import net.unikit.database.implementations.StudentNumber;
 
 /**
  * A manager for the students.

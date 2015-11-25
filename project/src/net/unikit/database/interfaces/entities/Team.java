@@ -1,6 +1,6 @@
 package net.unikit.database.interfaces.entities;
 
-import net.unikit.database.interfaces.ids.TeamID;
+import net.unikit.database.implementations.TeamID;
 
 import java.util.Date;
 import java.util.List;

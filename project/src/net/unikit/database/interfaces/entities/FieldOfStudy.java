@@ -1,6 +1,6 @@
 package net.unikit.database.interfaces.entities;
 
-import net.unikit.database.interfaces.ids.FieldOfStudyID;
+import net.unikit.database.implementations.FieldOfStudyID;
 
 /**
  * A field of study.

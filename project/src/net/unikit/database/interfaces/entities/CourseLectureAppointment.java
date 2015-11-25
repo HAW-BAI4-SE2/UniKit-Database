@@ -1,6 +1,6 @@
 package net.unikit.database.interfaces.entities;
 
-import net.unikit.database.interfaces.ids.CourseLectureAppointmentID;
+import net.unikit.database.implementations.CourseLectureAppointmentID;
 
 import java.util.Date;
 

@@ -1,6 +1,6 @@
 package net.unikit.database.interfaces.entities;
 
-import net.unikit.database.interfaces.ids.TeamInvitationID;
+import net.unikit.database.implementations.TeamInvitationID;
 
 import java.util.Date;
 

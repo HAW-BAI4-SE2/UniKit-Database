@@ -1,6 +1,6 @@
 package net.unikit.database.interfaces.entities;
 
-import net.unikit.database.interfaces.ids.AppointmentID;
+import net.unikit.database.implementations.AppointmentID;
 
 import java.util.Date;
 

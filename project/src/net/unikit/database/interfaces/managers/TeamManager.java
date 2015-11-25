@@ -1,7 +1,7 @@
 package net.unikit.database.interfaces.managers;
 
 import net.unikit.database.interfaces.entities.Team;
-import net.unikit.database.interfaces.ids.TeamID;
+import net.unikit.database.implementations.TeamID;
 
 /**
  * A manager for the teams.

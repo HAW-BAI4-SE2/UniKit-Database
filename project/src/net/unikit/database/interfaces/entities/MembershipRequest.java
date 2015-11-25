@@ -1,6 +1,6 @@
 package net.unikit.database.interfaces.entities;
 
-import net.unikit.database.interfaces.ids.MembershipRequestID;
+import net.unikit.database.implementations.MembershipRequestID;
 
 import java.util.Date;
 

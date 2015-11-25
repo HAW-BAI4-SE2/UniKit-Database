@@ -1,6 +1,6 @@
 package net.unikit.database.interfaces.entities;
 
-import net.unikit.database.interfaces.ids.StudentNumber;
+import net.unikit.database.implementations.StudentNumber;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package net.unikit.database.interfaces.managers;
 
 import net.unikit.database.interfaces.entities.Course;
-import net.unikit.database.interfaces.ids.CourseID;
+import net.unikit.database.implementations.CourseID;
 
 /**
  * A manager for the courses.

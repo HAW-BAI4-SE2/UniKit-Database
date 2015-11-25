@@ -1,7 +1,7 @@
 package net.unikit.database.interfaces.managers;
 
 import net.unikit.database.interfaces.entities.TeamRegistration;
-import net.unikit.database.interfaces.ids.TeamRegistrationID;
+import net.unikit.database.implementations.TeamRegistrationID;
 
 /**
  * A manager for the team registrations.

@@ -1,7 +1,7 @@
 package net.unikit.database.interfaces.managers;
 
 import net.unikit.database.interfaces.entities.MembershipRequest;
-import net.unikit.database.interfaces.ids.MembershipRequestID;
+import net.unikit.database.implementations.MembershipRequestID;
 
 /**
  * A manager for the membership requests.

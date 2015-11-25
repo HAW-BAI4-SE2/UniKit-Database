@@ -1,7 +1,7 @@
 package net.unikit.database.interfaces.managers;
 
 import net.unikit.database.interfaces.entities.FieldOfStudy;
-import net.unikit.database.interfaces.ids.FieldOfStudyID;
+import net.unikit.database.implementations.FieldOfStudyID;
 
 /**
  * A manager for the field of studies.
