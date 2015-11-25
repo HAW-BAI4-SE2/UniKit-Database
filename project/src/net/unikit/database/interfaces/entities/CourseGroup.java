@@ -10,6 +10,10 @@ import java.util.List;
  * @since 1.2.1
  */
 public interface CourseGroup extends DidacticUnit, AbstractEntity {
+	/**
+	 * Getter for the identifier of the entity.
+	 * @return The identifier of the entity
+	 */
 	CourseGroupID getId();
 
 	Course getCourse();

@@ -10,6 +10,10 @@ import java.util.Date;
  * @since 1.2.1
  */
 public interface CourseLectureAppointment extends Appointment, AbstractEntity {
+	/**
+	 * Getter for the identifier of the entity.
+	 * @return The identifier of the entity
+	 */
 	CourseLectureAppointmentID getId();
 
 	CourseLecture getCourseLecture();

@@ -11,6 +11,10 @@ import java.util.List;
  * @since 1.2.1
  */
 public interface Team extends AbstractEntity {
+	/**
+	 * Getter for the identifier of the entity.
+	 * @return The identifier of the entity
+	 */
 	TeamID getId();
 
 	Course getCourse();

@@ -12,6 +12,10 @@ import java.util.List;
  * @since 1.2.1
  */
 public interface Course extends AbstractEntity {
+	/**
+	 * Getter for the identifier of the entity.
+	 * @return The identifier of the entity
+	 */
 	CourseID getId();
 
 	String getName();

@@ -11,6 +11,10 @@ import java.util.Date;
  * @since 1.2.1
  */
 public interface CourseRegistration extends AbstractEntity {
+	/**
+	 * Getter for the identifier of the entity.
+	 * @return The identifier of the entity
+	 */
 	CourseRegistrationID getId();
 
 	Student getStudent();

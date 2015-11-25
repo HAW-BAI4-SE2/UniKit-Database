@@ -11,6 +11,10 @@ import java.util.List;
  * @since 1.2.1
  */
 public interface DidacticUnit {
+    /**
+     * Getter for the identifier of the entity.
+     * @return The identifier of the entity
+     */
     DidacticUnitID getId();
 
     Course getCourse();

@@ -8,6 +8,10 @@ import net.unikit.database.interfaces.ids.FieldOfStudyID;
  * @since 1.2.1
  */
 public interface FieldOfStudy extends AbstractEntity {
+	/**
+	 * Getter for the identifier of the entity.
+	 * @return The identifier of the entity
+	 */
 	FieldOfStudyID getId();
 
 	String getName();

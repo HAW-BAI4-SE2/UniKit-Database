@@ -10,8 +10,17 @@ import java.util.List;
  * @since 1.2.1
  */
 public interface Student extends AbstractEntity {
-	StudentNumber getStudentNumber();
-	void setStudentNumber(StudentNumber studentNumber);
+	/**
+	 * Getter for the student number which identifies the student.
+	 * @return The student number which identifies the student
+	 */
+	String getStudentNumber();
+
+	/**
+	 * Setter for the student number which identifies the student.
+	 * @param studentNumber The student number which identifies the student
+	 */
+	void setStudentNumber(String studentNumber);
 
 	String getFirstName();
 	void setFirstName(String firstName);
