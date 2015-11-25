@@ -4,6 +4,11 @@ import net.unikit.database.interfaces.ids.CourseGroupAppointmentID;
 
 import java.util.Date;
 
+/**
+ * An appointment which is associated to a course group.
+ * @author Andreas Berks
+ * @since 1.2.1
+ */
 public interface CourseGroupAppointment extends Appointment, AbstractEntity {
 	CourseGroupAppointmentID getId();
 

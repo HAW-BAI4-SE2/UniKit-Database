@@ -4,6 +4,13 @@ import net.unikit.database.interfaces.ids.CourseID;
 
 import java.util.List;
 
+/**
+ * A course.
+ * A course can have one course lecture and multiple course group.
+ * A course can be associated to any number of field of studies.
+ * @author Andreas Berks
+ * @since 1.2.1
+ */
 public interface Course extends AbstractEntity {
 	CourseID getId();
 

@@ -5,7 +5,9 @@ import net.unikit.database.interfaces.ids.AppointmentID;
 import java.util.Date;
 
 /**
- * Created by Andreas on 20.11.2015.
+ * An appointment which is associated to a didactic unit.
+ * @author Andreas Berks
+ * @since 1.2.1
  */
 public interface Appointment {
     AppointmentID getId();

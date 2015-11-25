@@ -4,6 +4,11 @@ import net.unikit.database.interfaces.ids.StudentNumber;
 
 import java.util.List;
 
+/**
+ * A student.
+ * @author Andreas Berks
+ * @since 1.2.1
+ */
 public interface Student extends AbstractEntity {
 	StudentNumber getStudentNumber();
 	void setStudentNumber(StudentNumber studentNumber);

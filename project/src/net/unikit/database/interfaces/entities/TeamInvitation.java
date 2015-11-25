@@ -4,6 +4,13 @@ import net.unikit.database.interfaces.ids.TeamInvitationID;
 
 import java.util.Date;
 
+/**
+ * A invitation which is associated to a team.
+ * Membership requests will be done by students which are in the team.
+ * If a student gets invited to a team he is called invitee.
+ * @author Andreas Berks
+ * @since 1.2.1
+ */
 public interface TeamInvitation extends AbstractEntity {
 	TeamInvitationID getId();
 

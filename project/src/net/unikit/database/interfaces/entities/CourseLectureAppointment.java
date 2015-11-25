@@ -4,6 +4,11 @@ import net.unikit.database.interfaces.ids.CourseLectureAppointmentID;
 
 import java.util.Date;
 
+/**
+ * An appointment which is associated to a course lecture.
+ * @author Andreas Berks
+ * @since 1.2.1
+ */
 public interface CourseLectureAppointment extends Appointment, AbstractEntity {
 	CourseLectureAppointmentID getId();
 

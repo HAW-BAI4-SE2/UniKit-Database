@@ -4,6 +4,12 @@ import net.unikit.database.interfaces.ids.CourseRegistrationID;
 
 import java.util.Date;
 
+/**
+ * A course registration which is associated to a course.
+ * Course registrations will be done by students and means that the student is enrolled in the course.
+ * @author Andreas Berks
+ * @since 1.2.1
+ */
 public interface CourseRegistration extends AbstractEntity {
 	CourseRegistrationID getId();
 
