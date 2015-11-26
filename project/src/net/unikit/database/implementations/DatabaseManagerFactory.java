@@ -29,8 +29,7 @@ public final class DatabaseManagerFactory {
 
     public static DatabaseManager createDatabaseManager(DatabaseConfiguration internalConfiguration, DatabaseConfiguration externalConfiguration) {
         DatabaseManager databaseManager = DatabaseManagerImpl.create(internalConfiguration, externalConfiguration);
-        if (DatabaseManagerFactory.databaseManager == null)
-            DatabaseManagerFactory.databaseManager = databaseManager;
+        DatabaseManagerFactory.databaseManager = databaseManager;
         return databaseManager;
     }
 }

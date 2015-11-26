@@ -48,6 +48,7 @@ final class CourseManagerImpl implements CourseManager {
 
     @Override
     public Course createEntity() {
-        return CourseImpl.create(null);
+        CourseModel model = DatabaseManagerFactory.getExternalDatabaseManager().getCourseModelManager().createEntity();
+        return CourseImpl.create(model);
     }
 }

@@ -48,6 +48,7 @@ final class FieldOfStudyManagerImpl implements FieldOfStudyManager {
 
     @Override
     public FieldOfStudy createEntity() {
-        return FieldOfStudyImpl.create(null);
+        FieldOfStudyModel model = DatabaseManagerFactory.getExternalDatabaseManager().getFieldOfStudyModelManager().createEntity();
+        return FieldOfStudyImpl.create(model);
     }
 }

@@ -48,6 +48,7 @@ final class StudentManagerImpl implements StudentManager {
 
     @Override
     public Student createEntity() {
-        return StudentImpl.create(null);
+        StudentModel model = DatabaseManagerFactory.getExternalDatabaseManager().getStudentModelManager().createEntity();
+        return StudentImpl.create(model);
     }
 }

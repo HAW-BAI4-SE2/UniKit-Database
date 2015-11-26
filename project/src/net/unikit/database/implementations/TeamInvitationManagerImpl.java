@@ -48,6 +48,7 @@ final class TeamInvitationManagerImpl implements TeamInvitationManager {
 
     @Override
     public TeamInvitation createEntity() {
-        return TeamInvitationImpl.create(null);
+        TeamInvitationModel model = DatabaseManagerFactory.getInternalDatabaseManager().getTeamInvitationModelManager().createEntity();
+        return TeamInvitationImpl.create(model);
     }
 }

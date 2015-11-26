@@ -48,6 +48,7 @@ final class TeamManagerImpl implements TeamManager {
 
     @Override
     public Team createEntity() {
-        return TeamImpl.create(null);
+        TeamModel model = DatabaseManagerFactory.getInternalDatabaseManager().getTeamModelManager().createEntity();
+        return TeamImpl.create(model);
     }
 }

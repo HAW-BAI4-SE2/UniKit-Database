@@ -48,6 +48,7 @@ final class TeamRegistrationManagerImpl implements TeamRegistrationManager {
 
     @Override
     public TeamRegistration createEntity() {
-        return TeamRegistrationImpl.create(null);
+        TeamRegistrationModel model = DatabaseManagerFactory.getInternalDatabaseManager().getTeamRegistrationModelManager().createEntity();
+        return TeamRegistrationImpl.create(model);
     }
 }

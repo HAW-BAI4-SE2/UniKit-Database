@@ -48,6 +48,7 @@ final class CourseGroupAppointmentManagerImpl implements CourseGroupAppointmentM
 
     @Override
     public CourseGroupAppointment createEntity() {
-        return CourseGroupAppointmentImpl.create(null);
+        CourseGroupAppointmentModel model = DatabaseManagerFactory.getExternalDatabaseManager().getCourseGroupAppointmentModelManager().createEntity();
+        return CourseGroupAppointmentImpl.create(model);
     }
 }

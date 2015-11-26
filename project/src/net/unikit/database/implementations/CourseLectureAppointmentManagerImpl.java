@@ -48,6 +48,7 @@ final class CourseLectureAppointmentManagerImpl implements CourseLectureAppointm
 
     @Override
     public CourseLectureAppointment createEntity() {
-        return CourseLectureAppointmentImpl.create(null);
+        CourseLectureAppointmentModel model = DatabaseManagerFactory.getExternalDatabaseManager().getCourseLectureAppointmentModelManager().createEntity();
+        return CourseLectureAppointmentImpl.create(model);
     }
 }

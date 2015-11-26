@@ -48,6 +48,7 @@ final class CourseGroupManagerImpl implements CourseGroupManager {
 
     @Override
     public CourseGroup createEntity() {
-        return CourseGroupImpl.create(null);
+        CourseGroupModel model = DatabaseManagerFactory.getExternalDatabaseManager().getCourseGroupModelManager().createEntity();
+        return CourseGroupImpl.create(model);
     }
 }

@@ -48,6 +48,7 @@ final class MembershipRequestManagerImpl implements MembershipRequestManager {
 
     @Override
     public MembershipRequest createEntity() {
-        return MembershipRequestImpl.create(null);
+        MembershipRequestModel model = DatabaseManagerFactory.getInternalDatabaseManager().getMembershipRequestModelManager().createEntity();
+        return MembershipRequestImpl.create(model);
     }
 }
