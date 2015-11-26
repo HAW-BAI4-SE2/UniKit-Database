@@ -23,7 +23,7 @@ final class CourseLectureAppointmentImpl implements CourseLectureAppointment {
         }
     }
 
-    private CourseLectureAppointmentModel model;
+    CourseLectureAppointmentModel model;
 
     private CourseLectureAppointmentImpl(CourseLectureAppointmentModel model) {
         this.model = model;
@@ -40,41 +40,41 @@ final class CourseLectureAppointmentImpl implements CourseLectureAppointment {
 
     @Override
     public CourseLecture getDidacticUnit() {
-        return null;
+        return getCourseLecture();
     }
 
     @Override
     public void setDidacticUnit(CourseLecture didacticUnit) {
-
+        setCourseLecture(didacticUnit);
     }
 
     @Override
     public CourseLecture getCourseLecture() {
-        return null;
+        return CourseLectureImpl.create(model.getCourseLecture());
     }
 
     @Override
     public void setCourseLecture(CourseLecture courseLecture) {
-
+        model.setCourseLecture(((CourseLectureImpl)(courseLecture)).model);
     }
 
     @Override
     public Date getStartDate() {
-        return null;
+        return model.getStartDate();
     }
 
     @Override
     public void setStartDate(Date startDate) {
-
+        model.setStartDate(startDate);
     }
 
     @Override
     public Date getEndDate() {
-        return null;
+        return model.getEndDate();
     }
 
     @Override
     public void setEndDate(Date endDate) {
-
+        model.setEndDate(endDate);
     }
 }

@@ -24,7 +24,7 @@ final class TeamRegistrationImpl implements TeamRegistration {
         }
     }
 
-    private TeamRegistrationModel model;
+    TeamRegistrationModel model;
 
     private TeamRegistrationImpl(TeamRegistrationModel model) {
         this.model = model;
@@ -41,31 +41,33 @@ final class TeamRegistrationImpl implements TeamRegistration {
 
     @Override
     public Student getStudent() {
-        return null;
+        // TODO
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void setStudent(Student student) {
-
+        // TODO
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Team getTeam() {
-        return null;
+        return TeamImpl.create(model.getTeam());
     }
 
     @Override
     public void setTeam(Team team) {
-
+        model.setTeam(((TeamImpl)(team)).model);
     }
 
     @Override
     public Date getCreatedAt() {
-        return null;
+        return model.getCreatedAt();
     }
 
     @Override
     public Date getUpdatedAt() {
-        return null;
+        return model.getUpdatedAt();
     }
 }

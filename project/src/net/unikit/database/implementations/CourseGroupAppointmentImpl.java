@@ -23,7 +23,7 @@ final class CourseGroupAppointmentImpl implements CourseGroupAppointment {
         }
     }
 
-    private CourseGroupAppointmentModel model;
+    CourseGroupAppointmentModel model;
 
     private CourseGroupAppointmentImpl(CourseGroupAppointmentModel model) {
         this.model = model;
@@ -40,41 +40,41 @@ final class CourseGroupAppointmentImpl implements CourseGroupAppointment {
 
     @Override
     public CourseGroup getDidacticUnit() {
-        return null;
+        return getCourseGroup();
     }
 
     @Override
     public void setDidacticUnit(CourseGroup didacticUnit) {
-
+        setCourseGroup(didacticUnit);
     }
 
     @Override
     public CourseGroup getCourseGroup() {
-        return null;
+        return CourseGroupImpl.create(model.getCourseGroup());
     }
 
     @Override
     public void setCourseGroup(CourseGroup courseGroup) {
-
+        model.setCourseGroup(((CourseGroupImpl)(courseGroup)).model);
     }
 
     @Override
     public Date getStartDate() {
-        return null;
+        return model.getStartDate();
     }
 
     @Override
     public void setStartDate(Date startDate) {
-
+        model.setStartDate(startDate);
     }
 
     @Override
     public Date getEndDate() {
-        return null;
+        return model.getEndDate();
     }
 
     @Override
     public void setEndDate(Date endDate) {
-
+        model.setEndDate(endDate);
     }
 }

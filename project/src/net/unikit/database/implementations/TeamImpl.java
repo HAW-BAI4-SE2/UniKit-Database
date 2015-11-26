@@ -1,7 +1,10 @@
 package net.unikit.database.implementations;
 
 import net.unikit.database.interfaces.entities.*;
+import net.unikit.database.internal.interfaces.entities.MembershipRequestModel;
+import net.unikit.database.internal.interfaces.entities.TeamInvitationModel;
 import net.unikit.database.internal.interfaces.entities.TeamModel;
+import net.unikit.database.internal.interfaces.entities.TeamRegistrationModel;
 
 import java.util.Date;
 import java.util.List;
@@ -23,7 +26,7 @@ final class TeamImpl implements Team {
         }
     }
 
-    private TeamModel model;
+    TeamModel model;
 
     private TeamImpl(TeamModel model) {
         this.model = model;
@@ -40,46 +43,56 @@ final class TeamImpl implements Team {
 
     @Override
     public Course getCourse() {
-        return null;
+        // TODO
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void setCourse(Course course) {
-
+        // TODO
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Student getCreatedBy() {
-        return null;
+        // TODO
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void setCreatedBy(Student createdBy) {
-
+        // TODO
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public List<MembershipRequest> getMembershipRequests() {
-        return null;
+        List<MembershipRequestModel> membershipRequests = model.getMembershipRequests();
+        // TODO
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public List<TeamInvitation> getTeamInvitations() {
-        return null;
+        List<TeamInvitationModel> teamInvitations = model.getTeamInvitations();
+        // TODO
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public List<TeamRegistration> getTeamRegistrations() {
-        return null;
+        List<TeamRegistrationModel> teamRegistrations = model.getTeamRegistrations();
+        // TODO
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Date getCreatedAt() {
-        return null;
+        return model.getCreatedAt();
     }
 
     @Override
     public Date getUpdatedAt() {
-        return null;
+        return model.getUpdatedAt();
     }
 }

@@ -1,5 +1,6 @@
 package net.unikit.database.implementations;
 
+import net.unikit.database.external.interfaces.entities.CourseLectureAppointmentModel;
 import net.unikit.database.external.interfaces.entities.CourseLectureModel;
 import net.unikit.database.interfaces.entities.Course;
 import net.unikit.database.interfaces.entities.CourseLecture;
@@ -24,7 +25,7 @@ final class CourseLectureImpl implements CourseLecture {
         }
     }
 
-    private CourseLectureModel model;
+    CourseLectureModel model;
 
     private CourseLectureImpl(CourseLectureModel model) {
         this.model = model;
@@ -41,16 +42,18 @@ final class CourseLectureImpl implements CourseLecture {
 
     @Override
     public Course getCourse() {
-        return null;
+        return CourseImpl.create(model.getCourse());
     }
 
     @Override
     public void setCourse(Course course) {
-
+        model.setCourse(((CourseImpl)(course)).model);
     }
 
     @Override
     public List<CourseLectureAppointment> getAppointments() {
-        return null;
+        List<CourseLectureAppointmentModel> appointments = model.getAppointments();
+        // TODO
+        throw new UnsupportedOperationException();
     }
 }

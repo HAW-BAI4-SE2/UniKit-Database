@@ -4,6 +4,7 @@ import net.unikit.database.interfaces.entities.Student;
 import net.unikit.database.interfaces.entities.Team;
 import net.unikit.database.interfaces.entities.TeamInvitation;
 import net.unikit.database.internal.interfaces.entities.TeamInvitationModel;
+import net.unikit.database.internal.interfaces.entities.TeamModel;
 
 import java.util.Date;
 
@@ -24,7 +25,7 @@ final class TeamInvitationImpl implements TeamInvitation {
         }
     }
 
-    private TeamInvitationModel model;
+    TeamInvitationModel model;
 
     private TeamInvitationImpl(TeamInvitationModel model) {
         this.model = model;
@@ -41,41 +42,45 @@ final class TeamInvitationImpl implements TeamInvitation {
 
     @Override
     public Student getInvitee() {
-        return null;
+        // TODO
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void setInvitee(Student invitee) {
-
+        // TODO
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Team getTeam() {
-        return null;
+        return TeamImpl.create(model.getTeam());
     }
 
     @Override
     public void setTeam(Team team) {
-
+        model.setTeam(((TeamImpl)(team)).model);
     }
 
     @Override
     public Student getCreatedBy() {
-        return null;
+        // TODO
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void setCreatedBy(Student createdBy) {
-
+        // TODO
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Date getCreatedAt() {
-        return null;
+        return model.getCreatedAt();
     }
 
     @Override
     public Date getUpdatedAt() {
-        return null;
+        return model.getUpdatedAt();
     }
 }

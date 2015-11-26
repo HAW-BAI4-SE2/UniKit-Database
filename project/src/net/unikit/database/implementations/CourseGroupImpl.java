@@ -1,5 +1,6 @@
 package net.unikit.database.implementations;
 
+import net.unikit.database.external.interfaces.entities.CourseGroupAppointmentModel;
 import net.unikit.database.external.interfaces.entities.CourseGroupModel;
 import net.unikit.database.interfaces.entities.Course;
 import net.unikit.database.interfaces.entities.CourseGroup;
@@ -24,7 +25,7 @@ final class CourseGroupImpl implements CourseGroup {
         }
     }
 
-    private CourseGroupModel model;
+    CourseGroupModel model;
 
     private CourseGroupImpl(CourseGroupModel model) {
         this.model = model;
@@ -41,36 +42,38 @@ final class CourseGroupImpl implements CourseGroup {
 
     @Override
     public Course getCourse() {
-        return null;
+        return CourseImpl.create(model.getCourse());
     }
 
     @Override
     public void setCourse(Course course) {
-
+        model.setCourse(((CourseImpl)(course)).model);
     }
 
     @Override
     public int getGroupNumber() {
-        return 0;
+        return model.getGroupNumber();
     }
 
     @Override
     public void setGroupNumber(int groupNumber) {
-
+        model.setGroupNumber(groupNumber);
     }
 
     @Override
     public int getMaxGroupSize() {
-        return 0;
+        return model.getMaxGroupSize();
     }
 
     @Override
     public void setMaxGroupSize(int maxGroupSize) {
-
+        model.setMaxGroupSize(maxGroupSize);
     }
 
     @Override
     public List<CourseGroupAppointment> getAppointments() {
-        return null;
+        List<CourseGroupAppointmentModel> appointments = model.getAppointments();
+        // TODO
+        throw new UnsupportedOperationException();
     }
 }

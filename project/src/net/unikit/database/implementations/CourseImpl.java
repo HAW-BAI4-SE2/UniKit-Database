@@ -1,6 +1,8 @@
 package net.unikit.database.implementations;
 
+import net.unikit.database.external.interfaces.entities.CourseGroupModel;
 import net.unikit.database.external.interfaces.entities.CourseModel;
+import net.unikit.database.external.interfaces.entities.FieldOfStudyModel;
 import net.unikit.database.interfaces.entities.*;
 
 import java.util.List;
@@ -22,7 +24,7 @@ final class CourseImpl implements Course {
         }
     }
 
-    private CourseModel model;
+    CourseModel model;
 
     private CourseImpl(CourseModel model) {
         this.model = model;
@@ -39,86 +41,95 @@ final class CourseImpl implements Course {
 
     @Override
     public String getName() {
-        return null;
+        return model.getName();
     }
 
     @Override
-    public void setName(String name) {
-
+    public void setName(String s) {
+        model.setName(s);
     }
 
     @Override
     public String getAbbreviation() {
-        return null;
+        return model.getAbbreviation();
     }
 
     @Override
-    public void setAbbreviation(String abbreviation) {
-
+    public void setAbbreviation(String s) {
+        model.setAbbreviation(s);
     }
 
     @Override
     public Integer getSemester() {
-        return null;
+        return model.getSemester();
     }
 
     @Override
-    public void setSemester(Integer semester) {
-
+    public void setSemester(Integer integer) {
+        model.setSemester(integer);
     }
 
     @Override
     public int getMinTeamSize() {
-        return 0;
+        return model.getMinTeamSize();
     }
 
     @Override
-    public void setMinTeamSize(int minTeamSize) {
-
+    public void setMinTeamSize(int i) {
+        model.setMinTeamSize(i);
     }
 
     @Override
     public int getMaxTeamSize() {
-        return 0;
+        return model.getMaxTeamSize();
     }
 
     @Override
-    public void setMaxTeamSize(int maxTeamSize) {
-
+    public void setMaxTeamSize(int i) {
+        model.setMaxTeamSize(i);
     }
 
     @Override
     public CourseLecture getCourseLecture() {
-        return null;
+        return CourseLectureImpl.create(model.getCourseLecture());
     }
 
     @Override
     public void setCourseLecture(CourseLecture courseLecture) {
-
+        //model.setCourseLecture(((CourseLectureImpl)(courseLecture)).model);
+        // TODO
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public List<CourseGroup> getCourseGroups() {
-        return null;
+        List<CourseGroupModel> courseGroups = model.getCourseGroups();
+        // TODO
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public List<FieldOfStudy> getFieldOfStudies() {
-        return null;
+        List<FieldOfStudyModel> fieldOfStudies = model.getFieldOfStudies();
+        // TODO
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public List<CourseRegistration> getSingleRegistrations() {
-        return null;
+        // TODO
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public List<CourseRegistration> getAllCourseRegistrations() {
-        return null;
+        // TODO
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public List<Team> getTeams() {
-        return null;
+        // TODO
+        throw new UnsupportedOperationException();
     }
 }

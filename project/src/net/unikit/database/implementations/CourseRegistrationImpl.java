@@ -24,7 +24,7 @@ final class CourseRegistrationImpl implements CourseRegistration {
         }
     }
 
-    private CourseRegistrationModel model;
+    CourseRegistrationModel model;
 
     private CourseRegistrationImpl(CourseRegistrationModel model) {
         this.model = model;
@@ -41,41 +41,43 @@ final class CourseRegistrationImpl implements CourseRegistration {
 
     @Override
     public Student getStudent() {
-        return null;
+        // TODO
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void setStudent(Student student) {
-
+        // TODO
+        throw new UnsupportedOperationException();
     }
 
-    @Override
     public Course getCourse() {
-        return null;
+        // TODO
+        throw new UnsupportedOperationException();
     }
 
-    @Override
     public void setCourse(Course course) {
-
+        // TODO
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public boolean isCurrentlyAssignedToTeam() {
-        return false;
+        return model.isCurrentlyAssignedToTeam();
     }
 
     @Override
-    public void setCurrentlyAssignedToTeam(boolean currentlyAssignedToTeam) {
-
+    public void setCurrentlyAssignedToTeam(boolean b) {
+        model.setCurrentlyAssignedToTeam(b);
     }
 
     @Override
     public Date getCreatedAt() {
-        return null;
+        return model.getCreatedAt();
     }
 
     @Override
     public Date getUpdatedAt() {
-        return null;
+        return model.getUpdatedAt();
     }
 }

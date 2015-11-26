@@ -20,7 +20,7 @@ final class FieldOfStudyImpl implements FieldOfStudy {
         }
     }
 
-    private FieldOfStudyModel model;
+    FieldOfStudyModel model;
 
     private FieldOfStudyImpl(FieldOfStudyModel model) {
         this.model = model;
@@ -37,21 +37,21 @@ final class FieldOfStudyImpl implements FieldOfStudy {
 
     @Override
     public String getName() {
-        return null;
+        return model.getName();
     }
 
     @Override
-    public void setName(String name) {
-
+    public void setName(String s) {
+        model.setName(s);
     }
 
     @Override
     public String getAbbreviation() {
-        return null;
+        return model.getAbbreviation();
     }
 
     @Override
-    public void setAbbreviation(String abbreviation) {
-
+    public void setAbbreviation(String s) {
+        model.setAbbreviation(s);
     }
 }

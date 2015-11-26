@@ -1,5 +1,7 @@
 package net.unikit.database.implementations;
 
+import net.unikit.database.external.interfaces.entities.CourseModel;
+import net.unikit.database.external.interfaces.entities.FieldOfStudyModel;
 import net.unikit.database.external.interfaces.entities.StudentModel;
 import net.unikit.database.interfaces.entities.*;
 
@@ -22,7 +24,7 @@ final class StudentImpl implements Student {
         }
     }
 
-    private StudentModel model;
+    StudentModel model;
 
     private StudentImpl(StudentModel model) {
         this.model = model;
@@ -44,76 +46,82 @@ final class StudentImpl implements Student {
 
     @Override
     public String getFirstName() {
-        return null;
+        return model.getFirstName();
     }
 
     @Override
-    public void setFirstName(String firstName) {
-
+    public void setFirstName(String s) {
+        model.setFirstName(s);
     }
 
     @Override
     public String getLastName() {
-        return null;
+        return model.getLastName();
     }
 
     @Override
-    public void setLastName(String lastName) {
-
+    public void setLastName(String s) {
+        model.setLastName(s);
     }
 
     @Override
     public String getEmail() {
-        return null;
+        return model.getEmail();
     }
 
     @Override
-    public void setEmail(String email) {
-
+    public void setEmail(String s) {
+        model.setEmail(s);
     }
 
     @Override
     public FieldOfStudy getFieldOfStudy() {
-        return null;
+        return FieldOfStudyImpl.create(model.getFieldOfStudy());
     }
 
     @Override
     public void setFieldOfStudy(FieldOfStudy fieldOfStudy) {
-
+        model.setFieldOfStudy(((FieldOfStudyImpl)(fieldOfStudy)).model);
     }
 
     @Override
     public int getSemester() {
-        return 0;
+        return model.getSemester();
     }
 
     @Override
-    public void setSemester(int semester) {
-
+    public void setSemester(int i) {
+        model.setSemester(i);
     }
 
     @Override
     public List<Course> getCompletedCourses() {
-        return null;
+        List<CourseModel> completedCourses = model.getCompletedCourses();
+        // TODO
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public List<CourseRegistration> getCourseRegistrations() {
-        return null;
+        // TODO
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public List<MembershipRequest> getMembershipRequests() {
-        return null;
+        // TODO
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public List<TeamInvitation> getTeamInvitations() {
-        return null;
+        // TODO
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public List<TeamRegistration> getTeamRegistrations() {
-        return null;
+        // TODO
+        throw new UnsupportedOperationException();
     }
 }

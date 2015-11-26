@@ -4,6 +4,7 @@ import net.unikit.database.interfaces.entities.MembershipRequest;
 import net.unikit.database.interfaces.entities.Student;
 import net.unikit.database.interfaces.entities.Team;
 import net.unikit.database.internal.interfaces.entities.MembershipRequestModel;
+import net.unikit.database.internal.interfaces.entities.TeamModel;
 
 import java.util.Date;
 
@@ -24,7 +25,7 @@ final class MembershipRequestImpl implements MembershipRequest {
         }
     }
 
-    private MembershipRequestModel model;
+    MembershipRequestModel model;
 
     private MembershipRequestImpl(MembershipRequestModel model) {
         this.model = model;
@@ -41,31 +42,33 @@ final class MembershipRequestImpl implements MembershipRequest {
 
     @Override
     public Student getApplicant() {
-        return null;
+        // TODO
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public void setApplicant(Student applicant) {
-
+        // TODO
+        throw new UnsupportedOperationException();
     }
 
     @Override
     public Team getTeam() {
-        return null;
+        return TeamImpl.create(model.getTeam());
     }
 
     @Override
     public void setTeam(Team team) {
-
+        model.setTeam(((TeamImpl)(team)).model);
     }
 
     @Override
     public Date getCreatedAt() {
-        return null;
+        return model.getCreatedAt();
     }
 
     @Override
     public Date getUpdatedAt() {
-        return null;
+        return model.getUpdatedAt();
     }
 }
