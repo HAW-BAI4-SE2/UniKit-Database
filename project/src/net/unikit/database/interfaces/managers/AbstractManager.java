@@ -9,7 +9,7 @@ import java.util.List;
  * @author Andreas Berks
  * @since 1.2.1
  */
-public interface AbstractManager<EntityType extends AbstractEntity, IdType> {
+public interface AbstractManager<EntityType extends AbstractEntity, IdType extends AbstractEntity.ID> {
     /**
      * Getter for all entities of the table.
      * @return All entities of the table

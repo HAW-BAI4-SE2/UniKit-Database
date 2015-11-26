@@ -7,7 +7,7 @@ import java.util.Date;
  * @author Andreas Berks
  * @since 1.2.1
  */
-public interface Appointment {
+public interface Appointment<DidacticUnitType extends DidacticUnit> {
     /**
      * An id for an appointment.
      */
@@ -23,13 +23,13 @@ public interface Appointment {
      * Getter for the didactic unit that is associated with the appointment.
      * @return The didactic unit that is associated with the appointment
      */
-    DidacticUnit getDidacticUnit();
+    DidacticUnitType getDidacticUnit();
 
     /**
      * Setter for the didactic unit that is associated with the appointment.
      * @param didacticUnit The didactic unit that is associated with the appointment
      */
-    void setDidacticUnit(DidacticUnit didacticUnit);
+    void setDidacticUnit(DidacticUnitType didacticUnit);
 
     /**
      * Getter for the start date of the appointment.

@@ -7,7 +7,7 @@ import java.util.Date;
  * @author Andreas Berks
  * @since 1.2.1
  */
-public interface CourseGroupAppointment extends Appointment, AbstractEntity {
+public interface CourseGroupAppointment extends Appointment<CourseGroup>, AbstractEntity {
 	/**
 	 * An id for a course group appointment.
 	 */

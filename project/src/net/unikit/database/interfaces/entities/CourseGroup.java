@@ -7,7 +7,7 @@ import java.util.List;
  * @author Andreas Berks
  * @since 1.2.1
  */
-public interface CourseGroup extends DidacticUnit<CourseGroupAppointment>, AbstractEntity {
+public interface CourseGroup extends DidacticUnit<CourseGroup, CourseGroupAppointment>, AbstractEntity {
 	/**
 	 * An id for an course group.
 	 */

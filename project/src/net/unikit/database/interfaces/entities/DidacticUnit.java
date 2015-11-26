@@ -8,7 +8,7 @@ import java.util.List;
  * @author Andreas Berks
  * @since 1.2.1
  */
-public interface DidacticUnit<AppointmentType extends Appointment> {
+public interface DidacticUnit<DidacticUnitType extends DidacticUnit, AppointmentType extends Appointment<DidacticUnitType>> {
     /**
      * An id for an course group.
      */

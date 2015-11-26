@@ -7,7 +7,7 @@ import java.util.List;
  * @author Andreas Berks
  * @since 1.2.1
  */
-public interface CourseLecture extends DidacticUnit<CourseLectureAppointment>, AbstractEntity {
+public interface CourseLecture extends DidacticUnit<CourseLecture, CourseLectureAppointment>, AbstractEntity {
     /**
      * An id for an course lecture.
      */
