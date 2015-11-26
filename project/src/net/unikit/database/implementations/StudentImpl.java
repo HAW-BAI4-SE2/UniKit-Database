@@ -1,5 +1,6 @@
 package net.unikit.database.implementations;
 
+import com.google.common.collect.ImmutableList;
 import net.unikit.database.external.interfaces.entities.CourseModel;
 import net.unikit.database.external.interfaces.entities.FieldOfStudyModel;
 import net.unikit.database.external.interfaces.entities.StudentModel;
@@ -97,8 +98,11 @@ final class StudentImpl implements Student {
     @Override
     public List<Course> getCompletedCourses() {
         List<CourseModel> completedCourses = model.getCompletedCourses();
-        // TODO
-        throw new UnsupportedOperationException();
+        ImmutableList.Builder<Course> builder = ImmutableList.builder();
+        for (CourseModel completedCourse : completedCourses) {
+            builder.add(CourseImpl.create(completedCourse));
+        }
+        return builder.build();
     }
 
     @Override

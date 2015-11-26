@@ -1,5 +1,6 @@
 package net.unikit.database.implementations;
 
+import com.google.common.collect.ImmutableList;
 import net.unikit.database.external.interfaces.entities.CourseGroupModel;
 import net.unikit.database.external.interfaces.entities.CourseModel;
 import net.unikit.database.external.interfaces.entities.FieldOfStudyModel;
@@ -104,15 +105,21 @@ final class CourseImpl implements Course {
     @Override
     public List<CourseGroup> getCourseGroups() {
         List<CourseGroupModel> courseGroups = model.getCourseGroups();
-        // TODO
-        throw new UnsupportedOperationException();
+        ImmutableList.Builder<CourseGroup> builder = ImmutableList.builder();
+        for (CourseGroupModel courseGroup : courseGroups) {
+            builder.add(CourseGroupImpl.create(courseGroup));
+        }
+        return builder.build();
     }
 
     @Override
     public List<FieldOfStudy> getFieldOfStudies() {
         List<FieldOfStudyModel> fieldOfStudies = model.getFieldOfStudies();
-        // TODO
-        throw new UnsupportedOperationException();
+        ImmutableList.Builder<FieldOfStudy> builder = ImmutableList.builder();
+        for (FieldOfStudyModel fieldOfStudy : fieldOfStudies) {
+            builder.add(FieldOfStudyImpl.create(fieldOfStudy));
+        }
+        return builder.build();
     }
 
     @Override

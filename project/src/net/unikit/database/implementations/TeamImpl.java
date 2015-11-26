@@ -1,5 +1,6 @@
 package net.unikit.database.implementations;
 
+import com.google.common.collect.ImmutableList;
 import net.unikit.database.interfaces.entities.*;
 import net.unikit.database.internal.interfaces.entities.MembershipRequestModel;
 import net.unikit.database.internal.interfaces.entities.TeamInvitationModel;
@@ -68,22 +69,31 @@ final class TeamImpl implements Team {
     @Override
     public List<MembershipRequest> getMembershipRequests() {
         List<MembershipRequestModel> membershipRequests = model.getMembershipRequests();
-        // TODO
-        throw new UnsupportedOperationException();
+        ImmutableList.Builder<MembershipRequest> builder = ImmutableList.builder();
+        for (MembershipRequestModel membershipRequest : membershipRequests) {
+            builder.add(MembershipRequestImpl.create(membershipRequest));
+        }
+        return builder.build();
     }
 
     @Override
     public List<TeamInvitation> getTeamInvitations() {
         List<TeamInvitationModel> teamInvitations = model.getTeamInvitations();
-        // TODO
-        throw new UnsupportedOperationException();
+        ImmutableList.Builder<TeamInvitation> builder = ImmutableList.builder();
+        for (TeamInvitationModel teamInvitation : teamInvitations) {
+            builder.add(TeamInvitationImpl.create(teamInvitation));
+        }
+        return builder.build();
     }
 
     @Override
     public List<TeamRegistration> getTeamRegistrations() {
         List<TeamRegistrationModel> teamRegistrations = model.getTeamRegistrations();
-        // TODO
-        throw new UnsupportedOperationException();
+        ImmutableList.Builder<TeamRegistration> builder = ImmutableList.builder();
+        for (TeamRegistrationModel teamRegistration : teamRegistrations) {
+            builder.add(TeamRegistrationImpl.create(teamRegistration));
+        }
+        return builder.build();
     }
 
     @Override
