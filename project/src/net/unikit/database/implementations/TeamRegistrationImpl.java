@@ -41,14 +41,13 @@ final class TeamRegistrationImpl implements TeamRegistration {
 
     @Override
     public Student getStudent() {
-        // TODO
-        throw new UnsupportedOperationException();
+        Student.StudentNumber id = new StudentImpl.StudentNumberImpl(model.getStudentNumber());
+        return DatabaseManagerFactory.getDatabaseManager().getStudentManager().getEntity(id);
     }
 
     @Override
     public void setStudent(Student student) {
-        // TODO
-        throw new UnsupportedOperationException();
+        model.setStudentNumber(student.getStudentNumber().getValue());
     }
 
     @Override

@@ -4,7 +4,6 @@ import net.unikit.database.interfaces.entities.Student;
 import net.unikit.database.interfaces.entities.Team;
 import net.unikit.database.interfaces.entities.TeamInvitation;
 import net.unikit.database.internal.interfaces.entities.TeamInvitationModel;
-import net.unikit.database.internal.interfaces.entities.TeamModel;
 
 import java.util.Date;
 
@@ -42,14 +41,13 @@ final class TeamInvitationImpl implements TeamInvitation {
 
     @Override
     public Student getInvitee() {
-        // TODO
-        throw new UnsupportedOperationException();
+        Student.StudentNumber id = new StudentImpl.StudentNumberImpl(model.getInviteeStudentNumber());
+        return DatabaseManagerFactory.getDatabaseManager().getStudentManager().getEntity(id);
     }
 
     @Override
     public void setInvitee(Student invitee) {
-        // TODO
-        throw new UnsupportedOperationException();
+        model.setInviteeStudentNumber(invitee.getStudentNumber().getValue());
     }
 
     @Override
@@ -64,14 +62,13 @@ final class TeamInvitationImpl implements TeamInvitation {
 
     @Override
     public Student getCreatedBy() {
-        // TODO
-        throw new UnsupportedOperationException();
+        Student.StudentNumber id = new StudentImpl.StudentNumberImpl(model.getCreatedByStudentNumber());
+        return DatabaseManagerFactory.getDatabaseManager().getStudentManager().getEntity(id);
     }
 
     @Override
     public void setCreatedBy(Student createdBy) {
-        // TODO
-        throw new UnsupportedOperationException();
+        model.setCreatedByStudentNumber(createdBy.getStudentNumber().getValue());
     }
 
     @Override

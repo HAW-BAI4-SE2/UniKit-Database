@@ -2,7 +2,6 @@ package net.unikit.database.implementations;
 
 import com.google.common.collect.ImmutableList;
 import net.unikit.database.external.interfaces.entities.CourseModel;
-import net.unikit.database.external.interfaces.entities.FieldOfStudyModel;
 import net.unikit.database.external.interfaces.entities.StudentModel;
 import net.unikit.database.interfaces.entities.*;
 
@@ -107,25 +106,45 @@ final class StudentImpl implements Student {
 
     @Override
     public List<CourseRegistration> getCourseRegistrations() {
-        // TODO
-        throw new UnsupportedOperationException();
+        List<CourseRegistration> allEntities = DatabaseManagerFactory.getDatabaseManager().getCourseRegistrationManager().getAllEntities();
+        ImmutableList.Builder<CourseRegistration> builder = ImmutableList.builder();
+        for (CourseRegistration courseRegistration : allEntities) {
+            if (courseRegistration.getStudent().equals(this))
+                builder.add(courseRegistration);
+        }
+        return builder.build();
     }
 
     @Override
     public List<MembershipRequest> getMembershipRequests() {
-        // TODO
-        throw new UnsupportedOperationException();
+        List<MembershipRequest> allEntities = DatabaseManagerFactory.getDatabaseManager().getMembershipRequestManager().getAllEntities();
+        ImmutableList.Builder<MembershipRequest> builder = ImmutableList.builder();
+        for (MembershipRequest membershipRequest : allEntities) {
+            if (membershipRequest.getApplicant().equals(this))
+                builder.add(membershipRequest);
+        }
+        return builder.build();
     }
 
     @Override
     public List<TeamInvitation> getTeamInvitations() {
-        // TODO
-        throw new UnsupportedOperationException();
+        List<TeamInvitation> allEntities = DatabaseManagerFactory.getDatabaseManager().getTeamInvitationManager().getAllEntities();
+        ImmutableList.Builder<TeamInvitation> builder = ImmutableList.builder();
+        for (TeamInvitation teamInvitation : allEntities) {
+            if (teamInvitation.getInvitee().equals(this))
+                builder.add(teamInvitation);
+        }
+        return builder.build();
     }
 
     @Override
     public List<TeamRegistration> getTeamRegistrations() {
-        // TODO
-        throw new UnsupportedOperationException();
+        List<TeamRegistration> allEntities = DatabaseManagerFactory.getDatabaseManager().getTeamRegistrationManager().getAllEntities();
+        ImmutableList.Builder<TeamRegistration> builder = ImmutableList.builder();
+        for (TeamRegistration teamRegistration : allEntities) {
+            if (teamRegistration.getStudent().equals(this))
+                builder.add(teamRegistration);
+        }
+        return builder.build();
     }
 }

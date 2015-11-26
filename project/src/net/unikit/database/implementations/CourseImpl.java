@@ -97,9 +97,7 @@ final class CourseImpl implements Course {
 
     @Override
     public void setCourseLecture(CourseLecture courseLecture) {
-        //model.setCourseLecture(((CourseLectureImpl)(courseLecture)).model);
-        // TODO
-        throw new UnsupportedOperationException();
+        model.setCourseLecture(((CourseLectureImpl)(courseLecture)).model);
     }
 
     @Override
@@ -124,19 +122,32 @@ final class CourseImpl implements Course {
 
     @Override
     public List<CourseRegistration> getSingleRegistrations() {
-        // TODO
-        throw new UnsupportedOperationException();
+        List<CourseRegistration> allEntities = DatabaseManagerFactory.getDatabaseManager().getCourseRegistrationManager().getAllEntities();
+        ImmutableList.Builder<CourseRegistration> builder = ImmutableList.builder();
+        for (CourseRegistration courseRegistration : allEntities) {
+            if (!courseRegistration.isCurrentlyAssignedToTeam())
+                builder.add(courseRegistration);
+        }
+        return builder.build();
     }
 
     @Override
     public List<CourseRegistration> getAllCourseRegistrations() {
-        // TODO
-        throw new UnsupportedOperationException();
+        List<CourseRegistration> allEntities = DatabaseManagerFactory.getDatabaseManager().getCourseRegistrationManager().getAllEntities();
+        ImmutableList.Builder<CourseRegistration> builder = ImmutableList.builder();
+        for (CourseRegistration courseRegistration : allEntities) {
+            builder.add(courseRegistration);
+        }
+        return builder.build();
     }
 
     @Override
     public List<Team> getTeams() {
-        // TODO
-        throw new UnsupportedOperationException();
+        List<Team> allEntities = DatabaseManagerFactory.getDatabaseManager().getTeamManager().getAllEntities();
+        ImmutableList.Builder<Team> builder = ImmutableList.builder();
+        for (Team team : allEntities) {
+            builder.add(team);
+        }
+        return builder.build();
     }
 }

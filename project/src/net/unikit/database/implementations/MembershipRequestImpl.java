@@ -4,7 +4,6 @@ import net.unikit.database.interfaces.entities.MembershipRequest;
 import net.unikit.database.interfaces.entities.Student;
 import net.unikit.database.interfaces.entities.Team;
 import net.unikit.database.internal.interfaces.entities.MembershipRequestModel;
-import net.unikit.database.internal.interfaces.entities.TeamModel;
 
 import java.util.Date;
 
@@ -42,14 +41,13 @@ final class MembershipRequestImpl implements MembershipRequest {
 
     @Override
     public Student getApplicant() {
-        // TODO
-        throw new UnsupportedOperationException();
+        Student.StudentNumber id = new StudentImpl.StudentNumberImpl(model.getApplicantStudentNumber());
+        return DatabaseManagerFactory.getDatabaseManager().getStudentManager().getEntity(id);
     }
 
     @Override
     public void setApplicant(Student applicant) {
-        // TODO
-        throw new UnsupportedOperationException();
+        model.setApplicantStudentNumber(applicant.getStudentNumber().getValue());
     }
 
     @Override

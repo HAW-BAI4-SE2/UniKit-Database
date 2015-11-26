@@ -41,24 +41,24 @@ final class CourseRegistrationImpl implements CourseRegistration {
 
     @Override
     public Student getStudent() {
-        // TODO
-        throw new UnsupportedOperationException();
+        Student.StudentNumber id = new StudentImpl.StudentNumberImpl(model.getStudentNumber());
+        return DatabaseManagerFactory.getDatabaseManager().getStudentManager().getEntity(id);
     }
 
     @Override
     public void setStudent(Student student) {
-        // TODO
-        throw new UnsupportedOperationException();
+        model.setStudentNumber(student.getStudentNumber().getValue());
     }
 
+    @Override
     public Course getCourse() {
-        // TODO
-        throw new UnsupportedOperationException();
+        Course.ID id = new CourseImpl.IDImpl(model.getCourseId());
+        return DatabaseManagerFactory.getDatabaseManager().getCourseManager().getEntity(id);
     }
 
+    @Override
     public void setCourse(Course course) {
-        // TODO
-        throw new UnsupportedOperationException();
+        model.setCourseId(course.getId().getValue());
     }
 
     @Override

@@ -44,26 +44,24 @@ final class TeamImpl implements Team {
 
     @Override
     public Course getCourse() {
-        // TODO
-        throw new UnsupportedOperationException();
+        Course.ID id = new CourseImpl.IDImpl(model.getCourseId());
+        return DatabaseManagerFactory.getDatabaseManager().getCourseManager().getEntity(id);
     }
 
     @Override
     public void setCourse(Course course) {
-        // TODO
-        throw new UnsupportedOperationException();
+        model.setCourseId(course.getId().getValue());
     }
 
     @Override
     public Student getCreatedBy() {
-        // TODO
-        throw new UnsupportedOperationException();
+        Student.StudentNumber id = new StudentImpl.StudentNumberImpl(model.getCreatedByStudentNumber());
+        return DatabaseManagerFactory.getDatabaseManager().getStudentManager().getEntity(id);
     }
 
     @Override
     public void setCreatedBy(Student createdBy) {
-        // TODO
-        throw new UnsupportedOperationException();
+        model.setCreatedByStudentNumber(createdBy.getStudentNumber().getValue());
     }
 
     @Override
