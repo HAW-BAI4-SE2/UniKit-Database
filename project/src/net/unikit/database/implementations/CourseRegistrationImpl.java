@@ -3,6 +3,7 @@ package net.unikit.database.implementations;
 import net.unikit.database.interfaces.entities.Course;
 import net.unikit.database.interfaces.entities.CourseRegistration;
 import net.unikit.database.interfaces.entities.Student;
+import net.unikit.database.internal.interfaces.entities.CourseRegistrationModel;
 
 import java.util.Date;
 
@@ -10,9 +11,32 @@ import java.util.Date;
  * Created by Andreas on 26.11.2015.
  */
 final class CourseRegistrationImpl implements CourseRegistration {
+    static class IDImpl implements CourseRegistration.ID {
+        private Integer value;
+
+        IDImpl(Integer value) {
+            this.value = value;
+        }
+
+        @Override
+        public Integer getValue() {
+            return value;
+        }
+    }
+
+    private CourseRegistrationModel model;
+
+    private CourseRegistrationImpl(CourseRegistrationModel model) {
+        this.model = model;
+    }
+
+    public static CourseRegistration create(CourseRegistrationModel model) {
+        return new CourseRegistrationImpl(model);
+    }
+
     @Override
     public ID getId() {
-        return null;
+        return new IDImpl(model.getId());
     }
 
     @Override

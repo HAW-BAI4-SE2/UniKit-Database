@@ -1,6 +1,7 @@
 package net.unikit.database.implementations;
 
 import net.unikit.database.interfaces.entities.*;
+import net.unikit.database.internal.interfaces.entities.TeamModel;
 
 import java.util.Date;
 import java.util.List;
@@ -9,9 +10,32 @@ import java.util.List;
  * Created by Andreas on 26.11.2015.
  */
 final class TeamImpl implements Team {
+    static class IDImpl implements Team.ID {
+        private Integer value;
+
+        IDImpl(Integer value) {
+            this.value = value;
+        }
+
+        @Override
+        public Integer getValue() {
+            return value;
+        }
+    }
+
+    private TeamModel model;
+
+    private TeamImpl(TeamModel model) {
+        this.model = model;
+    }
+
+    public static Team create(TeamModel model) {
+        return new TeamImpl(model);
+    }
+
     @Override
     public ID getId() {
-        return null;
+        return new IDImpl(model.getId());
     }
 
     @Override

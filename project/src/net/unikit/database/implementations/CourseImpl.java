@@ -1,5 +1,6 @@
 package net.unikit.database.implementations;
 
+import net.unikit.database.external.interfaces.entities.CourseModel;
 import net.unikit.database.interfaces.entities.*;
 
 import java.util.List;
@@ -8,9 +9,32 @@ import java.util.List;
  * Created by Andreas on 26.11.2015.
  */
 final class CourseImpl implements Course {
+    static class IDImpl implements Course.ID {
+        private Integer value;
+
+        IDImpl(Integer value) {
+            this.value = value;
+        }
+
+        @Override
+        public Integer getValue() {
+            return value;
+        }
+    }
+
+    private CourseModel model;
+
+    private CourseImpl(CourseModel model) {
+        this.model = model;
+    }
+
+    public static Course create(CourseModel model) {
+        return new CourseImpl(model);
+    }
+
     @Override
     public ID getId() {
-        return null;
+        return new IDImpl(model.getId());
     }
 
     @Override

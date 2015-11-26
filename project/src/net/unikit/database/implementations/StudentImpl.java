@@ -1,5 +1,6 @@
 package net.unikit.database.implementations;
 
+import net.unikit.database.external.interfaces.entities.StudentModel;
 import net.unikit.database.interfaces.entities.*;
 
 import java.util.List;
@@ -8,14 +9,37 @@ import java.util.List;
  * Created by Andreas on 26.11.2015.
  */
 final class StudentImpl implements Student {
+    static class StudentNumberImpl implements Student.StudentNumber {
+        private String value;
+
+        StudentNumberImpl(String value) {
+            this.value = value;
+        }
+
+        @Override
+        public String getValue() {
+            return value;
+        }
+    }
+
+    private StudentModel model;
+
+    private StudentImpl(StudentModel model) {
+        this.model = model;
+    }
+
+    public static Student create(StudentModel model) {
+        return new StudentImpl(model);
+    }
+
     @Override
     public StudentNumber getStudentNumber() {
-        return null;
+        return new StudentNumberImpl(model.getId());
     }
 
     @Override
     public void setStudentNumber(StudentNumber studentNumber) {
-
+        model.setStudentNumber(studentNumber.getValue());
     }
 
     @Override
