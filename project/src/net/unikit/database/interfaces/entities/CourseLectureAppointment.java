@@ -1,7 +1,5 @@
 package net.unikit.database.interfaces.entities;
 
-import net.unikit.database.implementations.CourseLectureAppointmentID;
-
 import java.util.Date;
 
 /**
@@ -11,17 +9,49 @@ import java.util.Date;
  */
 public interface CourseLectureAppointment extends Appointment, AbstractEntity {
 	/**
+	 * An id for a course lecture appointment.
+	 */
+	interface ID extends Appointment.ID {}
+
+	/**
 	 * Getter for the identifier of the entity.
 	 * @return The identifier of the entity
 	 */
-	CourseLectureAppointmentID getId();
+	ID getId();
 
+	/**
+	 * Getter for the course lecture that is associated with the appointment.
+	 * @return The course lecture that is associated with the appointment
+	 */
 	CourseLecture getCourseLecture();
-	void setCourseLecture(CourseLecture courseGroup);
 
+	/**
+	 * Setter for the course lecture that is associated with the appointment.
+	 * @param courseLecture The course lecture that is associated with the appointment
+	 */
+	void setCourseLecture(CourseLecture courseLecture);
+
+	/**
+	 * Getter for the start date of the appointment.
+	 * @return The start date of the appointment
+	 */
 	Date getStartDate();
+
+	/**
+	 * Setter for the start date of the appointment.
+	 * @param startDate The start date of the appointment
+	 */
 	void setStartDate(Date startDate);
 
+	/**
+	 * Getter for the end date of the appointment.
+	 * @return The end date of the appointment
+	 */
 	Date getEndDate();
+
+	/**
+	 * Setter for the end date of the appointment.
+	 * @param endDate The end date of the appointment
+	 */
 	void setEndDate(Date endDate);
 }

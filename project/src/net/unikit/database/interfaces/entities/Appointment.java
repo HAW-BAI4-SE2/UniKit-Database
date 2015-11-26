@@ -1,7 +1,5 @@
 package net.unikit.database.interfaces.entities;
 
-import net.unikit.database.implementations.AppointmentID;
-
 import java.util.Date;
 
 /**
@@ -11,10 +9,15 @@ import java.util.Date;
  */
 public interface Appointment {
     /**
+     * An id for an appointment.
+     */
+    interface ID extends AbstractEntity.ID<Integer> {}
+
+    /**
      * Getter for the identifier of the entity.
      * @return The identifier of the entity
      */
-    AppointmentID getId();
+    ID getId();
 
     /**
      * Getter for the didactic unit that is associated with the appointment.

@@ -1,7 +1,5 @@
 package net.unikit.database.interfaces.entities;
 
-import net.unikit.database.implementations.MembershipRequestID;
-
 import java.util.Date;
 
 /**
@@ -13,18 +11,49 @@ import java.util.Date;
  */
 public interface MembershipRequest extends AbstractEntity {
 	/**
+	 * An id for a membership request.
+	 */
+	interface ID extends AbstractEntity.ID<Integer> {}
+
+	/**
 	 * Getter for the identifier of the entity.
 	 * @return The identifier of the entity
 	 */
-	MembershipRequestID getId();
+	ID getId();
 
+	/**
+	 * Getter for the applicant.
+	 * @return The applicant
+	 */
 	Student getApplicant();
+
+	/**
+	 * Setter for the applicant.
+	 * @param applicant The applicant
+	 */
 	void setApplicant(Student applicant);
 
+	/**
+	 * Getter for the team which is associated with the membership request.
+	 * @return The team which is associated with the membership request
+	 */
 	Team getTeam();
+
+	/**
+	 * Setter for the team which is associated with the membership request.
+	 * @param team The team which is associated with the membership request
+	 */
 	void setTeam(Team team);
 
+	/**
+	 * Getter for the date in which the entry was written to the database.
+	 * @return The date in which the entry was written to the database
+	 */
 	Date getCreatedAt();
 
+	/**
+	 * Getter for the date in which the entry was updated in the database the last time.
+	 * @return The date in which the entry was updated in the database the last time
+	 */
 	Date getUpdatedAt();
 }

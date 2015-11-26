@@ -1,7 +1,5 @@
 package net.unikit.database.interfaces.entities;
 
-import net.unikit.database.implementations.CourseLectureID;
-
 import java.util.List;
 
 /**
@@ -9,15 +7,34 @@ import java.util.List;
  * @author Andreas Berks
  * @since 1.2.1
  */
-public interface CourseLecture extends DidacticUnit, AbstractEntity {
+public interface CourseLecture extends DidacticUnit<CourseLectureAppointment>, AbstractEntity {
+    /**
+     * An id for an course lecture.
+     */
+    interface ID extends DidacticUnit.ID {}
+
     /**
      * Getter for the identifier of the entity.
      * @return The identifier of the entity
      */
-    CourseLectureID getId();
+    ID getId();
 
+    /**
+     * Getter for the course that is associated with the course lecture.
+     * @return The course that is associated with the course lecture
+     */
     Course getCourse();
+
+    /**
+     * Setter for the course that is associated with the course lecture.
+     * @param course The course that is associated with the course lecture
+     */
     void setCourse(Course course);
 
-    List<Appointment> getAppointments();
+    /**
+     * Getter for the appointments of the course lecture.
+     * Returns a immutable list of {@link CourseLectureAppointment}.
+     * @return The appointments of the course lecture
+     */
+    List<CourseLectureAppointment> getAppointments();
 }
