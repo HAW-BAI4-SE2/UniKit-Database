@@ -150,4 +150,6 @@ final class CourseImpl implements Course {
         }
         return builder.build();
     }
+
+
 }

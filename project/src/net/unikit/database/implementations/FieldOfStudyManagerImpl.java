@@ -11,9 +11,19 @@ import java.util.List;
  * Created by Andreas on 26.11.2015.
  */
 final class FieldOfStudyManagerImpl implements FieldOfStudyManager {
+    private DatabaseManagerImpl databaseManager;
+
+    private FieldOfStudyManagerImpl(DatabaseManagerImpl databaseManager) {
+        this.databaseManager = databaseManager;
+    }
+
+    static FieldOfStudyManager create(DatabaseManagerImpl databaseManager) {
+        return new FieldOfStudyManagerImpl(databaseManager);
+    }
+
     @Override
     public List<FieldOfStudy> getAllEntities() {
-        List<FieldOfStudyModel> allEntities = DatabaseManagerFactory.getExternalDatabaseManager().getFieldOfStudyModelManager().getAllEntities();
+        List<FieldOfStudyModel> allEntities = databaseManager.getExternalDatabaseManager().getFieldOfStudyModelManager().getAllEntities();
         ImmutableList.Builder<FieldOfStudy> builder = ImmutableList.builder();
         for (FieldOfStudyModel entity : allEntities) {
             builder.add(FieldOfStudyImpl.create(entity));
@@ -23,32 +33,32 @@ final class FieldOfStudyManagerImpl implements FieldOfStudyManager {
 
     @Override
     public FieldOfStudy getEntity(FieldOfStudy.ID id) {
-        FieldOfStudyModel entity = DatabaseManagerFactory.getExternalDatabaseManager().getFieldOfStudyModelManager().getEntity(id.getValue());
+        FieldOfStudyModel entity = databaseManager.getExternalDatabaseManager().getFieldOfStudyModelManager().getEntity(id.getValue());
         return FieldOfStudyImpl.create(entity);
     }
 
     @Override
     public void updateEntity(FieldOfStudy entity) {
         FieldOfStudyModel model = ((FieldOfStudyImpl)(entity)).model;
-        DatabaseManagerFactory.getExternalDatabaseManager().getFieldOfStudyModelManager().updateEntity(model);
+        databaseManager.getExternalDatabaseManager().getFieldOfStudyModelManager().updateEntity(model);
     }
 
     @Override
     public void deleteEntity(FieldOfStudy entity) {
         FieldOfStudyModel model = ((FieldOfStudyImpl)(entity)).model;
-        DatabaseManagerFactory.getExternalDatabaseManager().getFieldOfStudyModelManager().deleteEntity(model);
+        databaseManager.getExternalDatabaseManager().getFieldOfStudyModelManager().deleteEntity(model);
     }
 
     @Override
     public FieldOfStudy.ID addEntity(FieldOfStudy entity) {
         FieldOfStudyModel model = ((FieldOfStudyImpl)(entity)).model;
-        Integer id = DatabaseManagerFactory.getExternalDatabaseManager().getFieldOfStudyModelManager().addEntity(model);
+        Integer id = databaseManager.getExternalDatabaseManager().getFieldOfStudyModelManager().addEntity(model);
         return new FieldOfStudyImpl.IDImpl(id);
     }
 
     @Override
     public FieldOfStudy createEntity() {
-        FieldOfStudyModel model = DatabaseManagerFactory.getExternalDatabaseManager().getFieldOfStudyModelManager().createEntity();
+        FieldOfStudyModel model = databaseManager.getExternalDatabaseManager().getFieldOfStudyModelManager().createEntity();
         return FieldOfStudyImpl.create(model);
     }
 }

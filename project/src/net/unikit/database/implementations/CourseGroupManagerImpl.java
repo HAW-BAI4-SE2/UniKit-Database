@@ -11,9 +11,19 @@ import java.util.List;
  * Created by Andreas on 26.11.2015.
  */
 final class CourseGroupManagerImpl implements CourseGroupManager {
+    private DatabaseManagerImpl databaseManager;
+
+    private CourseGroupManagerImpl(DatabaseManagerImpl databaseManager) {
+        this.databaseManager = databaseManager;
+    }
+
+    static CourseGroupManager create(DatabaseManagerImpl databaseManager) {
+        return new CourseGroupManagerImpl(databaseManager);
+    }
+
     @Override
     public List<CourseGroup> getAllEntities() {
-        List<CourseGroupModel> allEntities = DatabaseManagerFactory.getExternalDatabaseManager().getCourseGroupModelManager().getAllEntities();
+        List<CourseGroupModel> allEntities = databaseManager.getExternalDatabaseManager().getCourseGroupModelManager().getAllEntities();
         ImmutableList.Builder<CourseGroup> builder = ImmutableList.builder();
         for (CourseGroupModel entity : allEntities) {
             builder.add(CourseGroupImpl.create(entity));
@@ -23,32 +33,32 @@ final class CourseGroupManagerImpl implements CourseGroupManager {
 
     @Override
     public CourseGroup getEntity(CourseGroup.ID id) {
-        CourseGroupModel entity = DatabaseManagerFactory.getExternalDatabaseManager().getCourseGroupModelManager().getEntity(id.getValue());
+        CourseGroupModel entity = databaseManager.getExternalDatabaseManager().getCourseGroupModelManager().getEntity(id.getValue());
         return CourseGroupImpl.create(entity);
     }
 
     @Override
     public void updateEntity(CourseGroup entity) {
         CourseGroupModel model = ((CourseGroupImpl)(entity)).model;
-        DatabaseManagerFactory.getExternalDatabaseManager().getCourseGroupModelManager().updateEntity(model);
+        databaseManager.getExternalDatabaseManager().getCourseGroupModelManager().updateEntity(model);
     }
 
     @Override
     public void deleteEntity(CourseGroup entity) {
         CourseGroupModel model = ((CourseGroupImpl)(entity)).model;
-        DatabaseManagerFactory.getExternalDatabaseManager().getCourseGroupModelManager().deleteEntity(model);
+        databaseManager.getExternalDatabaseManager().getCourseGroupModelManager().deleteEntity(model);
     }
 
     @Override
     public CourseGroup.ID addEntity(CourseGroup entity) {
         CourseGroupModel model = ((CourseGroupImpl)(entity)).model;
-        Integer id = DatabaseManagerFactory.getExternalDatabaseManager().getCourseGroupModelManager().addEntity(model);
+        Integer id = databaseManager.getExternalDatabaseManager().getCourseGroupModelManager().addEntity(model);
         return new CourseGroupImpl.IDImpl(id);
     }
 
     @Override
     public CourseGroup createEntity() {
-        CourseGroupModel model = DatabaseManagerFactory.getExternalDatabaseManager().getCourseGroupModelManager().createEntity();
+        CourseGroupModel model = databaseManager.getExternalDatabaseManager().getCourseGroupModelManager().createEntity();
         return CourseGroupImpl.create(model);
     }
 }

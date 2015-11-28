@@ -9,22 +9,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public final class DatabaseManagerFactory {
     static DatabaseManager databaseManager;
-    static InternalDatabaseManager internalDatabaseManager;
-    static ExternalDatabaseManager externalDatabaseManager;
 
     public static DatabaseManager getDatabaseManager() {
         checkNotNull(databaseManager, "databaseManager is null!");
         return databaseManager;
-    }
-
-    public static InternalDatabaseManager getInternalDatabaseManager() {
-        checkNotNull(internalDatabaseManager, "internalDatabaseManager is null!");
-        return internalDatabaseManager;
-    }
-
-    public static ExternalDatabaseManager getExternalDatabaseManager() {
-        checkNotNull(externalDatabaseManager, "externalDatabaseManager is null!");
-        return externalDatabaseManager;
     }
 
     public static DatabaseManager createDatabaseManager(DatabaseConfiguration internalConfiguration, DatabaseConfiguration externalConfiguration) {

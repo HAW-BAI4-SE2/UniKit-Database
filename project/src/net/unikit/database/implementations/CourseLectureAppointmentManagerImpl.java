@@ -11,9 +11,19 @@ import java.util.List;
  * Created by Andreas on 26.11.2015.
  */
 final class CourseLectureAppointmentManagerImpl implements CourseLectureAppointmentManager {
+    private DatabaseManagerImpl databaseManager;
+
+    private CourseLectureAppointmentManagerImpl(DatabaseManagerImpl databaseManager) {
+        this.databaseManager = databaseManager;
+    }
+
+    static CourseLectureAppointmentManager create(DatabaseManagerImpl databaseManager) {
+        return new CourseLectureAppointmentManagerImpl(databaseManager);
+    }
+
     @Override
     public List<CourseLectureAppointment> getAllEntities() {
-        List<CourseLectureAppointmentModel> allEntities = DatabaseManagerFactory.getExternalDatabaseManager().getCourseLectureAppointmentModelManager().getAllEntities();
+        List<CourseLectureAppointmentModel> allEntities = databaseManager.getExternalDatabaseManager().getCourseLectureAppointmentModelManager().getAllEntities();
         ImmutableList.Builder<CourseLectureAppointment> builder = ImmutableList.builder();
         for (CourseLectureAppointmentModel entity : allEntities) {
             builder.add(CourseLectureAppointmentImpl.create(entity));
@@ -23,32 +33,32 @@ final class CourseLectureAppointmentManagerImpl implements CourseLectureAppointm
 
     @Override
     public CourseLectureAppointment getEntity(CourseLectureAppointment.ID id) {
-        CourseLectureAppointmentModel entity = DatabaseManagerFactory.getExternalDatabaseManager().getCourseLectureAppointmentModelManager().getEntity(id.getValue());
+        CourseLectureAppointmentModel entity = databaseManager.getExternalDatabaseManager().getCourseLectureAppointmentModelManager().getEntity(id.getValue());
         return CourseLectureAppointmentImpl.create(entity);
     }
 
     @Override
     public void updateEntity(CourseLectureAppointment entity) {
         CourseLectureAppointmentModel model = ((CourseLectureAppointmentImpl)(entity)).model;
-        DatabaseManagerFactory.getExternalDatabaseManager().getCourseLectureAppointmentModelManager().updateEntity(model);
+        databaseManager.getExternalDatabaseManager().getCourseLectureAppointmentModelManager().updateEntity(model);
     }
 
     @Override
     public void deleteEntity(CourseLectureAppointment entity) {
         CourseLectureAppointmentModel model = ((CourseLectureAppointmentImpl)(entity)).model;
-        DatabaseManagerFactory.getExternalDatabaseManager().getCourseLectureAppointmentModelManager().deleteEntity(model);
+        databaseManager.getExternalDatabaseManager().getCourseLectureAppointmentModelManager().deleteEntity(model);
     }
 
     @Override
     public CourseLectureAppointment.ID addEntity(CourseLectureAppointment entity) {
         CourseLectureAppointmentModel model = ((CourseLectureAppointmentImpl)(entity)).model;
-        Integer id = DatabaseManagerFactory.getExternalDatabaseManager().getCourseLectureAppointmentModelManager().addEntity(model);
+        Integer id = databaseManager.getExternalDatabaseManager().getCourseLectureAppointmentModelManager().addEntity(model);
         return new CourseLectureAppointmentImpl.IDImpl(id);
     }
 
     @Override
     public CourseLectureAppointment createEntity() {
-        CourseLectureAppointmentModel model = DatabaseManagerFactory.getExternalDatabaseManager().getCourseLectureAppointmentModelManager().createEntity();
+        CourseLectureAppointmentModel model = databaseManager.getExternalDatabaseManager().getCourseLectureAppointmentModelManager().createEntity();
         return CourseLectureAppointmentImpl.create(model);
     }
 }

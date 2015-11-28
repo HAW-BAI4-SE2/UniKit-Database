@@ -11,9 +11,19 @@ import java.util.List;
  * Created by Andreas on 26.11.2015.
  */
 final class CourseLectureManagerImpl implements CourseLectureManager {
+    private DatabaseManagerImpl databaseManager;
+
+    private CourseLectureManagerImpl(DatabaseManagerImpl databaseManager) {
+        this.databaseManager = databaseManager;
+    }
+
+    static CourseLectureManager create(DatabaseManagerImpl databaseManager) {
+        return new CourseLectureManagerImpl(databaseManager);
+    }
+
     @Override
     public List<CourseLecture> getAllEntities() {
-        List<CourseLectureModel> allEntities = DatabaseManagerFactory.getExternalDatabaseManager().getCourseLectureModelManager().getAllEntities();
+        List<CourseLectureModel> allEntities = databaseManager.getExternalDatabaseManager().getCourseLectureModelManager().getAllEntities();
         ImmutableList.Builder<CourseLecture> builder = ImmutableList.builder();
         for (CourseLectureModel entity : allEntities) {
             builder.add(CourseLectureImpl.create(entity));
@@ -23,32 +33,32 @@ final class CourseLectureManagerImpl implements CourseLectureManager {
 
     @Override
     public CourseLecture getEntity(CourseLecture.ID id) {
-        CourseLectureModel entity = DatabaseManagerFactory.getExternalDatabaseManager().getCourseLectureModelManager().getEntity(id.getValue());
+        CourseLectureModel entity = databaseManager.getExternalDatabaseManager().getCourseLectureModelManager().getEntity(id.getValue());
         return CourseLectureImpl.create(entity);
     }
 
     @Override
     public void updateEntity(CourseLecture entity) {
         CourseLectureModel model = ((CourseLectureImpl)(entity)).model;
-        DatabaseManagerFactory.getExternalDatabaseManager().getCourseLectureModelManager().updateEntity(model);
+        databaseManager.getExternalDatabaseManager().getCourseLectureModelManager().updateEntity(model);
     }
 
     @Override
     public void deleteEntity(CourseLecture entity) {
         CourseLectureModel model = ((CourseLectureImpl)(entity)).model;
-        DatabaseManagerFactory.getExternalDatabaseManager().getCourseLectureModelManager().deleteEntity(model);
+        databaseManager.getExternalDatabaseManager().getCourseLectureModelManager().deleteEntity(model);
     }
 
     @Override
     public CourseLecture.ID addEntity(CourseLecture entity) {
         CourseLectureModel model = ((CourseLectureImpl)(entity)).model;
-        Integer id = DatabaseManagerFactory.getExternalDatabaseManager().getCourseLectureModelManager().addEntity(model);
+        Integer id = databaseManager.getExternalDatabaseManager().getCourseLectureModelManager().addEntity(model);
         return new CourseLectureImpl.IDImpl(id);
     }
 
     @Override
     public CourseLecture createEntity() {
-        CourseLectureModel model = DatabaseManagerFactory.getExternalDatabaseManager().getCourseLectureModelManager().createEntity();
+        CourseLectureModel model = databaseManager.getExternalDatabaseManager().getCourseLectureModelManager().createEntity();
         return CourseLectureImpl.create(model);
     }
 }

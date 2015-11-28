@@ -11,9 +11,19 @@ import java.util.List;
  * Created by Andreas on 26.11.2015.
  */
 final class StudentManagerImpl implements StudentManager {
+    private DatabaseManagerImpl databaseManager;
+
+    private StudentManagerImpl(DatabaseManagerImpl databaseManager) {
+        this.databaseManager = databaseManager;
+    }
+
+    static StudentManager create(DatabaseManagerImpl databaseManager) {
+        return new StudentManagerImpl(databaseManager);
+    }
+
     @Override
     public List<Student> getAllEntities() {
-        List<StudentModel> allEntities = DatabaseManagerFactory.getExternalDatabaseManager().getStudentModelManager().getAllEntities();
+        List<StudentModel> allEntities = databaseManager.getExternalDatabaseManager().getStudentModelManager().getAllEntities();
         ImmutableList.Builder<Student> builder = ImmutableList.builder();
         for (StudentModel entity : allEntities) {
             builder.add(StudentImpl.create(entity));
@@ -23,32 +33,32 @@ final class StudentManagerImpl implements StudentManager {
 
     @Override
     public Student getEntity(Student.StudentNumber id) {
-        StudentModel entity = DatabaseManagerFactory.getExternalDatabaseManager().getStudentModelManager().getEntity(id.getValue());
+        StudentModel entity = databaseManager.getExternalDatabaseManager().getStudentModelManager().getEntity(id.getValue());
         return StudentImpl.create(entity);
     }
 
     @Override
     public void updateEntity(Student entity) {
         StudentModel model = ((StudentImpl)(entity)).model;
-        DatabaseManagerFactory.getExternalDatabaseManager().getStudentModelManager().updateEntity(model);
+        databaseManager.getExternalDatabaseManager().getStudentModelManager().updateEntity(model);
     }
 
     @Override
     public void deleteEntity(Student entity) {
         StudentModel model = ((StudentImpl)(entity)).model;
-        DatabaseManagerFactory.getExternalDatabaseManager().getStudentModelManager().deleteEntity(model);
+        databaseManager.getExternalDatabaseManager().getStudentModelManager().deleteEntity(model);
     }
 
     @Override
     public Student.StudentNumber addEntity(Student entity) {
         StudentModel model = ((StudentImpl)(entity)).model;
-        String id = DatabaseManagerFactory.getExternalDatabaseManager().getStudentModelManager().addEntity(model);
+        String id = databaseManager.getExternalDatabaseManager().getStudentModelManager().addEntity(model);
         return new StudentImpl.StudentNumberImpl(id);
     }
 
     @Override
     public Student createEntity() {
-        StudentModel model = DatabaseManagerFactory.getExternalDatabaseManager().getStudentModelManager().createEntity();
+        StudentModel model = databaseManager.getExternalDatabaseManager().getStudentModelManager().createEntity();
         return StudentImpl.create(model);
     }
 }

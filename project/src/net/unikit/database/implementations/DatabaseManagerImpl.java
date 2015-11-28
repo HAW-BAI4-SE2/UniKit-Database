@@ -1,75 +1,96 @@
 package net.unikit.database.implementations;
 
+import net.unikit.database.external.implementations.ExternalDatabaseManagerFactory;
+import net.unikit.database.external.interfaces.ExternalDatabaseManager;
 import net.unikit.database.interfaces.DatabaseConfiguration;
 import net.unikit.database.interfaces.DatabaseManager;
 import net.unikit.database.interfaces.managers.*;
+import net.unikit.database.internal.implementations.InternalDatabaseManagerFactory;
+import net.unikit.database.internal.interfaces.InternalDatabaseManager;
+
+import java.io.File;
+import java.io.IOException;
+
+import static net.unikit.database.implementations.DatabaseConfigurationUtils.createDatabaseConfigurationFromProperties;
 
 final class DatabaseManagerImpl implements DatabaseManager {
+    private ExternalDatabaseManager externalDatabaseManager;
+    private InternalDatabaseManager internalDatabaseManager;
+
     private DatabaseManagerImpl(DatabaseConfiguration internalConfiguration, DatabaseConfiguration externalConfiguration) {
-        throw new UnsupportedOperationException();
+        externalDatabaseManager = ExternalDatabaseManagerFactory.createExternalDatabaseManager(externalConfiguration);
+        internalDatabaseManager = InternalDatabaseManagerFactory.createInternalDatabaseManager(internalConfiguration);
     }
 
     public static DatabaseManager create(DatabaseConfiguration internalConfiguration, DatabaseConfiguration externalConfiguration) {
         return new DatabaseManagerImpl(internalConfiguration, externalConfiguration);
     }
 
+    ExternalDatabaseManager getExternalDatabaseManager() {
+        return externalDatabaseManager;
+    }
+
+    InternalDatabaseManager getInternalDatabaseManager() {
+        return internalDatabaseManager;
+    }
+
     @Override
     public CourseGroupAppointmentManager getCourseGroupAppointmentManager() {
-        throw new UnsupportedOperationException();
+        return CourseGroupAppointmentManagerImpl.create(this);
     }
 
     @Override
     public CourseGroupManager getCourseGroupManager() {
-        throw new UnsupportedOperationException();
+        return CourseGroupManagerImpl.create(this);
     }
 
     @Override
     public CourseLectureAppointmentManager getCourseLectureAppointmentManager() {
-        throw new UnsupportedOperationException();
+        return CourseLectureAppointmentManagerImpl.create(this);
     }
 
     @Override
     public CourseLectureManager getCourseLectureManager() {
-        throw new UnsupportedOperationException();
+        return CourseLectureManagerImpl.create(this);
     }
 
     @Override
     public CourseManager getCourseManager() {
-        throw new UnsupportedOperationException();
+        return CourseManagerImpl.create(this);
     }
 
     @Override
     public CourseRegistrationManager getCourseRegistrationManager() {
-        throw new UnsupportedOperationException();
+        return CourseRegistrationManagerImpl.create(this);
     }
 
     @Override
     public FieldOfStudyManager getFieldOfStudyManager() {
-        throw new UnsupportedOperationException();
+        return FieldOfStudyManagerImpl.create(this);
     }
 
     @Override
     public MembershipRequestManager getMembershipRequestManager() {
-        throw new UnsupportedOperationException();
+        return MembershipRequestManagerImpl.create(this);
     }
 
     @Override
     public StudentManager getStudentManager() {
-        throw new UnsupportedOperationException();
+        return StudentManagerImpl.create(this);
     }
 
     @Override
     public TeamInvitationManager getTeamInvitationManager() {
-        throw new UnsupportedOperationException();
+        return TeamInvitationManagerImpl.create(this);
     }
 
     @Override
     public TeamManager getTeamManager() {
-        throw new UnsupportedOperationException();
+        return TeamManagerImpl.create(this);
     }
 
     @Override
     public TeamRegistrationManager getTeamRegistrationManager() {
-        throw new UnsupportedOperationException();
+        return TeamRegistrationManagerImpl.create(this);
     }
 }

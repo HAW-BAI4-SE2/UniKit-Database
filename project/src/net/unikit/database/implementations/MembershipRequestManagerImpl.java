@@ -11,9 +11,19 @@ import java.util.List;
  * Created by Andreas on 26.11.2015.
  */
 final class MembershipRequestManagerImpl implements MembershipRequestManager {
+    private DatabaseManagerImpl databaseManager;
+
+    private MembershipRequestManagerImpl(DatabaseManagerImpl databaseManager) {
+        this.databaseManager = databaseManager;
+    }
+
+    static MembershipRequestManager create(DatabaseManagerImpl databaseManager) {
+        return new MembershipRequestManagerImpl(databaseManager);
+    }
+
     @Override
     public List<MembershipRequest> getAllEntities() {
-        List<MembershipRequestModel> allEntities = DatabaseManagerFactory.getInternalDatabaseManager().getMembershipRequestModelManager().getAllEntities();
+        List<MembershipRequestModel> allEntities = databaseManager.getInternalDatabaseManager().getMembershipRequestModelManager().getAllEntities();
         ImmutableList.Builder<MembershipRequest> builder = ImmutableList.builder();
         for (MembershipRequestModel entity : allEntities) {
             builder.add(MembershipRequestImpl.create(entity));
@@ -23,32 +33,32 @@ final class MembershipRequestManagerImpl implements MembershipRequestManager {
 
     @Override
     public MembershipRequest getEntity(MembershipRequest.ID id) {
-        MembershipRequestModel entity = DatabaseManagerFactory.getInternalDatabaseManager().getMembershipRequestModelManager().getEntity(id.getValue());
+        MembershipRequestModel entity = databaseManager.getInternalDatabaseManager().getMembershipRequestModelManager().getEntity(id.getValue());
         return MembershipRequestImpl.create(entity);
     }
 
     @Override
     public void updateEntity(MembershipRequest entity) {
         MembershipRequestModel model = ((MembershipRequestImpl)(entity)).model;
-        DatabaseManagerFactory.getInternalDatabaseManager().getMembershipRequestModelManager().updateEntity(model);
+        databaseManager.getInternalDatabaseManager().getMembershipRequestModelManager().updateEntity(model);
     }
 
     @Override
     public void deleteEntity(MembershipRequest entity) {
         MembershipRequestModel model = ((MembershipRequestImpl)(entity)).model;
-        DatabaseManagerFactory.getInternalDatabaseManager().getMembershipRequestModelManager().deleteEntity(model);
+        databaseManager.getInternalDatabaseManager().getMembershipRequestModelManager().deleteEntity(model);
     }
 
     @Override
     public MembershipRequest.ID addEntity(MembershipRequest entity) {
         MembershipRequestModel model = ((MembershipRequestImpl)(entity)).model;
-        Integer id = DatabaseManagerFactory.getInternalDatabaseManager().getMembershipRequestModelManager().addEntity(model);
+        Integer id = databaseManager.getInternalDatabaseManager().getMembershipRequestModelManager().addEntity(model);
         return new MembershipRequestImpl.IDImpl(id);
     }
 
     @Override
     public MembershipRequest createEntity() {
-        MembershipRequestModel model = DatabaseManagerFactory.getInternalDatabaseManager().getMembershipRequestModelManager().createEntity();
+        MembershipRequestModel model = databaseManager.getInternalDatabaseManager().getMembershipRequestModelManager().createEntity();
         return MembershipRequestImpl.create(model);
     }
 }
