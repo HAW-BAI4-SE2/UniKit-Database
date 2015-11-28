@@ -61,4 +61,9 @@ final class StudentManagerImpl implements StudentManager {
         StudentModel model = databaseManager.getExternalDatabaseManager().getStudentModelManager().createEntity();
         return StudentImpl.create(model);
     }
+
+    @Override
+    public Student.StudentNumber createID(String value) {
+        return new StudentImpl.StudentNumberImpl(value);
+    }
 }

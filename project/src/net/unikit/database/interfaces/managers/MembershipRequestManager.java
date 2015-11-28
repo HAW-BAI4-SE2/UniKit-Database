@@ -7,5 +7,5 @@ import net.unikit.database.interfaces.entities.MembershipRequest;
  * @author Andreas Berks
  * @since 1.2.1
  */
-public interface MembershipRequestManager extends AbstractManager<MembershipRequest, MembershipRequest.ID> {
+public interface MembershipRequestManager extends AbstractManager<MembershipRequest, Integer, MembershipRequest.ID> {
 }

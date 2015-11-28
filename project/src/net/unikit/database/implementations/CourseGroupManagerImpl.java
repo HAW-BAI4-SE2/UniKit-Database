@@ -61,4 +61,9 @@ final class CourseGroupManagerImpl implements CourseGroupManager {
         CourseGroupModel model = databaseManager.getExternalDatabaseManager().getCourseGroupModelManager().createEntity();
         return CourseGroupImpl.create(model);
     }
+
+    @Override
+    public CourseGroup.ID createID(Integer value) {
+        return new CourseGroupImpl.IDImpl(value);
+    }
 }

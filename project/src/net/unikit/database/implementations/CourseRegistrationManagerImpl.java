@@ -61,4 +61,9 @@ final class CourseRegistrationManagerImpl implements CourseRegistrationManager {
         CourseRegistrationModel model = databaseManager.getInternalDatabaseManager().getCourseRegistrationModelManager().createEntity();
         return CourseRegistrationImpl.create(model);
     }
+
+    @Override
+    public CourseRegistration.ID createID(Integer value) {
+        return new CourseRegistrationImpl.IDImpl(value);
+    }
 }

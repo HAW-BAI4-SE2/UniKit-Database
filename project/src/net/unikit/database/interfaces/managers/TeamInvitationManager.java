@@ -7,5 +7,5 @@ import net.unikit.database.interfaces.entities.TeamInvitation;
  * @author Andreas Berks
  * @since 1.2.1
  */
-public interface TeamInvitationManager extends AbstractManager<TeamInvitation, TeamInvitation.ID> {
+public interface TeamInvitationManager extends AbstractManager<TeamInvitation, Integer, TeamInvitation.ID> {
 }

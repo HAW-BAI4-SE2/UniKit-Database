@@ -61,4 +61,9 @@ final class CourseGroupAppointmentManagerImpl implements CourseGroupAppointmentM
         CourseGroupAppointmentModel model = databaseManager.getExternalDatabaseManager().getCourseGroupAppointmentModelManager().createEntity();
         return CourseGroupAppointmentImpl.create(model);
     }
+
+    @Override
+    public CourseGroupAppointment.ID createID(Integer value) {
+        return new CourseGroupAppointmentImpl.IDImpl(value);
+    }
 }

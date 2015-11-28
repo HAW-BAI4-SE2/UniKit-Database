@@ -9,7 +9,7 @@ import java.util.List;
  * @author Andreas Berks
  * @since 1.2.1
  */
-public interface AbstractManager<EntityType extends AbstractEntity, IdType extends AbstractEntity.ID> {
+public interface AbstractManager<EntityType extends AbstractEntity, IdBaseType, IdType extends AbstractEntity.ID<IdBaseType>> {
     /**
      * Getter for all entities of the table.
      * @return All entities of the table
@@ -47,4 +47,9 @@ public interface AbstractManager<EntityType extends AbstractEntity, IdType exten
      * @return An empty entity object
      */
     EntityType createEntity();
+
+    /**
+     * Creates an id for an entity.
+     */
+    IdType createID(IdBaseType value);
 }

@@ -7,5 +7,5 @@ import net.unikit.database.interfaces.entities.TeamRegistration;
  * @author Andreas Berks
  * @since 1.2.1
  */
-public interface TeamRegistrationManager extends AbstractManager<TeamRegistration, TeamRegistration.ID> {
+public interface TeamRegistrationManager extends AbstractManager<TeamRegistration, Integer, TeamRegistration.ID> {
 }

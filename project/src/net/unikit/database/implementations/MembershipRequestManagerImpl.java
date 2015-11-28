@@ -61,4 +61,9 @@ final class MembershipRequestManagerImpl implements MembershipRequestManager {
         MembershipRequestModel model = databaseManager.getInternalDatabaseManager().getMembershipRequestModelManager().createEntity();
         return MembershipRequestImpl.create(model);
     }
+
+    @Override
+    public MembershipRequest.ID createID(Integer value) {
+        return new MembershipRequestImpl.IDImpl(value);
+    }
 }

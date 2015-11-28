@@ -7,5 +7,5 @@ import net.unikit.database.interfaces.entities.CourseGroupAppointment;
  * @author Andreas Berks
  * @since 1.2.1
  */
-public interface CourseGroupAppointmentManager extends AbstractManager<CourseGroupAppointment, CourseGroupAppointment.ID> {
+public interface CourseGroupAppointmentManager extends AbstractManager<CourseGroupAppointment, Integer, CourseGroupAppointment.ID> {
 }

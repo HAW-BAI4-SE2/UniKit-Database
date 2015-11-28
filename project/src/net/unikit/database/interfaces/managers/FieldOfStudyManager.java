@@ -7,5 +7,5 @@ import net.unikit.database.interfaces.entities.FieldOfStudy;
  * @author Andreas Berks
  * @since 1.2.1
  */
-public interface FieldOfStudyManager extends AbstractManager<FieldOfStudy, FieldOfStudy.ID> {
+public interface FieldOfStudyManager extends AbstractManager<FieldOfStudy, Integer, FieldOfStudy.ID> {
 }

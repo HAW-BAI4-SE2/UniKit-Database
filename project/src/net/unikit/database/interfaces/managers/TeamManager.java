@@ -7,5 +7,5 @@ import net.unikit.database.interfaces.entities.Team;
  * @author Andreas Berks
  * @since 1.2.1
  */
-public interface TeamManager extends AbstractManager<Team, Team.ID> {
+public interface TeamManager extends AbstractManager<Team, Integer, Team.ID> {
 }

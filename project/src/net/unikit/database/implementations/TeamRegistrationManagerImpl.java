@@ -61,4 +61,9 @@ final class TeamRegistrationManagerImpl implements TeamRegistrationManager {
         TeamRegistrationModel model = databaseManager.getInternalDatabaseManager().getTeamRegistrationModelManager().createEntity();
         return TeamRegistrationImpl.create(model);
     }
+
+    @Override
+    public TeamRegistration.ID createID(Integer value) {
+        return new TeamRegistrationImpl.IDImpl(value);
+    }
 }

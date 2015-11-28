@@ -7,5 +7,5 @@ import net.unikit.database.interfaces.entities.Student;
  * @author Andreas Berks
  * @since 1.2.1
  */
-public interface StudentManager extends AbstractManager<Student, Student.StudentNumber> {
+public interface StudentManager extends AbstractManager<Student, String, Student.StudentNumber> {
 }

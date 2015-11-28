@@ -61,4 +61,9 @@ final class CourseLectureManagerImpl implements CourseLectureManager {
         CourseLectureModel model = databaseManager.getExternalDatabaseManager().getCourseLectureModelManager().createEntity();
         return CourseLectureImpl.create(model);
     }
+
+    @Override
+    public CourseLecture.ID createID(Integer value) {
+        return new CourseLectureImpl.IDImpl(value);
+    }
 }

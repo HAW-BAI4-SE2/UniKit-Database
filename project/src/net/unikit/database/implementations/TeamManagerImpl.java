@@ -61,4 +61,9 @@ final class TeamManagerImpl implements TeamManager {
         TeamModel model = databaseManager.getInternalDatabaseManager().getTeamModelManager().createEntity();
         return TeamImpl.create(model);
     }
+
+    @Override
+    public Team.ID createID(Integer value) {
+        return new TeamImpl.IDImpl(value);
+    }
 }

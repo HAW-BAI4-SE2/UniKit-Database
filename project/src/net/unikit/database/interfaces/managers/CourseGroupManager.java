@@ -7,5 +7,5 @@ import net.unikit.database.interfaces.entities.CourseGroup;
  * @author Andreas Berks
  * @since 1.2.1
  */
-public interface CourseGroupManager extends AbstractManager<CourseGroup, CourseGroup.ID> {
+public interface CourseGroupManager extends AbstractManager<CourseGroup, Integer, CourseGroup.ID> {
 }
