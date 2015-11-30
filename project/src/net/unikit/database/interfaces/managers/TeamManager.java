@@ -8,4 +8,5 @@ import net.unikit.database.interfaces.entities.Team;
  * @since 1.2.1
  */
 public interface TeamManager extends AbstractManager<Team, Integer, Team.ID> {
+    Team getTeam(int teamID);
 }

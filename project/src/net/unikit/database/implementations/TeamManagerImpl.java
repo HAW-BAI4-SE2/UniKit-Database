@@ -66,4 +66,9 @@ final class TeamManagerImpl implements TeamManager {
     public Team.ID createID(Integer value) {
         return new TeamImpl.IDImpl(value);
     }
+
+    @Override
+    public Team getTeam(int teamID) {
+        return getEntity(createID(teamID));
+    }
 }
