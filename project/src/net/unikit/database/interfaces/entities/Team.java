@@ -1,5 +1,7 @@
 package net.unikit.database.interfaces.entities;
 
+import net.unikit.database.exceptions.EntityNotFoundException;
+
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +26,7 @@ public interface Team extends AbstractEntity {
 	 * Getter for the course which is associated to the team.
 	 * @return The course which is associated to the team
 	 */
-	Course getCourse();
+	Course getCourse() throws EntityNotFoundException;
 
 	/**
 	 * Setter for the course which is associated to the team.
@@ -36,7 +38,7 @@ public interface Team extends AbstractEntity {
 	 * Getter for the student which created the invitation.
 	 * @return The student which created the invitation
 	 */
-	Student getCreatedBy();
+	Student getCreatedBy() throws EntityNotFoundException;
 
 	/**
 	 * Setter for the student which created the invitation.

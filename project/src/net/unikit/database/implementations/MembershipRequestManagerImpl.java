@@ -1,6 +1,8 @@
 package net.unikit.database.implementations;
 
 import com.google.common.collect.ImmutableList;
+import net.unikit.database.exceptions.EntityNotFoundException;
+import net.unikit.database.exceptions.ModelNotFoundException;
 import net.unikit.database.internal.interfaces.entities.MembershipRequestModel;
 import net.unikit.database.interfaces.entities.MembershipRequest;
 import net.unikit.database.interfaces.managers.MembershipRequestManager;
@@ -32,21 +34,33 @@ final class MembershipRequestManagerImpl implements MembershipRequestManager {
     }
 
     @Override
-    public MembershipRequest getEntity(MembershipRequest.ID id) {
-        MembershipRequestModel entity = databaseManager.getInternalDatabaseManager().getMembershipRequestModelManager().getEntity(id.getValue());
-        return MembershipRequestImpl.create(entity);
+    public MembershipRequest getEntity(MembershipRequest.ID id) throws EntityNotFoundException {
+        try {
+            MembershipRequestModel entity = databaseManager.getInternalDatabaseManager().getMembershipRequestModelManager().getEntity(id.getValue());
+            return MembershipRequestImpl.create(entity);
+        } catch (ModelNotFoundException e) {
+            throw new EntityNotFoundException(id);
+        }
     }
 
     @Override
-    public void updateEntity(MembershipRequest entity) {
+    public void updateEntity(MembershipRequest entity) throws EntityNotFoundException {
         MembershipRequestModel model = ((MembershipRequestImpl)(entity)).model;
-        databaseManager.getInternalDatabaseManager().getMembershipRequestModelManager().updateEntity(model);
+        try {
+            databaseManager.getInternalDatabaseManager().getMembershipRequestModelManager().updateEntity(model);
+        } catch (ModelNotFoundException e) {
+            throw new EntityNotFoundException(entity);
+        }
     }
 
     @Override
-    public void deleteEntity(MembershipRequest entity) {
+    public void deleteEntity(MembershipRequest entity) throws EntityNotFoundException {
         MembershipRequestModel model = ((MembershipRequestImpl)(entity)).model;
-        databaseManager.getInternalDatabaseManager().getMembershipRequestModelManager().deleteEntity(model);
+        try {
+            databaseManager.getInternalDatabaseManager().getMembershipRequestModelManager().deleteEntity(model);
+        } catch (ModelNotFoundException e) {
+            throw new EntityNotFoundException(entity);
+        }
     }
 
     @Override

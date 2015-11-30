@@ -1,5 +1,7 @@
 package net.unikit.database.interfaces.entities;
 
+import net.unikit.database.exceptions.EntityNotFoundException;
+
 import java.util.Date;
 
 /**
@@ -24,7 +26,7 @@ public interface CourseRegistration extends AbstractEntity {
 	 * Getter for the student which has done the registration.
 	 * @return The student which has done the registration
 	 */
-	Student getStudent();
+	Student getStudent() throws EntityNotFoundException;
 
 	/**
 	 * Setter for the student which has done the registration.
@@ -36,7 +38,7 @@ public interface CourseRegistration extends AbstractEntity {
 	 * Getter for the course for which the student has done the registration.
 	 * @return The course for which the student has done the registration
 	 */
-	Course getCourse();
+	Course getCourse() throws EntityNotFoundException;
 
 	/**
 	 * Setter for the course for which the student has done the registration.

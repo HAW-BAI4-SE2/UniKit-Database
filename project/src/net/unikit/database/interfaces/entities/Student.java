@@ -1,5 +1,7 @@
 package net.unikit.database.interfaces.entities;
 
+import net.unikit.database.exceptions.EntityNotFoundException;
+
 import java.util.List;
 
 /**
@@ -97,26 +99,26 @@ public interface Student extends AbstractEntity {
 	 * Returns a immutable list of {@link CourseRegistration}.
 	 * @return The course registrations of the student
 	 */
-	List<CourseRegistration> getCourseRegistrations();
+	List<CourseRegistration> getCourseRegistrations() throws EntityNotFoundException;
 
 	/**
 	 * Getter for the membership requests of the student.
 	 * Returns a immutable list of {@link MembershipRequest}.
 	 * @return The membership requests of the student
 	 */
-	List<MembershipRequest> getMembershipRequests();
+	List<MembershipRequest> getMembershipRequests() throws EntityNotFoundException;
 
 	/**
 	 * Getter for the team invitations of the student.
 	 * Returns a immutable list of {@link TeamInvitation}.
 	 * @return The team invitations of the student
 	 */
-	List<TeamInvitation> getTeamInvitations();
+	List<TeamInvitation> getTeamInvitations() throws EntityNotFoundException;
 
 	/**
 	 * Getter for the teams of the student.
 	 * Returns a immutable list of {@link TeamRegistration}.
 	 * @return The teams of the student
 	 */
-	List<TeamRegistration> getTeamRegistrations();
+	List<TeamRegistration> getTeamRegistrations() throws EntityNotFoundException;
 }

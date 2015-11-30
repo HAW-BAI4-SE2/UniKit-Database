@@ -1,6 +1,8 @@
 package net.unikit.database.implementations;
 
 import com.google.common.collect.ImmutableList;
+import net.unikit.database.exceptions.EntityNotFoundException;
+import net.unikit.database.exceptions.ModelNotFoundException;
 import net.unikit.database.internal.interfaces.entities.CourseRegistrationModel;
 import net.unikit.database.interfaces.entities.CourseRegistration;
 import net.unikit.database.interfaces.managers.CourseRegistrationManager;
@@ -32,21 +34,33 @@ final class CourseRegistrationManagerImpl implements CourseRegistrationManager {
     }
 
     @Override
-    public CourseRegistration getEntity(CourseRegistration.ID id) {
-        CourseRegistrationModel entity = databaseManager.getInternalDatabaseManager().getCourseRegistrationModelManager().getEntity(id.getValue());
-        return CourseRegistrationImpl.create(entity);
+    public CourseRegistration getEntity(CourseRegistration.ID id) throws EntityNotFoundException {
+        try {
+            CourseRegistrationModel entity = databaseManager.getInternalDatabaseManager().getCourseRegistrationModelManager().getEntity(id.getValue());
+            return CourseRegistrationImpl.create(entity);
+        } catch (ModelNotFoundException e) {
+            throw new EntityNotFoundException(id);
+        }
     }
 
     @Override
-    public void updateEntity(CourseRegistration entity) {
+    public void updateEntity(CourseRegistration entity) throws EntityNotFoundException {
         CourseRegistrationModel model = ((CourseRegistrationImpl)(entity)).model;
-        databaseManager.getInternalDatabaseManager().getCourseRegistrationModelManager().updateEntity(model);
+        try {
+            databaseManager.getInternalDatabaseManager().getCourseRegistrationModelManager().updateEntity(model);
+        } catch (ModelNotFoundException e) {
+            throw new EntityNotFoundException(entity);
+        }
     }
 
     @Override
-    public void deleteEntity(CourseRegistration entity) {
+    public void deleteEntity(CourseRegistration entity) throws EntityNotFoundException {
         CourseRegistrationModel model = ((CourseRegistrationImpl)(entity)).model;
-        databaseManager.getInternalDatabaseManager().getCourseRegistrationModelManager().deleteEntity(model);
+        try {
+            databaseManager.getInternalDatabaseManager().getCourseRegistrationModelManager().deleteEntity(model);
+        } catch (ModelNotFoundException e) {
+            throw new EntityNotFoundException(entity);
+        }
     }
 
     @Override

@@ -1,6 +1,8 @@
 package net.unikit.database.implementations;
 
 import com.google.common.collect.ImmutableList;
+import net.unikit.database.exceptions.EntityNotFoundException;
+import net.unikit.database.exceptions.ModelNotFoundException;
 import net.unikit.database.external.interfaces.entities.FieldOfStudyModel;
 import net.unikit.database.interfaces.entities.FieldOfStudy;
 import net.unikit.database.interfaces.managers.FieldOfStudyManager;
@@ -32,21 +34,33 @@ final class FieldOfStudyManagerImpl implements FieldOfStudyManager {
     }
 
     @Override
-    public FieldOfStudy getEntity(FieldOfStudy.ID id) {
-        FieldOfStudyModel entity = databaseManager.getExternalDatabaseManager().getFieldOfStudyModelManager().getEntity(id.getValue());
-        return FieldOfStudyImpl.create(entity);
+    public FieldOfStudy getEntity(FieldOfStudy.ID id) throws EntityNotFoundException {
+        try {
+            FieldOfStudyModel entity = databaseManager.getExternalDatabaseManager().getFieldOfStudyModelManager().getEntity(id.getValue());
+            return FieldOfStudyImpl.create(entity);
+        } catch (ModelNotFoundException e) {
+            throw new EntityNotFoundException(id);
+        }
     }
 
     @Override
-    public void updateEntity(FieldOfStudy entity) {
+    public void updateEntity(FieldOfStudy entity) throws EntityNotFoundException {
         FieldOfStudyModel model = ((FieldOfStudyImpl)(entity)).model;
-        databaseManager.getExternalDatabaseManager().getFieldOfStudyModelManager().updateEntity(model);
+        try {
+            databaseManager.getExternalDatabaseManager().getFieldOfStudyModelManager().updateEntity(model);
+        } catch (ModelNotFoundException e) {
+            throw new EntityNotFoundException(entity);
+        }
     }
 
     @Override
-    public void deleteEntity(FieldOfStudy entity) {
+    public void deleteEntity(FieldOfStudy entity) throws EntityNotFoundException {
         FieldOfStudyModel model = ((FieldOfStudyImpl)(entity)).model;
-        databaseManager.getExternalDatabaseManager().getFieldOfStudyModelManager().deleteEntity(model);
+        try {
+            databaseManager.getExternalDatabaseManager().getFieldOfStudyModelManager().deleteEntity(model);
+        } catch (ModelNotFoundException e) {
+            throw new EntityNotFoundException(entity);
+        }
     }
 
     @Override

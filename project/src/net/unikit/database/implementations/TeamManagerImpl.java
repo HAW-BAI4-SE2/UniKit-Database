@@ -1,6 +1,8 @@
 package net.unikit.database.implementations;
 
 import com.google.common.collect.ImmutableList;
+import net.unikit.database.exceptions.EntityNotFoundException;
+import net.unikit.database.exceptions.ModelNotFoundException;
 import net.unikit.database.internal.interfaces.entities.TeamModel;
 import net.unikit.database.interfaces.entities.Team;
 import net.unikit.database.interfaces.managers.TeamManager;
@@ -32,21 +34,33 @@ final class TeamManagerImpl implements TeamManager {
     }
 
     @Override
-    public Team getEntity(Team.ID id) {
-        TeamModel entity = databaseManager.getInternalDatabaseManager().getTeamModelManager().getEntity(id.getValue());
-        return TeamImpl.create(entity);
+    public Team getEntity(Team.ID id) throws EntityNotFoundException {
+        try {
+            TeamModel entity = databaseManager.getInternalDatabaseManager().getTeamModelManager().getEntity(id.getValue());
+            return TeamImpl.create(entity);
+        } catch (ModelNotFoundException e) {
+            throw new EntityNotFoundException(id);
+        }
     }
 
     @Override
-    public void updateEntity(Team entity) {
+    public void updateEntity(Team entity) throws EntityNotFoundException {
         TeamModel model = ((TeamImpl)(entity)).model;
-        databaseManager.getInternalDatabaseManager().getTeamModelManager().updateEntity(model);
+        try {
+            databaseManager.getInternalDatabaseManager().getTeamModelManager().updateEntity(model);
+        } catch (ModelNotFoundException e) {
+            throw new EntityNotFoundException(entity);
+        }
     }
 
     @Override
-    public void deleteEntity(Team entity) {
+    public void deleteEntity(Team entity) throws EntityNotFoundException {
         TeamModel model = ((TeamImpl)(entity)).model;
-        databaseManager.getInternalDatabaseManager().getTeamModelManager().deleteEntity(model);
+        try {
+            databaseManager.getInternalDatabaseManager().getTeamModelManager().deleteEntity(model);
+        } catch (ModelNotFoundException e) {
+            throw new EntityNotFoundException(entity);
+        }
     }
 
     @Override

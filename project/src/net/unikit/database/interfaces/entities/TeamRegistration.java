@@ -1,5 +1,7 @@
 package net.unikit.database.interfaces.entities;
 
+import net.unikit.database.exceptions.EntityNotFoundException;
+
 import java.util.Date;
 
 /**
@@ -24,7 +26,7 @@ public interface TeamRegistration extends AbstractEntity {
 	 * Getter for the student which is member of the team.
 	 * @return The student which is member of the team
 	 */
-	Student getStudent();
+	Student getStudent() throws EntityNotFoundException;
 
 	/**
 	 * Setter for the the student which is member of the team.

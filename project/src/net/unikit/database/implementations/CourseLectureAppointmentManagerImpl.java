@@ -1,6 +1,8 @@
 package net.unikit.database.implementations;
 
 import com.google.common.collect.ImmutableList;
+import net.unikit.database.exceptions.EntityNotFoundException;
+import net.unikit.database.exceptions.ModelNotFoundException;
 import net.unikit.database.external.interfaces.entities.CourseLectureAppointmentModel;
 import net.unikit.database.interfaces.entities.CourseLectureAppointment;
 import net.unikit.database.interfaces.managers.CourseLectureAppointmentManager;
@@ -32,21 +34,33 @@ final class CourseLectureAppointmentManagerImpl implements CourseLectureAppointm
     }
 
     @Override
-    public CourseLectureAppointment getEntity(CourseLectureAppointment.ID id) {
-        CourseLectureAppointmentModel entity = databaseManager.getExternalDatabaseManager().getCourseLectureAppointmentModelManager().getEntity(id.getValue());
-        return CourseLectureAppointmentImpl.create(entity);
+    public CourseLectureAppointment getEntity(CourseLectureAppointment.ID id) throws EntityNotFoundException {
+        try {
+            CourseLectureAppointmentModel entity = databaseManager.getExternalDatabaseManager().getCourseLectureAppointmentModelManager().getEntity(id.getValue());
+            return CourseLectureAppointmentImpl.create(entity);
+        } catch (ModelNotFoundException e) {
+            throw new EntityNotFoundException(id);
+        }
     }
 
     @Override
-    public void updateEntity(CourseLectureAppointment entity) {
+    public void updateEntity(CourseLectureAppointment entity) throws EntityNotFoundException {
         CourseLectureAppointmentModel model = ((CourseLectureAppointmentImpl)(entity)).model;
-        databaseManager.getExternalDatabaseManager().getCourseLectureAppointmentModelManager().updateEntity(model);
+        try {
+            databaseManager.getExternalDatabaseManager().getCourseLectureAppointmentModelManager().updateEntity(model);
+        } catch (ModelNotFoundException e) {
+            throw new EntityNotFoundException(entity);
+        }
     }
 
     @Override
-    public void deleteEntity(CourseLectureAppointment entity) {
+    public void deleteEntity(CourseLectureAppointment entity) throws EntityNotFoundException {
         CourseLectureAppointmentModel model = ((CourseLectureAppointmentImpl)(entity)).model;
-        databaseManager.getExternalDatabaseManager().getCourseLectureAppointmentModelManager().deleteEntity(model);
+        try {
+            databaseManager.getExternalDatabaseManager().getCourseLectureAppointmentModelManager().deleteEntity(model);
+        } catch (ModelNotFoundException e) {
+            throw new EntityNotFoundException(entity);
+        }
     }
 
     @Override

@@ -1,5 +1,7 @@
 package net.unikit.database.interfaces.entities;
 
+import net.unikit.database.exceptions.EntityNotFoundException;
+
 import java.util.Date;
 
 /**
@@ -25,7 +27,7 @@ public interface MembershipRequest extends AbstractEntity {
 	 * Getter for the applicant.
 	 * @return The applicant
 	 */
-	Student getApplicant();
+	Student getApplicant() throws EntityNotFoundException;
 
 	/**
 	 * Setter for the applicant.

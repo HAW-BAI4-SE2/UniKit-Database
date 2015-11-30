@@ -1,6 +1,8 @@
 package net.unikit.database.implementations;
 
 import com.google.common.collect.ImmutableList;
+import net.unikit.database.exceptions.EntityNotFoundException;
+import net.unikit.database.exceptions.ModelNotFoundException;
 import net.unikit.database.external.interfaces.entities.StudentModel;
 import net.unikit.database.interfaces.entities.Student;
 import net.unikit.database.interfaces.managers.StudentManager;
@@ -32,21 +34,33 @@ final class StudentManagerImpl implements StudentManager {
     }
 
     @Override
-    public Student getEntity(Student.StudentNumber id) {
-        StudentModel entity = databaseManager.getExternalDatabaseManager().getStudentModelManager().getEntity(id.getValue());
-        return StudentImpl.create(entity);
+    public Student getEntity(Student.StudentNumber id) throws EntityNotFoundException {
+        try {
+            StudentModel entity = databaseManager.getExternalDatabaseManager().getStudentModelManager().getEntity(id.getValue());
+            return StudentImpl.create(entity);
+        } catch (ModelNotFoundException e) {
+            throw new EntityNotFoundException(id);
+        }
     }
 
     @Override
-    public void updateEntity(Student entity) {
+    public void updateEntity(Student entity) throws EntityNotFoundException {
         StudentModel model = ((StudentImpl)(entity)).model;
-        databaseManager.getExternalDatabaseManager().getStudentModelManager().updateEntity(model);
+        try {
+            databaseManager.getExternalDatabaseManager().getStudentModelManager().updateEntity(model);
+        } catch (ModelNotFoundException e) {
+            throw new EntityNotFoundException(entity);
+        }
     }
 
     @Override
-    public void deleteEntity(Student entity) {
+    public void deleteEntity(Student entity) throws EntityNotFoundException {
         StudentModel model = ((StudentImpl)(entity)).model;
-        databaseManager.getExternalDatabaseManager().getStudentModelManager().deleteEntity(model);
+        try {
+            databaseManager.getExternalDatabaseManager().getStudentModelManager().deleteEntity(model);
+        } catch (ModelNotFoundException e) {
+            throw new EntityNotFoundException(entity);
+        }
     }
 
     @Override

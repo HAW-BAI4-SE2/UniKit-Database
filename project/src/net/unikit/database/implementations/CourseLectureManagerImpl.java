@@ -1,6 +1,8 @@
 package net.unikit.database.implementations;
 
 import com.google.common.collect.ImmutableList;
+import net.unikit.database.exceptions.EntityNotFoundException;
+import net.unikit.database.exceptions.ModelNotFoundException;
 import net.unikit.database.external.interfaces.entities.CourseLectureModel;
 import net.unikit.database.interfaces.entities.CourseLecture;
 import net.unikit.database.interfaces.managers.CourseLectureManager;
@@ -32,21 +34,33 @@ final class CourseLectureManagerImpl implements CourseLectureManager {
     }
 
     @Override
-    public CourseLecture getEntity(CourseLecture.ID id) {
-        CourseLectureModel entity = databaseManager.getExternalDatabaseManager().getCourseLectureModelManager().getEntity(id.getValue());
-        return CourseLectureImpl.create(entity);
+    public CourseLecture getEntity(CourseLecture.ID id) throws EntityNotFoundException {
+        try {
+            CourseLectureModel entity = databaseManager.getExternalDatabaseManager().getCourseLectureModelManager().getEntity(id.getValue());
+            return CourseLectureImpl.create(entity);
+        } catch (ModelNotFoundException e) {
+            throw new EntityNotFoundException(id);
+        }
     }
 
     @Override
-    public void updateEntity(CourseLecture entity) {
+    public void updateEntity(CourseLecture entity) throws EntityNotFoundException {
         CourseLectureModel model = ((CourseLectureImpl)(entity)).model;
-        databaseManager.getExternalDatabaseManager().getCourseLectureModelManager().updateEntity(model);
+        try {
+            databaseManager.getExternalDatabaseManager().getCourseLectureModelManager().updateEntity(model);
+        } catch (ModelNotFoundException e) {
+            throw new EntityNotFoundException(entity);
+        }
     }
 
     @Override
-    public void deleteEntity(CourseLecture entity) {
+    public void deleteEntity(CourseLecture entity) throws EntityNotFoundException {
         CourseLectureModel model = ((CourseLectureImpl)(entity)).model;
-        databaseManager.getExternalDatabaseManager().getCourseLectureModelManager().deleteEntity(model);
+        try {
+            databaseManager.getExternalDatabaseManager().getCourseLectureModelManager().deleteEntity(model);
+        } catch (ModelNotFoundException e) {
+            throw new EntityNotFoundException(entity);
+        }
     }
 
     @Override

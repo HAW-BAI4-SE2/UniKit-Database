@@ -1,6 +1,8 @@
 package net.unikit.database.implementations;
 
 import com.google.common.collect.ImmutableList;
+import net.unikit.database.exceptions.EntityNotFoundException;
+import net.unikit.database.exceptions.ModelNotFoundException;
 import net.unikit.database.internal.interfaces.entities.TeamRegistrationModel;
 import net.unikit.database.interfaces.entities.TeamRegistration;
 import net.unikit.database.interfaces.managers.TeamRegistrationManager;
@@ -32,21 +34,33 @@ final class TeamRegistrationManagerImpl implements TeamRegistrationManager {
     }
 
     @Override
-    public TeamRegistration getEntity(TeamRegistration.ID id) {
-        TeamRegistrationModel entity = databaseManager.getInternalDatabaseManager().getTeamRegistrationModelManager().getEntity(id.getValue());
-        return TeamRegistrationImpl.create(entity);
+    public TeamRegistration getEntity(TeamRegistration.ID id) throws EntityNotFoundException {
+        try {
+            TeamRegistrationModel entity = databaseManager.getInternalDatabaseManager().getTeamRegistrationModelManager().getEntity(id.getValue());
+            return TeamRegistrationImpl.create(entity);
+        } catch (ModelNotFoundException e) {
+            throw new EntityNotFoundException(id);
+        }
     }
 
     @Override
-    public void updateEntity(TeamRegistration entity) {
+    public void updateEntity(TeamRegistration entity) throws EntityNotFoundException {
         TeamRegistrationModel model = ((TeamRegistrationImpl)(entity)).model;
-        databaseManager.getInternalDatabaseManager().getTeamRegistrationModelManager().updateEntity(model);
+        try {
+            databaseManager.getInternalDatabaseManager().getTeamRegistrationModelManager().updateEntity(model);
+        } catch (ModelNotFoundException e) {
+            throw new EntityNotFoundException(entity);
+        }
     }
 
     @Override
-    public void deleteEntity(TeamRegistration entity) {
+    public void deleteEntity(TeamRegistration entity) throws EntityNotFoundException {
         TeamRegistrationModel model = ((TeamRegistrationImpl)(entity)).model;
-        databaseManager.getInternalDatabaseManager().getTeamRegistrationModelManager().deleteEntity(model);
+        try {
+            databaseManager.getInternalDatabaseManager().getTeamRegistrationModelManager().deleteEntity(model);
+        } catch (ModelNotFoundException e) {
+            throw new EntityNotFoundException(entity);
+        }
     }
 
     @Override

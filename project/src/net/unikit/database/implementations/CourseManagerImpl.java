@@ -1,6 +1,8 @@
 package net.unikit.database.implementations;
 
 import com.google.common.collect.ImmutableList;
+import net.unikit.database.exceptions.EntityNotFoundException;
+import net.unikit.database.exceptions.ModelNotFoundException;
 import net.unikit.database.external.interfaces.entities.CourseModel;
 import net.unikit.database.interfaces.entities.Course;
 import net.unikit.database.interfaces.managers.CourseManager;
@@ -32,21 +34,33 @@ final class CourseManagerImpl implements CourseManager {
     }
 
     @Override
-    public Course getEntity(Course.ID id) {
-        CourseModel entity = databaseManager.getExternalDatabaseManager().getCourseModelManager().getEntity(id.getValue());
-        return CourseImpl.create(entity);
+    public Course getEntity(Course.ID id) throws EntityNotFoundException {
+        try {
+            CourseModel entity = databaseManager.getExternalDatabaseManager().getCourseModelManager().getEntity(id.getValue());
+            return CourseImpl.create(entity);
+        } catch (ModelNotFoundException e) {
+            throw new EntityNotFoundException(id);
+        }
     }
 
     @Override
-    public void updateEntity(Course entity) {
+    public void updateEntity(Course entity) throws EntityNotFoundException {
         CourseModel model = ((CourseImpl)(entity)).model;
-        databaseManager.getExternalDatabaseManager().getCourseModelManager().updateEntity(model);
+        try {
+            databaseManager.getExternalDatabaseManager().getCourseModelManager().updateEntity(model);
+        } catch (ModelNotFoundException e) {
+            throw new EntityNotFoundException(entity);
+        }
     }
 
     @Override
-    public void deleteEntity(Course entity) {
+    public void deleteEntity(Course entity) throws EntityNotFoundException {
         CourseModel model = ((CourseImpl)(entity)).model;
-        databaseManager.getExternalDatabaseManager().getCourseModelManager().deleteEntity(model);
+        try {
+            databaseManager.getExternalDatabaseManager().getCourseModelManager().deleteEntity(model);
+        } catch (ModelNotFoundException e) {
+            throw new EntityNotFoundException(entity);
+        }
     }
 
     @Override
