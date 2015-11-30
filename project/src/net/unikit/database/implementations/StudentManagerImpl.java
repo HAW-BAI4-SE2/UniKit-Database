@@ -1,8 +1,10 @@
 package net.unikit.database.implementations;
 
 import com.google.common.collect.ImmutableList;
+import net.unikit.database.exceptions.ConstraintViolationExceptionCommon;
+import net.unikit.database.exceptions.ConstraintViolationException;
 import net.unikit.database.exceptions.EntityNotFoundException;
-import net.unikit.database.exceptions.ModelNotFoundException;
+import net.unikit.database.exceptions.ModelNotFoundExceptionCommon;
 import net.unikit.database.external.interfaces.entities.StudentModel;
 import net.unikit.database.interfaces.entities.Student;
 import net.unikit.database.interfaces.managers.StudentManager;
@@ -38,18 +40,20 @@ final class StudentManagerImpl implements StudentManager {
         try {
             StudentModel entity = databaseManager.getExternalDatabaseManager().getStudentModelManager().getEntity(id.getValue());
             return StudentImpl.create(entity);
-        } catch (ModelNotFoundException e) {
+        } catch (ModelNotFoundExceptionCommon e) {
             throw new EntityNotFoundException(id);
         }
     }
 
     @Override
-    public void updateEntity(Student entity) throws EntityNotFoundException {
+    public void updateEntity(Student entity) throws EntityNotFoundException, ConstraintViolationException {
         StudentModel model = ((StudentImpl)(entity)).model;
         try {
             databaseManager.getExternalDatabaseManager().getStudentModelManager().updateEntity(model);
-        } catch (ModelNotFoundException e) {
+        } catch (ModelNotFoundExceptionCommon e) {
             throw new EntityNotFoundException(entity);
+        } catch (ConstraintViolationExceptionCommon e) {
+            throw new ConstraintViolationException(e.getCause(), entity);
         }
     }
 
@@ -58,15 +62,20 @@ final class StudentManagerImpl implements StudentManager {
         StudentModel model = ((StudentImpl)(entity)).model;
         try {
             databaseManager.getExternalDatabaseManager().getStudentModelManager().deleteEntity(model);
-        } catch (ModelNotFoundException e) {
+        } catch (ModelNotFoundExceptionCommon e) {
             throw new EntityNotFoundException(entity);
         }
     }
 
     @Override
-    public Student.StudentNumber addEntity(Student entity) {
+    public Student.StudentNumber addEntity(Student entity) throws ConstraintViolationException {
         StudentModel model = ((StudentImpl)(entity)).model;
-        String id = databaseManager.getExternalDatabaseManager().getStudentModelManager().addEntity(model);
+        String id = null;
+        try {
+            id = databaseManager.getExternalDatabaseManager().getStudentModelManager().addEntity(model);
+        } catch (ConstraintViolationExceptionCommon e) {
+            throw new ConstraintViolationException(e.getCause(), entity);
+        }
         return new StudentImpl.StudentNumberImpl(id);
     }
 

@@ -1,5 +1,6 @@
 package net.unikit.database.interfaces.managers;
 
+import net.unikit.database.exceptions.ConstraintViolationException;
 import net.unikit.database.exceptions.EntityNotFoundException;
 import net.unikit.database.interfaces.entities.AbstractEntity;
 
@@ -29,7 +30,7 @@ public interface AbstractManager<EntityType extends AbstractEntity, IdBaseType e
      * Updates an existing entity in the table.
      * @param entity Entity object with new attribute values which should be applied to the existing entity
      */
-    void updateEntity(EntityType entity) throws EntityNotFoundException;
+    void updateEntity(EntityType entity) throws EntityNotFoundException, ConstraintViolationException;
 
     /**
      * Deletes an existing entity in the table.
@@ -42,7 +43,7 @@ public interface AbstractManager<EntityType extends AbstractEntity, IdBaseType e
      * @param entity The Entity which should be added
      * @return
      */
-    IdType addEntity(EntityType entity);
+    IdType addEntity(EntityType entity) throws ConstraintViolationException;
 
     /**
      * Creates an empty entity object which must be initialized with setter methods.

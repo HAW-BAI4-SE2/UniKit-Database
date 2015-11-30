@@ -1,8 +1,10 @@
 package net.unikit.database.implementations;
 
 import com.google.common.collect.ImmutableList;
+import net.unikit.database.exceptions.ConstraintViolationExceptionCommon;
+import net.unikit.database.exceptions.ConstraintViolationException;
 import net.unikit.database.exceptions.EntityNotFoundException;
-import net.unikit.database.exceptions.ModelNotFoundException;
+import net.unikit.database.exceptions.ModelNotFoundExceptionCommon;
 import net.unikit.database.internal.interfaces.entities.MembershipRequestModel;
 import net.unikit.database.interfaces.entities.MembershipRequest;
 import net.unikit.database.interfaces.managers.MembershipRequestManager;
@@ -38,18 +40,20 @@ final class MembershipRequestManagerImpl implements MembershipRequestManager {
         try {
             MembershipRequestModel entity = databaseManager.getInternalDatabaseManager().getMembershipRequestModelManager().getEntity(id.getValue());
             return MembershipRequestImpl.create(entity);
-        } catch (ModelNotFoundException e) {
+        } catch (ModelNotFoundExceptionCommon e) {
             throw new EntityNotFoundException(id);
         }
     }
 
     @Override
-    public void updateEntity(MembershipRequest entity) throws EntityNotFoundException {
+    public void updateEntity(MembershipRequest entity) throws EntityNotFoundException, ConstraintViolationException {
         MembershipRequestModel model = ((MembershipRequestImpl)(entity)).model;
         try {
             databaseManager.getInternalDatabaseManager().getMembershipRequestModelManager().updateEntity(model);
-        } catch (ModelNotFoundException e) {
+        } catch (ModelNotFoundExceptionCommon e) {
             throw new EntityNotFoundException(entity);
+        } catch (ConstraintViolationExceptionCommon e) {
+            throw new ConstraintViolationException(e.getCause(), entity);
         }
     }
 
@@ -58,15 +62,20 @@ final class MembershipRequestManagerImpl implements MembershipRequestManager {
         MembershipRequestModel model = ((MembershipRequestImpl)(entity)).model;
         try {
             databaseManager.getInternalDatabaseManager().getMembershipRequestModelManager().deleteEntity(model);
-        } catch (ModelNotFoundException e) {
+        } catch (ModelNotFoundExceptionCommon e) {
             throw new EntityNotFoundException(entity);
         }
     }
 
     @Override
-    public MembershipRequest.ID addEntity(MembershipRequest entity) {
+    public MembershipRequest.ID addEntity(MembershipRequest entity) throws ConstraintViolationException {
         MembershipRequestModel model = ((MembershipRequestImpl)(entity)).model;
-        Integer id = databaseManager.getInternalDatabaseManager().getMembershipRequestModelManager().addEntity(model);
+        Integer id = null;
+        try {
+            id = databaseManager.getInternalDatabaseManager().getMembershipRequestModelManager().addEntity(model);
+        } catch (ConstraintViolationExceptionCommon e) {
+            throw new ConstraintViolationException(e.getCause(), entity);
+        }
         return new MembershipRequestImpl.IDImpl(id);
     }
 

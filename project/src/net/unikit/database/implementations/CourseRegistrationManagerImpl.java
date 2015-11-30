@@ -1,8 +1,10 @@
 package net.unikit.database.implementations;
 
 import com.google.common.collect.ImmutableList;
+import net.unikit.database.exceptions.ConstraintViolationExceptionCommon;
+import net.unikit.database.exceptions.ConstraintViolationException;
 import net.unikit.database.exceptions.EntityNotFoundException;
-import net.unikit.database.exceptions.ModelNotFoundException;
+import net.unikit.database.exceptions.ModelNotFoundExceptionCommon;
 import net.unikit.database.internal.interfaces.entities.CourseRegistrationModel;
 import net.unikit.database.interfaces.entities.CourseRegistration;
 import net.unikit.database.interfaces.managers.CourseRegistrationManager;
@@ -38,18 +40,20 @@ final class CourseRegistrationManagerImpl implements CourseRegistrationManager {
         try {
             CourseRegistrationModel entity = databaseManager.getInternalDatabaseManager().getCourseRegistrationModelManager().getEntity(id.getValue());
             return CourseRegistrationImpl.create(entity);
-        } catch (ModelNotFoundException e) {
+        } catch (ModelNotFoundExceptionCommon e) {
             throw new EntityNotFoundException(id);
         }
     }
 
     @Override
-    public void updateEntity(CourseRegistration entity) throws EntityNotFoundException {
+    public void updateEntity(CourseRegistration entity) throws EntityNotFoundException, ConstraintViolationException {
         CourseRegistrationModel model = ((CourseRegistrationImpl)(entity)).model;
         try {
             databaseManager.getInternalDatabaseManager().getCourseRegistrationModelManager().updateEntity(model);
-        } catch (ModelNotFoundException e) {
+        } catch (ModelNotFoundExceptionCommon e) {
             throw new EntityNotFoundException(entity);
+        } catch (ConstraintViolationExceptionCommon e) {
+            throw new ConstraintViolationException(e.getCause(), entity);
         }
     }
 
@@ -58,15 +62,20 @@ final class CourseRegistrationManagerImpl implements CourseRegistrationManager {
         CourseRegistrationModel model = ((CourseRegistrationImpl)(entity)).model;
         try {
             databaseManager.getInternalDatabaseManager().getCourseRegistrationModelManager().deleteEntity(model);
-        } catch (ModelNotFoundException e) {
+        } catch (ModelNotFoundExceptionCommon e) {
             throw new EntityNotFoundException(entity);
         }
     }
 
     @Override
-    public CourseRegistration.ID addEntity(CourseRegistration entity) {
+    public CourseRegistration.ID addEntity(CourseRegistration entity) throws ConstraintViolationException {
         CourseRegistrationModel model = ((CourseRegistrationImpl)(entity)).model;
-        Integer id = databaseManager.getInternalDatabaseManager().getCourseRegistrationModelManager().addEntity(model);
+        Integer id = null;
+        try {
+            id = databaseManager.getInternalDatabaseManager().getCourseRegistrationModelManager().addEntity(model);
+        } catch (ConstraintViolationExceptionCommon e) {
+            throw new ConstraintViolationException(e.getCause(), entity);
+        }
         return new CourseRegistrationImpl.IDImpl(id);
     }
 

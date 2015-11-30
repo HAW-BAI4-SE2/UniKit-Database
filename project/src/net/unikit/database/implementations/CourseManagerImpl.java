@@ -1,8 +1,10 @@
 package net.unikit.database.implementations;
 
 import com.google.common.collect.ImmutableList;
+import net.unikit.database.exceptions.ConstraintViolationExceptionCommon;
+import net.unikit.database.exceptions.ConstraintViolationException;
 import net.unikit.database.exceptions.EntityNotFoundException;
-import net.unikit.database.exceptions.ModelNotFoundException;
+import net.unikit.database.exceptions.ModelNotFoundExceptionCommon;
 import net.unikit.database.external.interfaces.entities.CourseModel;
 import net.unikit.database.interfaces.entities.Course;
 import net.unikit.database.interfaces.managers.CourseManager;
@@ -38,18 +40,20 @@ final class CourseManagerImpl implements CourseManager {
         try {
             CourseModel entity = databaseManager.getExternalDatabaseManager().getCourseModelManager().getEntity(id.getValue());
             return CourseImpl.create(entity);
-        } catch (ModelNotFoundException e) {
+        } catch (ModelNotFoundExceptionCommon e) {
             throw new EntityNotFoundException(id);
         }
     }
 
     @Override
-    public void updateEntity(Course entity) throws EntityNotFoundException {
+    public void updateEntity(Course entity) throws EntityNotFoundException, ConstraintViolationException {
         CourseModel model = ((CourseImpl)(entity)).model;
         try {
             databaseManager.getExternalDatabaseManager().getCourseModelManager().updateEntity(model);
-        } catch (ModelNotFoundException e) {
+        } catch (ModelNotFoundExceptionCommon e) {
             throw new EntityNotFoundException(entity);
+        } catch (ConstraintViolationExceptionCommon e) {
+            throw new ConstraintViolationException(e.getCause(), entity);
         }
     }
 
@@ -58,15 +62,20 @@ final class CourseManagerImpl implements CourseManager {
         CourseModel model = ((CourseImpl)(entity)).model;
         try {
             databaseManager.getExternalDatabaseManager().getCourseModelManager().deleteEntity(model);
-        } catch (ModelNotFoundException e) {
+        } catch (ModelNotFoundExceptionCommon e) {
             throw new EntityNotFoundException(entity);
         }
     }
 
     @Override
-    public Course.ID addEntity(Course entity) {
+    public Course.ID addEntity(Course entity) throws ConstraintViolationException {
         CourseModel model = ((CourseImpl)(entity)).model;
-        Integer id = databaseManager.getExternalDatabaseManager().getCourseModelManager().addEntity(model);
+        Integer id = null;
+        try {
+            id = databaseManager.getExternalDatabaseManager().getCourseModelManager().addEntity(model);
+        } catch (ConstraintViolationExceptionCommon e) {
+            throw new ConstraintViolationException(e.getCause(), entity);
+        }
         return new CourseImpl.IDImpl(id);
     }
 

@@ -1,8 +1,10 @@
 package net.unikit.database.implementations;
 
 import com.google.common.collect.ImmutableList;
+import net.unikit.database.exceptions.ConstraintViolationExceptionCommon;
+import net.unikit.database.exceptions.ConstraintViolationException;
 import net.unikit.database.exceptions.EntityNotFoundException;
-import net.unikit.database.exceptions.ModelNotFoundException;
+import net.unikit.database.exceptions.ModelNotFoundExceptionCommon;
 import net.unikit.database.external.interfaces.entities.CourseLectureAppointmentModel;
 import net.unikit.database.interfaces.entities.CourseLectureAppointment;
 import net.unikit.database.interfaces.managers.CourseLectureAppointmentManager;
@@ -38,18 +40,20 @@ final class CourseLectureAppointmentManagerImpl implements CourseLectureAppointm
         try {
             CourseLectureAppointmentModel entity = databaseManager.getExternalDatabaseManager().getCourseLectureAppointmentModelManager().getEntity(id.getValue());
             return CourseLectureAppointmentImpl.create(entity);
-        } catch (ModelNotFoundException e) {
+        } catch (ModelNotFoundExceptionCommon e) {
             throw new EntityNotFoundException(id);
         }
     }
 
     @Override
-    public void updateEntity(CourseLectureAppointment entity) throws EntityNotFoundException {
+    public void updateEntity(CourseLectureAppointment entity) throws EntityNotFoundException, ConstraintViolationException {
         CourseLectureAppointmentModel model = ((CourseLectureAppointmentImpl)(entity)).model;
         try {
             databaseManager.getExternalDatabaseManager().getCourseLectureAppointmentModelManager().updateEntity(model);
-        } catch (ModelNotFoundException e) {
+        } catch (ModelNotFoundExceptionCommon e) {
             throw new EntityNotFoundException(entity);
+        } catch (ConstraintViolationExceptionCommon e) {
+            throw new ConstraintViolationException(e.getCause(), entity);
         }
     }
 
@@ -58,15 +62,20 @@ final class CourseLectureAppointmentManagerImpl implements CourseLectureAppointm
         CourseLectureAppointmentModel model = ((CourseLectureAppointmentImpl)(entity)).model;
         try {
             databaseManager.getExternalDatabaseManager().getCourseLectureAppointmentModelManager().deleteEntity(model);
-        } catch (ModelNotFoundException e) {
+        } catch (ModelNotFoundExceptionCommon e) {
             throw new EntityNotFoundException(entity);
         }
     }
 
     @Override
-    public CourseLectureAppointment.ID addEntity(CourseLectureAppointment entity) {
+    public CourseLectureAppointment.ID addEntity(CourseLectureAppointment entity) throws ConstraintViolationException {
         CourseLectureAppointmentModel model = ((CourseLectureAppointmentImpl)(entity)).model;
-        Integer id = databaseManager.getExternalDatabaseManager().getCourseLectureAppointmentModelManager().addEntity(model);
+        Integer id = null;
+        try {
+            id = databaseManager.getExternalDatabaseManager().getCourseLectureAppointmentModelManager().addEntity(model);
+        } catch (ConstraintViolationExceptionCommon e) {
+            throw new ConstraintViolationException(e.getCause(), entity);
+        }
         return new CourseLectureAppointmentImpl.IDImpl(id);
     }
 

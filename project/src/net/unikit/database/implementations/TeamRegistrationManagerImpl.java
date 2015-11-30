@@ -1,8 +1,10 @@
 package net.unikit.database.implementations;
 
 import com.google.common.collect.ImmutableList;
+import net.unikit.database.exceptions.ConstraintViolationExceptionCommon;
+import net.unikit.database.exceptions.ConstraintViolationException;
 import net.unikit.database.exceptions.EntityNotFoundException;
-import net.unikit.database.exceptions.ModelNotFoundException;
+import net.unikit.database.exceptions.ModelNotFoundExceptionCommon;
 import net.unikit.database.internal.interfaces.entities.TeamRegistrationModel;
 import net.unikit.database.interfaces.entities.TeamRegistration;
 import net.unikit.database.interfaces.managers.TeamRegistrationManager;
@@ -38,18 +40,20 @@ final class TeamRegistrationManagerImpl implements TeamRegistrationManager {
         try {
             TeamRegistrationModel entity = databaseManager.getInternalDatabaseManager().getTeamRegistrationModelManager().getEntity(id.getValue());
             return TeamRegistrationImpl.create(entity);
-        } catch (ModelNotFoundException e) {
+        } catch (ModelNotFoundExceptionCommon e) {
             throw new EntityNotFoundException(id);
         }
     }
 
     @Override
-    public void updateEntity(TeamRegistration entity) throws EntityNotFoundException {
+    public void updateEntity(TeamRegistration entity) throws EntityNotFoundException, ConstraintViolationException {
         TeamRegistrationModel model = ((TeamRegistrationImpl)(entity)).model;
         try {
             databaseManager.getInternalDatabaseManager().getTeamRegistrationModelManager().updateEntity(model);
-        } catch (ModelNotFoundException e) {
+        } catch (ModelNotFoundExceptionCommon e) {
             throw new EntityNotFoundException(entity);
+        } catch (ConstraintViolationExceptionCommon e) {
+            throw new ConstraintViolationException(e.getCause(), entity);
         }
     }
 
@@ -58,15 +62,20 @@ final class TeamRegistrationManagerImpl implements TeamRegistrationManager {
         TeamRegistrationModel model = ((TeamRegistrationImpl)(entity)).model;
         try {
             databaseManager.getInternalDatabaseManager().getTeamRegistrationModelManager().deleteEntity(model);
-        } catch (ModelNotFoundException e) {
+        } catch (ModelNotFoundExceptionCommon e) {
             throw new EntityNotFoundException(entity);
         }
     }
 
     @Override
-    public TeamRegistration.ID addEntity(TeamRegistration entity) {
+    public TeamRegistration.ID addEntity(TeamRegistration entity) throws ConstraintViolationException {
         TeamRegistrationModel model = ((TeamRegistrationImpl)(entity)).model;
-        Integer id = databaseManager.getInternalDatabaseManager().getTeamRegistrationModelManager().addEntity(model);
+        Integer id = null;
+        try {
+            id = databaseManager.getInternalDatabaseManager().getTeamRegistrationModelManager().addEntity(model);
+        } catch (ConstraintViolationExceptionCommon e) {
+            throw new ConstraintViolationException(e.getCause(), entity);
+        }
         return new TeamRegistrationImpl.IDImpl(id);
     }
 

@@ -1,8 +1,10 @@
 package net.unikit.database.implementations;
 
 import com.google.common.collect.ImmutableList;
+import net.unikit.database.exceptions.ConstraintViolationExceptionCommon;
+import net.unikit.database.exceptions.ConstraintViolationException;
 import net.unikit.database.exceptions.EntityNotFoundException;
-import net.unikit.database.exceptions.ModelNotFoundException;
+import net.unikit.database.exceptions.ModelNotFoundExceptionCommon;
 import net.unikit.database.external.interfaces.entities.CourseGroupAppointmentModel;
 import net.unikit.database.interfaces.entities.CourseGroupAppointment;
 import net.unikit.database.interfaces.managers.CourseGroupAppointmentManager;
@@ -38,18 +40,20 @@ final class CourseGroupAppointmentManagerImpl implements CourseGroupAppointmentM
         try {
             CourseGroupAppointmentModel entity = databaseManager.getExternalDatabaseManager().getCourseGroupAppointmentModelManager().getEntity(id.getValue());
             return CourseGroupAppointmentImpl.create(entity);
-        } catch (ModelNotFoundException e) {
+        } catch (ModelNotFoundExceptionCommon e) {
             throw new EntityNotFoundException(id);
         }
     }
 
     @Override
-    public void updateEntity(CourseGroupAppointment entity) throws EntityNotFoundException {
+    public void updateEntity(CourseGroupAppointment entity) throws EntityNotFoundException, ConstraintViolationException {
         CourseGroupAppointmentModel model = ((CourseGroupAppointmentImpl)(entity)).model;
         try {
             databaseManager.getExternalDatabaseManager().getCourseGroupAppointmentModelManager().updateEntity(model);
-        } catch (ModelNotFoundException e) {
+        } catch (ModelNotFoundExceptionCommon e) {
             throw new EntityNotFoundException(entity);
+        } catch (ConstraintViolationExceptionCommon e) {
+            throw new ConstraintViolationException(e.getCause(), entity);
         }
     }
 
@@ -58,15 +62,20 @@ final class CourseGroupAppointmentManagerImpl implements CourseGroupAppointmentM
         CourseGroupAppointmentModel model = ((CourseGroupAppointmentImpl)(entity)).model;
         try {
             databaseManager.getExternalDatabaseManager().getCourseGroupAppointmentModelManager().deleteEntity(model);
-        } catch (ModelNotFoundException e) {
+        } catch (ModelNotFoundExceptionCommon e) {
             throw new EntityNotFoundException(entity);
         }
     }
 
     @Override
-    public CourseGroupAppointment.ID addEntity(CourseGroupAppointment entity) {
+    public CourseGroupAppointment.ID addEntity(CourseGroupAppointment entity) throws ConstraintViolationException {
         CourseGroupAppointmentModel model = ((CourseGroupAppointmentImpl)(entity)).model;
-        Integer id = databaseManager.getExternalDatabaseManager().getCourseGroupAppointmentModelManager().addEntity(model);
+        Integer id = null;
+        try {
+            id = databaseManager.getExternalDatabaseManager().getCourseGroupAppointmentModelManager().addEntity(model);
+        } catch (ConstraintViolationExceptionCommon e) {
+            throw new ConstraintViolationException(e.getCause(), entity);
+        }
         return new CourseGroupAppointmentImpl.IDImpl(id);
     }
 
