@@ -30,7 +30,7 @@ public class CourseManagerTest extends TestCase {
             assertTrue(false);
         }
 
-        String abbreviation = "TESSST";
+        String abbreviation = "TESSSTer";
         entity.setAbbreviation(abbreviation);
         assertEquals(entity.getAbbreviation(), abbreviation);
 
@@ -44,5 +44,7 @@ public class CourseManagerTest extends TestCase {
 
         entity.setAbbreviation(abbreviation);
         assertEquals(entity.getAbbreviation(), abbreviation);
+
+        System.out.println(entity.getSingleRegistrations().size());
     }
 }

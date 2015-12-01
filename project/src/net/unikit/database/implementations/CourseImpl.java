@@ -151,5 +151,19 @@ final class CourseImpl implements Course {
         return builder.build();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CourseImpl)) return false;
 
+        CourseImpl course = (CourseImpl) o;
+
+        return !(model != null ? !model.equals(course.model) : course.model != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return model != null ? model.hashCode() : 0;
+    }
 }

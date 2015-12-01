@@ -77,4 +77,20 @@ final class CourseLectureAppointmentImpl implements CourseLectureAppointment {
     public void setEndDate(Date endDate) {
         model.setEndDate(endDate);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CourseLectureAppointmentImpl)) return false;
+
+        CourseLectureAppointmentImpl that = (CourseLectureAppointmentImpl) o;
+
+        return !(model != null ? !model.equals(that.model) : that.model != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return model != null ? model.hashCode() : 0;
+    }
 }

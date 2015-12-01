@@ -82,7 +82,7 @@ final class StudentImpl implements Student {
 
     @Override
     public void setFieldOfStudy(FieldOfStudy fieldOfStudy) {
-        model.setFieldOfStudy(((FieldOfStudyImpl)(fieldOfStudy)).model);
+        model.setFieldOfStudy(((FieldOfStudyImpl) (fieldOfStudy)).model);
     }
 
     @Override

@@ -80,4 +80,20 @@ final class CourseGroupImpl implements CourseGroup {
         }
         return builder.build();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CourseGroupImpl)) return false;
+
+        CourseGroupImpl that = (CourseGroupImpl) o;
+
+        return !(model != null ? !model.equals(that.model) : that.model != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return model != null ? model.hashCode() : 0;
+    }
 }

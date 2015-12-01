@@ -104,4 +104,20 @@ final class TeamImpl implements Team {
     public Date getUpdatedAt() {
         return model.getUpdatedAt();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TeamImpl)) return false;
+
+        TeamImpl team = (TeamImpl) o;
+
+        return !(model != null ? !model.equals(team.model) : team.model != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return model != null ? model.hashCode() : 0;
+    }
 }

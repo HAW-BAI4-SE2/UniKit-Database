@@ -70,4 +70,20 @@ final class MembershipRequestImpl implements MembershipRequest {
     public Date getUpdatedAt() {
         return model.getUpdatedAt();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof MembershipRequestImpl)) return false;
+
+        MembershipRequestImpl that = (MembershipRequestImpl) o;
+
+        return !(model != null ? !model.equals(that.model) : that.model != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return model != null ? model.hashCode() : 0;
+    }
 }

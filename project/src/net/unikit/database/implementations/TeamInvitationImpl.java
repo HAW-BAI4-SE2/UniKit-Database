@@ -81,4 +81,20 @@ final class TeamInvitationImpl implements TeamInvitation {
     public Date getUpdatedAt() {
         return model.getUpdatedAt();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TeamInvitationImpl)) return false;
+
+        TeamInvitationImpl that = (TeamInvitationImpl) o;
+
+        return !(model != null ? !model.equals(that.model) : that.model != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return model != null ? model.hashCode() : 0;
+    }
 }

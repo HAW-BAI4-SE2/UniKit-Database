@@ -54,4 +54,20 @@ final class FieldOfStudyImpl implements FieldOfStudy {
     public void setAbbreviation(String s) {
         model.setAbbreviation(s);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof FieldOfStudyImpl)) return false;
+
+        FieldOfStudyImpl that = (FieldOfStudyImpl) o;
+
+        return !(model != null ? !model.equals(that.model) : that.model != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return model != null ? model.hashCode() : 0;
+    }
 }
