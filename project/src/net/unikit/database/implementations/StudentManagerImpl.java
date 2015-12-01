@@ -89,4 +89,10 @@ final class StudentManagerImpl implements StudentManager {
     public Student.StudentNumber createID(String value) {
         return new StudentImpl.StudentNumberImpl(value);
     }
+
+    @Override
+    public Student getStudent(String sNumber) {
+        Student.StudentNumber studentNumber = createID(sNumber);
+        return getEntity(studentNumber);
+    }
 }

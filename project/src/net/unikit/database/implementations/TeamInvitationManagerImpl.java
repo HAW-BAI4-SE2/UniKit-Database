@@ -1,6 +1,9 @@
 package net.unikit.database.implementations;
 
 import com.google.common.collect.ImmutableList;
+import net.unikit.database.interfaces.entities.Student;
+import net.unikit.database.interfaces.entities.Team;
+import net.unikit.database.interfaces.managers.TeamManager;
 import net.unikit.database.exceptions.ConstraintViolationExceptionCommon;
 import net.unikit.database.exceptions.ConstraintViolationException;
 import net.unikit.database.exceptions.EntityNotFoundException;
@@ -88,5 +91,21 @@ final class TeamInvitationManagerImpl implements TeamInvitationManager {
     @Override
     public TeamInvitation.ID createID(Integer value) {
         return new TeamInvitationImpl.IDImpl(value);
+    }
+
+    @Override
+    public TeamInvitation getInvitation(Student invitedStudent, Team invitingTeam) throws NullPointerException{
+        TeamInvitation requestedInvitation = null;
+
+        // Find invitation
+        for(TeamInvitation currentInvitation : getAllEntities()){
+            if(currentInvitation.getInvitee().equals(invitedStudent) &&
+                    currentInvitation.getTeam().equals(invitingTeam)){
+                requestedInvitation = currentInvitation;
+                break;
+            }
+        }
+
+        return requestedInvitation;
     }
 }

@@ -1,6 +1,8 @@
 package net.unikit.database.implementations;
 
 import com.google.common.collect.ImmutableList;
+import net.unikit.database.interfaces.entities.Student;
+import net.unikit.database.interfaces.entities.Team;
 import net.unikit.database.exceptions.ConstraintViolationExceptionCommon;
 import net.unikit.database.exceptions.ConstraintViolationException;
 import net.unikit.database.exceptions.EntityNotFoundException;
@@ -88,5 +90,19 @@ final class MembershipRequestManagerImpl implements MembershipRequestManager {
     @Override
     public MembershipRequest.ID createID(Integer value) {
         return new MembershipRequestImpl.IDImpl(value);
+    }
+
+    @Override
+    public MembershipRequest getMembershipRequest(Student requestingStudent, Team team) {
+        MembershipRequest membershipRequest = null;
+
+        for(MembershipRequest currentMembershipRequest : getAllEntities()){
+            if(currentMembershipRequest.getApplicant().equals(requestingStudent) &&
+                    currentMembershipRequest.getTeam().equals(team)){
+                membershipRequest = currentMembershipRequest;
+                break;
+            }
+        }
+        return membershipRequest;
     }
 }
