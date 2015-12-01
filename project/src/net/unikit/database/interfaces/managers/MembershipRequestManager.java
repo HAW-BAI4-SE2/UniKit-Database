@@ -1,5 +1,6 @@
 package net.unikit.database.interfaces.managers;
 
+import net.unikit.database.exceptions.EntityNotFoundException;
 import net.unikit.database.interfaces.entities.MembershipRequest;
 import net.unikit.database.interfaces.entities.Student;
 import net.unikit.database.interfaces.entities.Team;
@@ -16,5 +17,5 @@ public interface MembershipRequestManager extends AbstractManager<MembershipRequ
      * @param team
      * @return
      */
-    MembershipRequest getMembershipRequest(Student requestingStudent, Team team);
+    MembershipRequest getMembershipRequest(Student requestingStudent, Team team) throws EntityNotFoundException;
 }

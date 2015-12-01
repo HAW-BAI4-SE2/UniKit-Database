@@ -91,7 +91,7 @@ final class StudentManagerImpl implements StudentManager {
     }
 
     @Override
-    public Student getStudent(String sNumber) {
+    public Student getStudent(String sNumber) throws EntityNotFoundException {
         Student.StudentNumber studentNumber = createID(sNumber);
         return getEntity(studentNumber);
     }

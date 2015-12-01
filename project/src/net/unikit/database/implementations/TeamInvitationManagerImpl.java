@@ -94,7 +94,7 @@ final class TeamInvitationManagerImpl implements TeamInvitationManager {
     }
 
     @Override
-    public TeamInvitation getInvitation(Student invitedStudent, Team invitingTeam) throws NullPointerException{
+    public TeamInvitation getInvitation(Student invitedStudent, Team invitingTeam) throws NullPointerException, EntityNotFoundException {
         TeamInvitation requestedInvitation = null;
 
         // Find invitation

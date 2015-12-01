@@ -1,5 +1,6 @@
 package net.unikit.database.interfaces.managers;
 
+import net.unikit.database.exceptions.EntityNotFoundException;
 import net.unikit.database.interfaces.entities.Team;
 
 /**
@@ -8,5 +9,5 @@ import net.unikit.database.interfaces.entities.Team;
  * @since 1.2.1
  */
 public interface TeamManager extends AbstractManager<Team, Integer, Team.ID> {
-    Team getTeam(int teamID);
+    Team getTeam(int teamID) throws EntityNotFoundException;
 }

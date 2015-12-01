@@ -1,5 +1,6 @@
 package net.unikit.database.interfaces.managers;
 
+import net.unikit.database.exceptions.EntityNotFoundException;
 import net.unikit.database.interfaces.entities.Student;
 
 /**
@@ -8,5 +9,5 @@ import net.unikit.database.interfaces.entities.Student;
  * @since 1.2.1
  */
 public interface StudentManager extends AbstractManager<Student, String, Student.StudentNumber> {
-    Student getStudent(String studentNumber);
+    Student getStudent(String studentNumber) throws EntityNotFoundException;
 }

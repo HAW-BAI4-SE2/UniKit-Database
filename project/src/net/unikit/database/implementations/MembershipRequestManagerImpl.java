@@ -93,7 +93,7 @@ final class MembershipRequestManagerImpl implements MembershipRequestManager {
     }
 
     @Override
-    public MembershipRequest getMembershipRequest(Student requestingStudent, Team team) {
+    public MembershipRequest getMembershipRequest(Student requestingStudent, Team team) throws EntityNotFoundException {
         MembershipRequest membershipRequest = null;
 
         for(MembershipRequest currentMembershipRequest : getAllEntities()){

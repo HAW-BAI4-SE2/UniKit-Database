@@ -91,7 +91,7 @@ final class TeamManagerImpl implements TeamManager {
     }
 
     @Override
-    public Team getTeam(int teamID) {
+    public Team getTeam(int teamID) throws EntityNotFoundException {
         return getEntity(createID(teamID));
     }
 }

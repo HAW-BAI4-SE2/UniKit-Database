@@ -1,5 +1,6 @@
 package net.unikit.database.interfaces.managers;
 
+import net.unikit.database.exceptions.EntityNotFoundException;
 import net.unikit.database.interfaces.entities.Student;
 import net.unikit.database.interfaces.entities.Team;
 import net.unikit.database.interfaces.entities.TeamInvitation;
@@ -18,5 +19,5 @@ public interface TeamInvitationManager extends AbstractManager<TeamInvitation, I
      * @return the invitation from the team to the student
      * @throws NullPointerException thrown if invitation couldn't be found ("Invitation")
      */
-    TeamInvitation getInvitation(Student invitedStudent, Team invitingTeam);
+    TeamInvitation getInvitation(Student invitedStudent, Team invitingTeam) throws EntityNotFoundException;
 }
