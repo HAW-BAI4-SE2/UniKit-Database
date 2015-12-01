@@ -1,5 +1,6 @@
 package net.unikit.database;
 
+import net.unikit.database.implementations.DatabaseManagerFactory;
 import net.unikit.database.interfaces.DatabaseConfiguration;
 import net.unikit.database.interfaces.DatabaseManager;
 import org.junit.AfterClass;
@@ -10,7 +11,7 @@ import org.junit.runners.Suite;
 import java.io.File;
 import java.io.IOException;
 
-import static net.unikit.database.DatabaseConfigurationUtils.createDatabaseConfigurationFromProperties;
+import static net.unikit.database.implementations.DatabaseConfigurationUtils.createDatabaseConfigurationFromProperties;
 
 /**
  * Created by Andreas on 28.11.2015.
