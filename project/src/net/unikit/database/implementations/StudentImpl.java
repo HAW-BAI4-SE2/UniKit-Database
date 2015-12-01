@@ -148,4 +148,20 @@ final class StudentImpl implements Student {
         }
         return builder.build();
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof StudentImpl)) return false;
+
+        StudentImpl student = (StudentImpl) o;
+
+        return !(model != null ? !model.equals(student.model) : student.model != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return model != null ? model.hashCode() : 0;
+    }
 }
