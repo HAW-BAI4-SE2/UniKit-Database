@@ -1,6 +1,7 @@
 package net.unikit.database.implementations;
 
 import com.google.common.collect.ImmutableList;
+import net.unikit.database.exceptions.EntityNotFoundException;
 import net.unikit.database.interfaces.entities.*;
 import net.unikit.database.internal.interfaces.entities.MembershipRequestModel;
 import net.unikit.database.internal.interfaces.entities.TeamInvitationModel;
@@ -43,7 +44,7 @@ final class TeamImpl implements Team {
     }
 
     @Override
-    public Course getCourse() {
+    public Course getCourse() throws EntityNotFoundException {
         Course.ID id = new CourseImpl.IDImpl(model.getCourseId());
         return DatabaseManagerFactory.getDatabaseManager().getCourseManager().getEntity(id);
     }
@@ -54,7 +55,7 @@ final class TeamImpl implements Team {
     }
 
     @Override
-    public Student getCreatedBy() {
+    public Student getCreatedBy() throws EntityNotFoundException {
         Student.StudentNumber id = new StudentImpl.StudentNumberImpl(model.getCreatedByStudentNumber());
         return DatabaseManagerFactory.getDatabaseManager().getStudentManager().getEntity(id);
     }

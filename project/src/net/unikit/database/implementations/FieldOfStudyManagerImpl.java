@@ -1,6 +1,10 @@
 package net.unikit.database.implementations;
 
 import com.google.common.collect.ImmutableList;
+import net.unikit.database.exceptions.ConstraintViolationExceptionCommon;
+import net.unikit.database.exceptions.ConstraintViolationException;
+import net.unikit.database.exceptions.EntityNotFoundException;
+import net.unikit.database.exceptions.ModelNotFoundExceptionCommon;
 import net.unikit.database.external.interfaces.entities.FieldOfStudyModel;
 import net.unikit.database.interfaces.entities.FieldOfStudy;
 import net.unikit.database.interfaces.managers.FieldOfStudyManager;
@@ -32,27 +36,46 @@ final class FieldOfStudyManagerImpl implements FieldOfStudyManager {
     }
 
     @Override
-    public FieldOfStudy getEntity(FieldOfStudy.ID id) {
-        FieldOfStudyModel entity = databaseManager.getExternalDatabaseManager().getFieldOfStudyModelManager().getEntity(id.getValue());
-        return FieldOfStudyImpl.create(entity);
+    public FieldOfStudy getEntity(FieldOfStudy.ID id) throws EntityNotFoundException {
+        try {
+            FieldOfStudyModel entity = databaseManager.getExternalDatabaseManager().getFieldOfStudyModelManager().getEntity(id.getValue());
+            return FieldOfStudyImpl.create(entity);
+        } catch (ModelNotFoundExceptionCommon e) {
+            throw new EntityNotFoundException(id);
+        }
     }
 
     @Override
-    public void updateEntity(FieldOfStudy entity) {
+    public void updateEntity(FieldOfStudy entity) throws EntityNotFoundException, ConstraintViolationException {
         FieldOfStudyModel model = ((FieldOfStudyImpl)(entity)).model;
-        databaseManager.getExternalDatabaseManager().getFieldOfStudyModelManager().updateEntity(model);
+        try {
+            databaseManager.getExternalDatabaseManager().getFieldOfStudyModelManager().updateEntity(model);
+        } catch (ModelNotFoundExceptionCommon e) {
+            throw new EntityNotFoundException(entity);
+        } catch (ConstraintViolationExceptionCommon e) {
+            throw new ConstraintViolationException(e.getCause(), entity);
+        }
     }
 
     @Override
-    public void deleteEntity(FieldOfStudy entity) {
+    public void deleteEntity(FieldOfStudy entity) throws EntityNotFoundException {
         FieldOfStudyModel model = ((FieldOfStudyImpl)(entity)).model;
-        databaseManager.getExternalDatabaseManager().getFieldOfStudyModelManager().deleteEntity(model);
+        try {
+            databaseManager.getExternalDatabaseManager().getFieldOfStudyModelManager().deleteEntity(model);
+        } catch (ModelNotFoundExceptionCommon e) {
+            throw new EntityNotFoundException(entity);
+        }
     }
 
     @Override
-    public FieldOfStudy.ID addEntity(FieldOfStudy entity) {
+    public FieldOfStudy.ID addEntity(FieldOfStudy entity) throws ConstraintViolationException {
         FieldOfStudyModel model = ((FieldOfStudyImpl)(entity)).model;
-        Integer id = databaseManager.getExternalDatabaseManager().getFieldOfStudyModelManager().addEntity(model);
+        Integer id = null;
+        try {
+            id = databaseManager.getExternalDatabaseManager().getFieldOfStudyModelManager().addEntity(model);
+        } catch (ConstraintViolationExceptionCommon e) {
+            throw new ConstraintViolationException(e.getCause(), entity);
+        }
         return new FieldOfStudyImpl.IDImpl(id);
     }
 

@@ -1,5 +1,7 @@
 package net.unikit.database.interfaces.entities;
 
+import java.io.Serializable;
+
 /**
  * An abstract entity.
  * @author Andreas Berks
@@ -9,7 +11,7 @@ public interface AbstractEntity {
     /**
      * An id for an entity.
      */
-    interface ID<T> {
+    interface ID<T extends Serializable> {
         T getValue();
     }
 }

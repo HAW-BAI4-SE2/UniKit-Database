@@ -1,5 +1,6 @@
 package net.unikit.database.implementations;
 
+import net.unikit.database.exceptions.EntityNotFoundException;
 import net.unikit.database.interfaces.entities.Course;
 import net.unikit.database.interfaces.entities.CourseRegistration;
 import net.unikit.database.interfaces.entities.Student;
@@ -40,7 +41,7 @@ final class CourseRegistrationImpl implements CourseRegistration {
     }
 
     @Override
-    public Student getStudent() {
+    public Student getStudent() throws EntityNotFoundException {
         Student.StudentNumber id = new StudentImpl.StudentNumberImpl(model.getStudentNumber());
         return DatabaseManagerFactory.getDatabaseManager().getStudentManager().getEntity(id);
     }
@@ -51,7 +52,7 @@ final class CourseRegistrationImpl implements CourseRegistration {
     }
 
     @Override
-    public Course getCourse() {
+    public Course getCourse() throws EntityNotFoundException {
         Course.ID id = new CourseImpl.IDImpl(model.getCourseId());
         return DatabaseManagerFactory.getDatabaseManager().getCourseManager().getEntity(id);
     }

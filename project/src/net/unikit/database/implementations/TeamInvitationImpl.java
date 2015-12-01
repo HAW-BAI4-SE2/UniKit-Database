@@ -1,5 +1,6 @@
 package net.unikit.database.implementations;
 
+import net.unikit.database.exceptions.EntityNotFoundException;
 import net.unikit.database.interfaces.entities.Student;
 import net.unikit.database.interfaces.entities.Team;
 import net.unikit.database.interfaces.entities.TeamInvitation;
@@ -40,7 +41,7 @@ final class TeamInvitationImpl implements TeamInvitation {
     }
 
     @Override
-    public Student getInvitee() {
+    public Student getInvitee() throws EntityNotFoundException {
         Student.StudentNumber id = new StudentImpl.StudentNumberImpl(model.getInviteeStudentNumber());
         return DatabaseManagerFactory.getDatabaseManager().getStudentManager().getEntity(id);
     }
@@ -61,7 +62,7 @@ final class TeamInvitationImpl implements TeamInvitation {
     }
 
     @Override
-    public Student getCreatedBy() {
+    public Student getCreatedBy() throws EntityNotFoundException {
         Student.StudentNumber id = new StudentImpl.StudentNumberImpl(model.getCreatedByStudentNumber());
         return DatabaseManagerFactory.getDatabaseManager().getStudentManager().getEntity(id);
     }

@@ -1,5 +1,6 @@
 package net.unikit.database.implementations;
 
+import net.unikit.database.exceptions.EntityNotFoundException;
 import net.unikit.database.interfaces.entities.MembershipRequest;
 import net.unikit.database.interfaces.entities.Student;
 import net.unikit.database.interfaces.entities.Team;
@@ -40,7 +41,7 @@ final class MembershipRequestImpl implements MembershipRequest {
     }
 
     @Override
-    public Student getApplicant() {
+    public Student getApplicant() throws EntityNotFoundException {
         Student.StudentNumber id = new StudentImpl.StudentNumberImpl(model.getApplicantStudentNumber());
         return DatabaseManagerFactory.getDatabaseManager().getStudentManager().getEntity(id);
     }

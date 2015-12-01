@@ -1,6 +1,10 @@
 package net.unikit.database.implementations;
 
 import com.google.common.collect.ImmutableList;
+import net.unikit.database.exceptions.ConstraintViolationExceptionCommon;
+import net.unikit.database.exceptions.ConstraintViolationException;
+import net.unikit.database.exceptions.EntityNotFoundException;
+import net.unikit.database.exceptions.ModelNotFoundExceptionCommon;
 import net.unikit.database.internal.interfaces.entities.TeamModel;
 import net.unikit.database.interfaces.entities.Team;
 import net.unikit.database.interfaces.managers.TeamManager;
@@ -32,27 +36,46 @@ final class TeamManagerImpl implements TeamManager {
     }
 
     @Override
-    public Team getEntity(Team.ID id) {
-        TeamModel entity = databaseManager.getInternalDatabaseManager().getTeamModelManager().getEntity(id.getValue());
-        return TeamImpl.create(entity);
+    public Team getEntity(Team.ID id) throws EntityNotFoundException {
+        try {
+            TeamModel entity = databaseManager.getInternalDatabaseManager().getTeamModelManager().getEntity(id.getValue());
+            return TeamImpl.create(entity);
+        } catch (ModelNotFoundExceptionCommon e) {
+            throw new EntityNotFoundException(id);
+        }
     }
 
     @Override
-    public void updateEntity(Team entity) {
+    public void updateEntity(Team entity) throws EntityNotFoundException, ConstraintViolationException {
         TeamModel model = ((TeamImpl)(entity)).model;
-        databaseManager.getInternalDatabaseManager().getTeamModelManager().updateEntity(model);
+        try {
+            databaseManager.getInternalDatabaseManager().getTeamModelManager().updateEntity(model);
+        } catch (ModelNotFoundExceptionCommon e) {
+            throw new EntityNotFoundException(entity);
+        } catch (ConstraintViolationExceptionCommon e) {
+            throw new ConstraintViolationException(e.getCause(), entity);
+        }
     }
 
     @Override
-    public void deleteEntity(Team entity) {
+    public void deleteEntity(Team entity) throws EntityNotFoundException {
         TeamModel model = ((TeamImpl)(entity)).model;
-        databaseManager.getInternalDatabaseManager().getTeamModelManager().deleteEntity(model);
+        try {
+            databaseManager.getInternalDatabaseManager().getTeamModelManager().deleteEntity(model);
+        } catch (ModelNotFoundExceptionCommon e) {
+            throw new EntityNotFoundException(entity);
+        }
     }
 
     @Override
-    public Team.ID addEntity(Team entity) {
+    public Team.ID addEntity(Team entity) throws ConstraintViolationException {
         TeamModel model = ((TeamImpl)(entity)).model;
-        Integer id = databaseManager.getInternalDatabaseManager().getTeamModelManager().addEntity(model);
+        Integer id = null;
+        try {
+            id = databaseManager.getInternalDatabaseManager().getTeamModelManager().addEntity(model);
+        } catch (ConstraintViolationExceptionCommon e) {
+            throw new ConstraintViolationException(e.getCause(), entity);
+        }
         return new TeamImpl.IDImpl(id);
     }
 

@@ -4,6 +4,10 @@ import com.google.common.collect.ImmutableList;
 import net.unikit.database.interfaces.entities.Student;
 import net.unikit.database.interfaces.entities.Team;
 import net.unikit.database.interfaces.managers.TeamManager;
+import net.unikit.database.exceptions.ConstraintViolationExceptionCommon;
+import net.unikit.database.exceptions.ConstraintViolationException;
+import net.unikit.database.exceptions.EntityNotFoundException;
+import net.unikit.database.exceptions.ModelNotFoundExceptionCommon;
 import net.unikit.database.internal.interfaces.entities.TeamInvitationModel;
 import net.unikit.database.interfaces.entities.TeamInvitation;
 import net.unikit.database.interfaces.managers.TeamInvitationManager;
@@ -35,27 +39,46 @@ final class TeamInvitationManagerImpl implements TeamInvitationManager {
     }
 
     @Override
-    public TeamInvitation getEntity(TeamInvitation.ID id) {
-        TeamInvitationModel entity = databaseManager.getInternalDatabaseManager().getTeamInvitationModelManager().getEntity(id.getValue());
-        return TeamInvitationImpl.create(entity);
+    public TeamInvitation getEntity(TeamInvitation.ID id) throws EntityNotFoundException {
+        try {
+            TeamInvitationModel entity = databaseManager.getInternalDatabaseManager().getTeamInvitationModelManager().getEntity(id.getValue());
+            return TeamInvitationImpl.create(entity);
+        } catch (ModelNotFoundExceptionCommon e) {
+            throw new EntityNotFoundException(id);
+        }
     }
 
     @Override
-    public void updateEntity(TeamInvitation entity) {
+    public void updateEntity(TeamInvitation entity) throws EntityNotFoundException, ConstraintViolationException {
         TeamInvitationModel model = ((TeamInvitationImpl)(entity)).model;
-        databaseManager.getInternalDatabaseManager().getTeamInvitationModelManager().updateEntity(model);
+        try {
+            databaseManager.getInternalDatabaseManager().getTeamInvitationModelManager().updateEntity(model);
+        } catch (ModelNotFoundExceptionCommon e) {
+            throw new EntityNotFoundException(entity);
+        } catch (ConstraintViolationExceptionCommon e) {
+            throw new ConstraintViolationException(e.getCause(), entity);
+        }
     }
 
     @Override
-    public void deleteEntity(TeamInvitation entity) {
+    public void deleteEntity(TeamInvitation entity) throws EntityNotFoundException {
         TeamInvitationModel model = ((TeamInvitationImpl)(entity)).model;
-        databaseManager.getInternalDatabaseManager().getTeamInvitationModelManager().deleteEntity(model);
+        try {
+            databaseManager.getInternalDatabaseManager().getTeamInvitationModelManager().deleteEntity(model);
+        } catch (ModelNotFoundExceptionCommon e) {
+            throw new EntityNotFoundException(entity);
+        }
     }
 
     @Override
-    public TeamInvitation.ID addEntity(TeamInvitation entity) {
+    public TeamInvitation.ID addEntity(TeamInvitation entity) throws ConstraintViolationException {
         TeamInvitationModel model = ((TeamInvitationImpl)(entity)).model;
-        Integer id = databaseManager.getInternalDatabaseManager().getTeamInvitationModelManager().addEntity(model);
+        Integer id = null;
+        try {
+            id = databaseManager.getInternalDatabaseManager().getTeamInvitationModelManager().addEntity(model);
+        } catch (ConstraintViolationExceptionCommon e) {
+            throw new ConstraintViolationException(e.getCause(), entity);
+        }
         return new TeamInvitationImpl.IDImpl(id);
     }
 
