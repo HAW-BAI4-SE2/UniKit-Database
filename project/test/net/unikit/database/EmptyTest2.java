@@ -10,7 +10,7 @@ import org.junit.Test;
 public class EmptyTest2 extends TestCase {
     @After
     public void tearDown() throws Exception {
-        System.err.println("Resetting database...");
+        System.err.println("Resetting test database...");
         TestSuite.resetDatabase();
     }
 

@@ -24,12 +24,18 @@ import static net.unikit.database.implementations.DatabaseConfigurationUtils.cre
 public class TestSuite {
     static DatabaseManager databaseManager;
 
+    /**
+     * Creates the internal and external database configurations.
+     * Creates a DatabaseManager with these configurations and resets the database using the @link{resetDatabase()} method.
+     * @throws Exception
+     */
     @BeforeClass
     public static void setUp() throws Exception {
         String externalConfigurationFile = "conf" + File.separator + "database_external.properties";
         DatabaseConfiguration configurationExternal = null;
         try {
             configurationExternal = createDatabaseConfigurationFromProperties(externalConfigurationFile);
+            configurationExternal.setSchema("external_database_test");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -38,20 +44,28 @@ public class TestSuite {
         DatabaseConfiguration configurationInternal = null;
         try {
             configurationInternal = createDatabaseConfigurationFromProperties(internalConfigurationFile);
+            configurationInternal.setSchema("internal_database_test");
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         databaseManager = DatabaseManagerFactory.createDatabaseManager(configurationInternal, configurationExternal);
-        System.err.println("Resetting database...");
+        System.err.println("Resetting test database...");
         resetDatabase();
     }
 
+    /**
+     * Cleans up the attributes.
+     * @throws Exception
+     */
     @AfterClass
     public static void tearDown() throws Exception {
         databaseManager = null;
     }
 
+    /**
+     * Resets the test database using the <i>all_in_one_test.sql</i> script.
+     */
     public static void resetDatabase() {
         DatabaseManager databaseManager = TestSuite.databaseManager;
         String filename = "assets" + File.separator + "all_in_one_test.sql";
