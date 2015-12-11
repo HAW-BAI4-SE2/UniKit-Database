@@ -18,8 +18,8 @@ import static net.unikit.database.implementations.DatabaseConfigurationUtils.cre
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        CourseManagerTest.class,
-        CourseManagerTest2.class
+        EmptyTest1.class,
+        EmptyTest2.class
 })
 public class TestSuite {
     static DatabaseManager databaseManager;
@@ -48,5 +48,12 @@ public class TestSuite {
     @AfterClass
     public static void tearDown() throws Exception {
         databaseManager = null;
+    }
+
+    public static void resetDatabase() {
+        DatabaseManager databaseManager = TestSuite.databaseManager;
+        String filename = "asserts" + File.separator + "all_in_one_test.sql";
+        DatabaseResetUtils.resetDatabase(databaseManager, filename);
+        System.out.println("Resetting database...");
     }
 }
