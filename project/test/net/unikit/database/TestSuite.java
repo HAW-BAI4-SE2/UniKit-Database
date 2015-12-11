@@ -43,6 +43,8 @@ public class TestSuite {
         }
 
         databaseManager = DatabaseManagerFactory.createDatabaseManager(configurationInternal, configurationExternal);
+        System.err.println("Resetting database...");
+        resetDatabase();
     }
 
     @AfterClass
@@ -52,8 +54,7 @@ public class TestSuite {
 
     public static void resetDatabase() {
         DatabaseManager databaseManager = TestSuite.databaseManager;
-        String filename = "asserts" + File.separator + "all_in_one_test.sql";
+        String filename = "assets" + File.separator + "all_in_one_test.sql";
         DatabaseResetUtils.resetDatabase(databaseManager, filename);
-        System.out.println("Resetting database...");
     }
 }
