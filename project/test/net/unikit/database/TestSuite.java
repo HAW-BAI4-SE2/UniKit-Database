@@ -18,19 +18,32 @@ import static net.unikit.database.implementations.DatabaseConfigurationUtils.cre
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        EmptyTest1.class,
-        EmptyTest2.class
+        EmptyTest.class,
+        MembershipRequestTest.class
 })
 public class TestSuite {
-    static DatabaseManager databaseManager;
+    private static DatabaseManager databaseManager;
+
+    static {
+        databaseManager = null;
+    }
+
+    /**
+     * Getter for the manager of the test database.
+     * @return The manager of the test database.
+     */
+    public static DatabaseManager getDatabaseManager() {
+        if (databaseManager == null)
+            init();
+        return databaseManager;
+    }
 
     /**
      * Creates the internal and external database configurations.
      * Creates a DatabaseManager with these configurations and resets the database using the @link{resetDatabase()} method.
      * @throws Exception
      */
-    @BeforeClass
-    public static void setUp() throws Exception {
+    private static void init() {
         String externalConfigurationFile = "conf" + File.separator + "database_external.properties";
         DatabaseConfiguration configurationExternal = null;
         try {
@@ -52,15 +65,6 @@ public class TestSuite {
         databaseManager = DatabaseManagerFactory.createDatabaseManager(configurationInternal, configurationExternal);
         System.err.println("Resetting test database...");
         resetDatabase();
-    }
-
-    /**
-     * Cleans up the attributes.
-     * @throws Exception
-     */
-    @AfterClass
-    public static void tearDown() throws Exception {
-        databaseManager = null;
     }
 
     /**

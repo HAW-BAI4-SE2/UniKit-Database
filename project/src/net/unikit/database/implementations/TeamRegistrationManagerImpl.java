@@ -1,10 +1,7 @@
 package net.unikit.database.implementations;
 
 import com.google.common.collect.ImmutableList;
-import net.unikit.database.exceptions.ConstraintViolationExceptionCommon;
-import net.unikit.database.exceptions.ConstraintViolationException;
-import net.unikit.database.exceptions.EntityNotFoundException;
-import net.unikit.database.exceptions.ModelNotFoundExceptionCommon;
+import net.unikit.database.exceptions.*;
 import net.unikit.database.internal.interfaces.entities.TeamRegistrationModel;
 import net.unikit.database.interfaces.entities.TeamRegistration;
 import net.unikit.database.interfaces.managers.TeamRegistrationManager;
@@ -54,6 +51,8 @@ final class TeamRegistrationManagerImpl implements TeamRegistrationManager {
             throw new EntityNotFoundException(entity);
         } catch (ConstraintViolationExceptionCommon e) {
             throw new ConstraintViolationException(e.getCause(), entity);
+        } catch (ModelNotAddedExceptionCommon modelNotAddedExceptionCommon) {
+            throw new EntityNotAddedException(entity);
         }
     }
 
@@ -64,6 +63,8 @@ final class TeamRegistrationManagerImpl implements TeamRegistrationManager {
             databaseManager.getInternalDatabaseManager().getTeamRegistrationModelManager().deleteEntity(model);
         } catch (ModelNotFoundExceptionCommon e) {
             throw new EntityNotFoundException(entity);
+        } catch (ModelNotAddedExceptionCommon modelNotAddedExceptionCommon) {
+            throw new EntityNotAddedException(entity);
         }
     }
 

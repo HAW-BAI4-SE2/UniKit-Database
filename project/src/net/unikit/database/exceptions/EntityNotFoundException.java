@@ -5,7 +5,7 @@ import net.unikit.database.interfaces.entities.AbstractEntity;
 /**
  * Created by Andreas on 30.11.2015.
  */
-public final class EntityNotFoundException extends Exception {
+public class EntityNotFoundException extends Exception {
     private AbstractEntity entity;
     private AbstractEntity.ID id;
 

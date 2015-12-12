@@ -49,6 +49,8 @@ public class DatabaseResetUtils {
 	private String delimiter = DEFAULT_DELIMITER;
 	private boolean fullLineDelimiter = false;
 
+	private static Date lastResetDate;
+
 	/**
 	 * Default constructor
 	 */
@@ -64,7 +66,13 @@ public class DatabaseResetUtils {
 		this.fullLineDelimiter = fullLineDelimiter;
 	}
 
+	public static Date getLastResetDate() {
+		return lastResetDate;
+	}
+
 	public static void resetDatabase(DatabaseManager databaseManager, String filename) {
+		lastResetDate = new Date(System.currentTimeMillis() - 10000);
+
 		Object value = databaseManager.getCourseGroupAppointmentManager();
 		Field field = null;
 		try {
@@ -72,7 +80,7 @@ public class DatabaseResetUtils {
 			field.setAccessible(true);
 			value = field.get(value);
 
-			field = value.getClass().getDeclaredField("externalDatabaseManager");
+			field = value.getClass().getDeclaredField("testDatabaseManager");
 			field.setAccessible(true);
 			value = field.get(value);
 

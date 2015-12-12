@@ -16,10 +16,12 @@ import static net.unikit.database.implementations.DatabaseConfigurationUtils.cre
 final class DatabaseManagerImpl implements DatabaseManager {
     private ExternalDatabaseManager externalDatabaseManager;
     private InternalDatabaseManager internalDatabaseManager;
+    private ExternalDatabaseManager testDatabaseManager;
 
     private DatabaseManagerImpl(DatabaseConfiguration internalConfiguration, DatabaseConfiguration externalConfiguration) {
         externalDatabaseManager = ExternalDatabaseManagerFactory.createExternalDatabaseManager(externalConfiguration);
         internalDatabaseManager = InternalDatabaseManagerFactory.createInternalDatabaseManager(internalConfiguration);
+        testDatabaseManager = ExternalDatabaseManagerFactory.createExternalDatabaseManager(externalConfiguration);
     }
 
     public static DatabaseManager create(DatabaseConfiguration internalConfiguration, DatabaseConfiguration externalConfiguration) {

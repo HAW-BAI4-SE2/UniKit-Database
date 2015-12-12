@@ -12,16 +12,9 @@ import java.util.Date;
  * Created by Andreas on 26.11.2015.
  */
 final class MembershipRequestImpl implements MembershipRequest {
-    static class IDImpl implements MembershipRequest.ID {
-        private Integer value;
-
-        IDImpl(Integer value) {
-            this.value = value;
-        }
-
-        @Override
-        public Integer getValue() {
-            return value;
+    static class IDImpl extends AbstractEntityImpl.IDImpl<Integer> implements MembershipRequest.ID  {
+        public IDImpl(Integer value) {
+            super(value);
         }
     }
 
