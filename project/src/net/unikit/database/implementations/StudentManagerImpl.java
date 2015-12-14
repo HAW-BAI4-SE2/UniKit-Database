@@ -53,6 +53,8 @@ final class StudentManagerImpl implements StudentManager {
             throw new ConstraintViolationException(e.getCause(), entity);
         } catch (ModelNotAddedExceptionCommon modelNotAddedExceptionCommon) {
             throw new EntityNotAddedException(entity);
+        } catch (MissingPropertyExceptionCommon missingPropertyExceptionCommon) {
+            throw new MissingPropertyException(missingPropertyExceptionCommon.getCause(), entity);
         }
     }
 
@@ -76,6 +78,8 @@ final class StudentManagerImpl implements StudentManager {
             id = databaseManager.getExternalDatabaseManager().getStudentModelManager().addEntity(model);
         } catch (ConstraintViolationExceptionCommon e) {
             throw new ConstraintViolationException(e.getCause(), entity);
+        } catch (MissingPropertyExceptionCommon missingPropertyExceptionCommon) {
+            throw new MissingPropertyException(missingPropertyExceptionCommon.getCause(), entity);
         }
         return new StudentImpl.StudentNumberImpl(id);
     }

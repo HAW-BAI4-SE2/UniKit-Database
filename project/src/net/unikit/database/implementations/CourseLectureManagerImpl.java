@@ -53,6 +53,8 @@ final class CourseLectureManagerImpl implements CourseLectureManager {
             throw new ConstraintViolationException(e.getCause(), entity);
         } catch (ModelNotAddedExceptionCommon modelNotAddedExceptionCommon) {
             throw new EntityNotAddedException(entity);
+        } catch (MissingPropertyExceptionCommon missingPropertyExceptionCommon) {
+            throw new MissingPropertyException(missingPropertyExceptionCommon.getCause(), entity);
         }
     }
 
@@ -76,6 +78,8 @@ final class CourseLectureManagerImpl implements CourseLectureManager {
             id = databaseManager.getExternalDatabaseManager().getCourseLectureModelManager().addEntity(model);
         } catch (ConstraintViolationExceptionCommon e) {
             throw new ConstraintViolationException(e.getCause(), entity);
+        } catch (MissingPropertyExceptionCommon missingPropertyExceptionCommon) {
+            throw new MissingPropertyException(missingPropertyExceptionCommon.getCause(), entity);
         }
         return new CourseLectureImpl.IDImpl(id);
     }

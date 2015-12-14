@@ -56,6 +56,8 @@ final class TeamInvitationManagerImpl implements TeamInvitationManager {
             throw new ConstraintViolationException(e.getCause(), entity);
         } catch (ModelNotAddedExceptionCommon modelNotAddedExceptionCommon) {
             throw new EntityNotAddedException(entity);
+        } catch (MissingPropertyExceptionCommon missingPropertyExceptionCommon) {
+            throw new MissingPropertyException(missingPropertyExceptionCommon.getCause(), entity);
         }
     }
 
@@ -79,6 +81,8 @@ final class TeamInvitationManagerImpl implements TeamInvitationManager {
             id = databaseManager.getInternalDatabaseManager().getTeamInvitationModelManager().addEntity(model);
         } catch (ConstraintViolationExceptionCommon e) {
             throw new ConstraintViolationException(e.getCause(), entity);
+        } catch (MissingPropertyExceptionCommon missingPropertyExceptionCommon) {
+            throw new MissingPropertyException(missingPropertyExceptionCommon.getCause(), entity);
         }
         return new TeamInvitationImpl.IDImpl(id);
     }

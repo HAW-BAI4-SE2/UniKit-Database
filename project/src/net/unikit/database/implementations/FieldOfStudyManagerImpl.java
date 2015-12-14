@@ -53,6 +53,8 @@ final class FieldOfStudyManagerImpl implements FieldOfStudyManager {
             throw new ConstraintViolationException(e.getCause(), entity);
         } catch (ModelNotAddedExceptionCommon modelNotAddedExceptionCommon) {
             throw new EntityNotAddedException(entity);
+        } catch (MissingPropertyExceptionCommon missingPropertyExceptionCommon) {
+            throw new MissingPropertyException(missingPropertyExceptionCommon.getCause(), entity);
         }
     }
 
@@ -76,6 +78,8 @@ final class FieldOfStudyManagerImpl implements FieldOfStudyManager {
             id = databaseManager.getExternalDatabaseManager().getFieldOfStudyModelManager().addEntity(model);
         } catch (ConstraintViolationExceptionCommon e) {
             throw new ConstraintViolationException(e.getCause(), entity);
+        } catch (MissingPropertyExceptionCommon missingPropertyExceptionCommon) {
+            throw new MissingPropertyException(missingPropertyExceptionCommon.getCause(), entity);
         }
         return new FieldOfStudyImpl.IDImpl(id);
     }

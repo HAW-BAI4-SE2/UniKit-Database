@@ -55,6 +55,8 @@ final class MembershipRequestManagerImpl implements MembershipRequestManager {
             throw new ConstraintViolationException(e.getCause(), entity);
         } catch (ModelNotAddedExceptionCommon modelNotAddedExceptionCommon) {
             throw new EntityNotAddedException(entity);
+        } catch (MissingPropertyExceptionCommon missingPropertyExceptionCommon) {
+            throw new MissingPropertyException(missingPropertyExceptionCommon.getCause(), entity);
         }
     }
 
@@ -78,6 +80,8 @@ final class MembershipRequestManagerImpl implements MembershipRequestManager {
             id = databaseManager.getInternalDatabaseManager().getMembershipRequestModelManager().addEntity(model);
         } catch (ConstraintViolationExceptionCommon e) {
             throw new ConstraintViolationException(e.getCause(), entity);
+        } catch (MissingPropertyExceptionCommon missingPropertyExceptionCommon) {
+            throw new MissingPropertyException(missingPropertyExceptionCommon.getCause(), entity);
         }
         return new MembershipRequestImpl.IDImpl(id);
     }

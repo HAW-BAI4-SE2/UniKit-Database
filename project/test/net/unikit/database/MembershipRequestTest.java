@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 import net.unikit.database.exceptions.ConstraintViolationException;
 import net.unikit.database.exceptions.EntityNotAddedException;
 import net.unikit.database.exceptions.EntityNotFoundException;
+import net.unikit.database.exceptions.MissingPropertyException;
 import net.unikit.database.interfaces.entities.MembershipRequest;
 import net.unikit.database.interfaces.entities.Student;
 import net.unikit.database.interfaces.entities.Team;
@@ -601,11 +602,11 @@ public class MembershipRequestTest extends TestCase {
 
 
         // ========================================================================================================== //
-        // check if student does got the membership request
+        // check if student doesn't got the membership request
         newApplicant = DatabaseTestUtils.getStudent("2055120");
         try {
-            assertTrue(newApplicant.getMembershipRequests().contains(entity));
-            assertTrue(newApplicant.getMembershipRequests().contains(entity1));
+            assertFalse(newApplicant.getMembershipRequests().contains(entity));
+            assertFalse(newApplicant.getMembershipRequests().contains(entity1));
         } catch (EntityNotFoundException e) {
             fail();
         }
@@ -680,11 +681,11 @@ public class MembershipRequestTest extends TestCase {
 
 
         // ========================================================================================================== //
-        // check if student does got the membership request
+        // check if student doesn't got the membership request
         newApplicant = DatabaseTestUtils.getStudent("2055120");
         try {
-            assertTrue(newApplicant.getMembershipRequests().contains(entity));
-            assertTrue(newApplicant.getMembershipRequests().contains(entity1));
+            assertFalse(newApplicant.getMembershipRequests().contains(entity));
+            assertFalse(newApplicant.getMembershipRequests().contains(entity1));
         } catch (EntityNotFoundException e) {
             fail();
         }
@@ -833,9 +834,8 @@ public class MembershipRequestTest extends TestCase {
             fail();
         }
         assertEquals(entity.getTeam(), team);
-        // TODO: Comment in, after addEntity sets auto generated values
-//        assertTrue(entity.getCreatedAt().compareTo(creationDate) >= 0);
-//        assertTrue(entity.getUpdatedAt().compareTo(creationDate) >= 0);
+        assertTrue(entity.getCreatedAt().compareTo(creationDate) >= 0);
+        assertTrue(entity.getUpdatedAt().compareTo(creationDate) >= 0);
 
         // check values of database entity
         assertEquals(entity1.getId(), id);
@@ -885,12 +885,12 @@ public class MembershipRequestTest extends TestCase {
         try {
             membershipRequestManager.addEntity(entity);
             fail();
+        } catch (MissingPropertyException e) {
+            // expected exception
         } catch (ConstraintViolationException e) {
             // unexpected exception
+            e.printStackTrace();
             fail();
-        } catch (PropertyValueException e) {
-            // TODO: Change to own exception MissingPropertyException
-            // expected exception
         }
 
         // without: [team]
@@ -899,12 +899,11 @@ public class MembershipRequestTest extends TestCase {
         try {
             membershipRequestManager.addEntity(entity);
             fail();
+        } catch (MissingPropertyException e) {
+            // expected exception
         } catch (ConstraintViolationException e) {
             // unexpected exception
             fail();
-        } catch (PropertyValueException e) {
-            // TODO: Change to own exception MissingPropertyException
-            // expected exception
         }
 
         // without: [applicant]
@@ -913,12 +912,11 @@ public class MembershipRequestTest extends TestCase {
         try {
             membershipRequestManager.addEntity(entity);
             fail();
+        } catch (MissingPropertyException e) {
+            // expected exception
         } catch (ConstraintViolationException e) {
             // unexpected exception
             fail();
-        } catch (PropertyValueException e) {
-            // TODO: Change to own exception MissingPropertyException
-            // expected exception
         }
 
         // check if nothing was added to database

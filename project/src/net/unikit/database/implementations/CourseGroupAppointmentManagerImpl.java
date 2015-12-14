@@ -53,6 +53,8 @@ final class CourseGroupAppointmentManagerImpl implements CourseGroupAppointmentM
             throw new ConstraintViolationException(e.getCause(), entity);
         } catch (ModelNotAddedExceptionCommon modelNotAddedExceptionCommon) {
             throw new EntityNotAddedException(entity);
+        } catch (MissingPropertyExceptionCommon missingPropertyExceptionCommon) {
+            throw new MissingPropertyException(missingPropertyExceptionCommon.getCause(), entity);
         }
     }
 
@@ -76,6 +78,8 @@ final class CourseGroupAppointmentManagerImpl implements CourseGroupAppointmentM
             id = databaseManager.getExternalDatabaseManager().getCourseGroupAppointmentModelManager().addEntity(model);
         } catch (ConstraintViolationExceptionCommon e) {
             throw new ConstraintViolationException(e.getCause(), entity);
+        } catch (MissingPropertyExceptionCommon missingPropertyExceptionCommon) {
+            throw new MissingPropertyException(missingPropertyExceptionCommon.getCause(), entity);
         }
         return new CourseGroupAppointmentImpl.IDImpl(id);
     }
