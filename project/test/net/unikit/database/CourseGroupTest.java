@@ -84,6 +84,11 @@ public class CourseGroupTest extends AbstractTest<CourseGroup, Integer, CourseGr
         }
     }
 
+    /**
+     * Tests the method getEntity of the CourseGroupManager.
+     * Following aspects are tested:
+     * - Check if the entity got right values (only the first two entities are tested)
+     */
     @Test
     public void test_getEntity() throws EntityNotFoundException {
         // Check values of the first entity
@@ -95,6 +100,12 @@ public class CourseGroupTest extends AbstractTest<CourseGroup, Integer, CourseGr
         checkValuesEquals(evm_2, getEntityValueMap(entity_2));
     }
 
+    /**
+     * Tests the EntityNotFoundException of the method getEntity of the CourseGroupManager.
+     * Following aspects are tested:
+     * - getEntity with an unknown id throws an EntityNotFoundException
+     * - following ids are tested: '-1', '0' and 'DEFAULT_ENTITY_COUNT + 1'
+     */
     @Test
     public void test_getEntity_EntityNotFoundException() {
         // Try to get an object with unknown id '-1'
