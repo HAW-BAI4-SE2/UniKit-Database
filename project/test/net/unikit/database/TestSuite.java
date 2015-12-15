@@ -17,9 +17,19 @@ import static net.unikit.database.implementations.DatabaseConfigurationUtils.cre
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        EmptyTest.class,
-        CourseGroupAppointmentTest.class
-        //MembershipRequestTestOLD.class
+        //MembershipRequestTestOLD.class,
+        CourseGroupAppointmentTest.class,
+        CourseGroupTest.class,
+        CourseLectureAppointmentTest.class,
+        CourseLectureTest.class,
+        CourseRegistrationTest.class,
+        CourseTest.class,
+        FieldOfStudyTest.class,
+        MembershipRequestTest.class,
+        StudentTest.class,
+        TeamInvitationTest.class,
+        TeamRegistrationTest.class,
+        TeamTest.class
 })
 public class TestSuite {
     private static DatabaseManager databaseManager;
