@@ -108,4 +108,13 @@ public abstract class AbstractTest<EntityType extends AbstractEntity, BaseIdType
     protected EntityValueMap createEntityValueMap() {
         return DatabaseTestUtils.createEntityValueMap(getInterfaceClass());
     }
+
+    protected EntityValueMap copyEntityValueMap(EntityValueMap entityValueMap) {
+        EntityValueMap result = createEntityValueMap();
+        for (Map.Entry<String, Object> entry : entityValueMap.entrySet()) {
+            result.put(entry.getKey(), entry.getValue());
+        }
+
+        return result;
+    }
 }
