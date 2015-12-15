@@ -1,4 +1,4 @@
-package net.unikit.database;
+package net.unikit.database.test_utils;
 
 /*
  * Slightly modified version of the com.ibatis.common.jdbc.DatabaseResetUtils class
@@ -35,7 +35,7 @@ import java.sql.*;
 /**
  * Tool to run database scripts
  */
-public class DatabaseResetUtils {
+final class DatabaseResetUtils {
 	private static final String DEFAULT_DELIMITER = ";";
 
 	private Connection connection;
@@ -49,7 +49,7 @@ public class DatabaseResetUtils {
 	private String delimiter = DEFAULT_DELIMITER;
 	private boolean fullLineDelimiter = false;
 
-	private static Date lastResetDate;
+	private static java.util.Date lastResetDate;
 
 	/**
 	 * Default constructor
@@ -66,12 +66,12 @@ public class DatabaseResetUtils {
 		this.fullLineDelimiter = fullLineDelimiter;
 	}
 
-	public static Date getLastResetDate() {
+	public static java.util.Date getLastResetDate() {
 		return lastResetDate;
 	}
 
 	public static void resetDatabase(DatabaseManager databaseManager, String filename) {
-		lastResetDate = new Date(System.currentTimeMillis() - 10000);
+		lastResetDate = new java.util.Date(System.currentTimeMillis());
 
 		Object value = databaseManager.getCourseGroupAppointmentManager();
 		Field field = null;

@@ -1,6 +1,5 @@
 package net.unikit.database;
 
-import junit.framework.TestCase;
 import net.unikit.database.exceptions.ConstraintViolationException;
 import net.unikit.database.exceptions.EntityNotAddedException;
 import net.unikit.database.exceptions.EntityNotFoundException;
@@ -9,8 +8,8 @@ import net.unikit.database.interfaces.entities.MembershipRequest;
 import net.unikit.database.interfaces.entities.Student;
 import net.unikit.database.interfaces.entities.Team;
 import net.unikit.database.interfaces.managers.MembershipRequestManager;
-import org.hibernate.PropertyValueException;
-import org.junit.After;
+import net.unikit.database.test_utils.DatabaseTestUtils;
+import net.unikit.database.test_utils.EntityValueMap;
 import org.junit.Test;
 
 import java.util.Date;
@@ -20,57 +19,63 @@ import java.util.List;
 /**
  * Created by Andreas on 28.11.2015.
  */
-public class MembershipRequestTest extends TestCase {
-    @After
-    public void tearDown() throws Exception {
-        System.err.println("Resetting test database...");
-        TestSuite.resetDatabase();
+public class MembershipRequestTest extends AbstractTest<MembershipRequest, Integer, MembershipRequest.ID, MembershipRequestManager> {
+    private MembershipRequestManager manager;
+    private EntityValueMap evm_1;
+    private EntityValueMap evm_2;
+
+    @Override
+    public void init() throws Exception {
+        manager = getEntityManager();
+
+        // Create entity value map for the first entity
+        evm_1 = createEntityValueMap();
+        evm_1.put("id", manager.createID(1));
+        evm_1.put("applicant", DatabaseTestUtils.getEntity(Student.class, "2055120"));
+        evm_1.put("team", DatabaseTestUtils.getEntity(Team.class, 3));
+        evm_1.put("createdAt", getCreatedAtRange());
+        evm_1.put("updatedAt", getCreatedAtRange());
+        evm_1.makeImmutable();
+
+        // Create entity value map for the second entity
+        evm_2 = createEntityValueMap();
+        evm_2.put("id", manager.createID(2));
+        evm_2.put("applicant", DatabaseTestUtils.getEntity(Student.class, "2055178"));
+        evm_2.put("team", DatabaseTestUtils.getEntity(Team.class, 9));
+        evm_2.put("createdAt", getCreatedAtRange());
+        evm_2.put("updatedAt", getCreatedAtRange());
+        evm_2.makeImmutable();
+    }
+
+    @Override
+    protected Class<MembershipRequest> getInterfaceClass() {
+        return MembershipRequest.class;
     }
 
     @Test
     public void test_getAllEntities() {
-        MembershipRequestManager membershipRequestManager = TestSuite.getDatabaseManager().getMembershipRequestManager();
+        // Check size of the entity list
+        List<MembershipRequest> allEntities = manager.getAllEntities();
+        assertEquals(4, allEntities.size());
 
-        // check size of entity list
-        List<MembershipRequest> allEntities = membershipRequestManager.getAllEntities();
-        assertEquals(allEntities.size(), 4);
+        // Check values of the first entity
+        MembershipRequest entity_1 = allEntities.get(0);
+        checkValuesEquals(evm_1, getEntityValueMap(entity_1));
 
-        // get first entity
-        MembershipRequest entity = allEntities.get(0);
-
-        // check values
-        assertEquals(entity.getId(), membershipRequestManager.createID(1));
-        Student applicant = null;
-        try {
-            applicant = entity.getApplicant();
-        } catch (EntityNotFoundException e) {
-            fail();
-        }
-        assertEquals(applicant, DatabaseTestUtils.getStudent("2055120"));
-        assertEquals(entity.getTeam(), DatabaseTestUtils.getTeam(3));
-        assertTrue(entity.getCreatedAt().compareTo(DatabaseResetUtils.getLastResetDate()) >= 0);
-        assertTrue(entity.getUpdatedAt().compareTo(DatabaseResetUtils.getLastResetDate()) >= 0);
+        // Check values of the second entity
+        MembershipRequest entity_2 = allEntities.get(1);
+        checkValuesEquals(evm_2, getEntityValueMap(entity_2));
     }
 
     @Test
-    public void test_getEntity() {
-        MembershipRequestManager membershipRequestManager = TestSuite.getDatabaseManager().getMembershipRequestManager();
+    public void test_getEntity() throws EntityNotFoundException {
+        // Check values of the first entity
+        MembershipRequest entity_1 = manager.getEntity(manager.createID(1));
+        checkValuesEquals(evm_1, getEntityValueMap(entity_1));
 
-        // get first entity
-        MembershipRequest entity = DatabaseTestUtils.getMembershipRequest(1);
-
-        // check values
-        assertEquals(entity.getId(), membershipRequestManager.createID(1));
-        Student applicant = null;
-        try {
-            applicant = entity.getApplicant();
-        } catch (EntityNotFoundException e) {
-            fail();
-        }
-        assertEquals(applicant, DatabaseTestUtils.getStudent("2055120"));
-        assertEquals(entity.getTeam(), DatabaseTestUtils.getTeam(3));
-        assertTrue(entity.getCreatedAt().compareTo(DatabaseResetUtils.getLastResetDate()) >= 0);
-        assertTrue(entity.getUpdatedAt().compareTo(DatabaseResetUtils.getLastResetDate()) >= 0);
+        // Check values of the second entity
+        MembershipRequest entity_2 = manager.getEntity(manager.createID(2));
+        checkValuesEquals(evm_2, getEntityValueMap(entity_2));
     }
 
     @Test

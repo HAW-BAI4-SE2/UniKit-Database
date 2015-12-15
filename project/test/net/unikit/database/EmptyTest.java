@@ -1,30 +1,32 @@
 package net.unikit.database;
 
-import junit.framework.TestCase;
-import net.unikit.database.exceptions.EntityNotFoundException;
-import net.unikit.database.interfaces.entities.Student;
-import net.unikit.database.interfaces.managers.AbstractManager;
-import net.unikit.database.interfaces.managers.CourseManager;
-import net.unikit.database.interfaces.managers.StudentManager;
-import org.junit.After;
+import net.unikit.database.interfaces.entities.MembershipRequest;
+import net.unikit.database.interfaces.managers.MembershipRequestManager;
+import net.unikit.database.test_utils.EntityValueMap;
 import org.junit.Test;
 
 /**
  * Created by Andreas on 28.11.2015.
  */
-public class EmptyTest extends TestCase {
-    @After
-    public void tearDown() throws Exception {
-        assert true;
+public class EmptyTest extends AbstractTest<MembershipRequest, Integer, MembershipRequest.ID, MembershipRequestManager> {
+    @Override
+    public void init() throws Exception {
+
     }
 
     @Test
     public void test() {
-        AbstractManager manager = TestSuite.getDatabaseManager().getFieldOfStudyManager();
-        try {
-            manager.getEntity(manager.createID(1));
-        } catch (EntityNotFoundException e) {
-            fail();
-        }
+        EntityValueMap entityValueMap_1 = createEntityValueMap();
+        assertEquals(1, 1);
+    }
+
+    @Override
+    protected Class<MembershipRequest> getInterfaceClass() {
+        return MembershipRequest.class;
+    }
+
+    @Override
+    protected MembershipRequestManager getEntityManager() {
+        return TestSuite.getDatabaseManager().getMembershipRequestManager();
     }
 }

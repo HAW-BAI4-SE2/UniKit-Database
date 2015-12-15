@@ -3,8 +3,7 @@ package net.unikit.database;
 import net.unikit.database.implementations.DatabaseManagerFactory;
 import net.unikit.database.interfaces.DatabaseConfiguration;
 import net.unikit.database.interfaces.DatabaseManager;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import net.unikit.database.test_utils.DatabaseTestUtils;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -63,16 +62,8 @@ public class TestSuite {
         }
 
         databaseManager = DatabaseManagerFactory.createDatabaseManager(configurationInternal, configurationExternal);
-        System.err.println("Resetting test database...");
-        resetDatabase();
-    }
 
-    /**
-     * Resets the test database using the <i>all_in_one_test.sql</i> script.
-     */
-    public static void resetDatabase() {
-        DatabaseManager databaseManager = TestSuite.databaseManager;
-        String filename = "assets" + File.separator + "all_in_one_test.sql";
-        DatabaseResetUtils.resetDatabase(databaseManager, filename);
+        System.err.println("Resetting test database...");
+        DatabaseTestUtils.resetDatabase();
     }
 }
