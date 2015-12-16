@@ -51,7 +51,7 @@ public class TeamInvitationTest extends AbstractTest<TeamInvitation, Integer, Te
 
         // Create entity value map for the second entity
         evm_2 = createEntityValueMap();
-        evm_2.put("id", manager.createID(1));
+        evm_2.put("id", manager.createID(2));
         evm_2.put("invitee", DatabaseTestUtils.getEntity(Student.class, "2055174"));
         evm_2.put("team", DatabaseTestUtils.getEntity(Team.class, 4));
         evm_2.put("createdBy", DatabaseTestUtils.getEntity(Student.class, "2055129"));

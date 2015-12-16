@@ -50,7 +50,7 @@ public class MembershipRequestTest extends AbstractTest<MembershipRequest, Integ
 
         // Create entity value map for the second entity
         evm_2 = createEntityValueMap();
-        evm_2.put("id", manager.createID(1));
+        evm_2.put("id", manager.createID(2));
         evm_2.put("applicant", DatabaseTestUtils.getEntity(Student.class, "2055178"));
         evm_2.put("team", DatabaseTestUtils.getEntity(Team.class, 9));
         evm_2.put("createdAt", getCreatedAtRange());
