@@ -81,9 +81,9 @@ public abstract class AbstractTest<EntityType extends AbstractEntity, BaseIdType
                 Range range = (Range) valueExpected;
                 boolean equals = range.includes((Comparable) valueActual);
                 if (!equals)
-                    assertEquals(valueExpected, valueActual);
+                    assertEquals("attribute '" + key + "' is not equal", valueExpected, valueActual);
             } else {
-                assertEquals(valueExpected, valueActual);
+                assertEquals("attribute '" + key + "' is not equal", valueExpected, valueActual);
             }
         }
     }

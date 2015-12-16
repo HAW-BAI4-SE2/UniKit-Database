@@ -12,17 +12,10 @@ import java.util.List;
 /**
  * Created by Andreas on 26.11.2015.
  */
-final class CourseLectureImpl implements CourseLecture {
-    static class IDImpl implements CourseLecture.ID {
-        private Integer value;
-
-        IDImpl(Integer value) {
-            this.value = value;
-        }
-
-        @Override
-        public Integer getValue() {
-            return value;
+final class CourseLectureImpl extends AbstractEntityImpl implements CourseLecture {
+    static class IDImpl extends AbstractEntityImpl.IDImpl<Integer> implements CourseLecture.ID  {
+        public IDImpl(Integer value) {
+            super(value);
         }
     }
 

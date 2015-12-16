@@ -11,17 +11,10 @@ import java.util.Date;
 /**
  * Created by Andreas on 26.11.2015.
  */
-final class CourseRegistrationImpl implements CourseRegistration {
-    static class IDImpl implements CourseRegistration.ID {
-        private Integer value;
-
-        IDImpl(Integer value) {
-            this.value = value;
-        }
-
-        @Override
-        public Integer getValue() {
-            return value;
+final class CourseRegistrationImpl extends AbstractEntityImpl implements CourseRegistration {
+    static class IDImpl extends AbstractEntityImpl.IDImpl<Integer> implements CourseRegistration.ID  {
+        public IDImpl(Integer value) {
+            super(value);
         }
     }
 

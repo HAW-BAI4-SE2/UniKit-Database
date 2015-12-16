@@ -1,11 +1,13 @@
 package net.unikit.database;
 
 import net.unikit.database.exceptions.EntityNotFoundException;
-import net.unikit.database.interfaces.entities.Course;
+import net.unikit.database.interfaces.entities.*;
 import net.unikit.database.interfaces.managers.CourseManager;
+import net.unikit.database.test_utils.DatabaseTestUtils;
 import net.unikit.database.test_utils.EntityValueMap;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -39,33 +41,99 @@ public class CourseTest extends AbstractTest<Course, Integer, Course.ID, CourseM
         // Create entity value map for the first entity
         evm_1 = createEntityValueMap();
         evm_1.put("id", manager.createID(1));
-        evm_1.put("name", null);
-        evm_1.put("abbreviation", null);
-        evm_1.put("semester", null);
-        evm_1.put("minTeamSize", null);
-        evm_1.put("maxTeamSize", null);
-        evm_1.put("courseLecture", null);
-        evm_1.put("courseGroups", null);
-        evm_1.put("fieldOfStudies", null);
-        evm_1.put("singleRegistrations", null);
-        evm_1.put("allCourseRegistrations", null);
-        evm_1.put("teams", null);
+        evm_1.put("name", "Datenbanken");
+        evm_1.put("abbreviation", "DB");
+        evm_1.put("semester", 2);
+        evm_1.put("minTeamSize", 2);
+        evm_1.put("maxTeamSize", 2);
+        evm_1.put("courseLecture", DatabaseTestUtils.getEntity(CourseLecture.class, 1));
+        evm_1.put("courseGroups", Arrays.asList(
+                DatabaseTestUtils.getEntity(CourseGroup.class, 1),
+                DatabaseTestUtils.getEntity(CourseGroup.class, 2)
+        ));
+        evm_1.put("fieldOfStudies", Arrays.asList(
+                DatabaseTestUtils.getEntity(FieldOfStudy.class, 1)
+        ));
+        evm_1.put("singleRegistrations", Arrays.asList(
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 1),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 3),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 5),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 6),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 8),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 10),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 12),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 15),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 16),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 18),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 20)
+        ));
+        evm_1.put("allCourseRegistrations", Arrays.asList(
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 1),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 3),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 5),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 6),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 8),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 10),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 12),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 15),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 16),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 18),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 20)
+        ));
+        evm_1.put("teams", Arrays.asList(
+                DatabaseTestUtils.getEntity(Team.class, 1),
+                DatabaseTestUtils.getEntity(Team.class, 4),
+                DatabaseTestUtils.getEntity(Team.class, 6),
+                DatabaseTestUtils.getEntity(Team.class, 7),
+                DatabaseTestUtils.getEntity(Team.class, 9)
+        ));
         evm_1.makeImmutable();
 
         // Create entity value map for the second entity
         evm_2 = createEntityValueMap();
         evm_2.put("id", manager.createID(2));
-        evm_2.put("name", null);
-        evm_2.put("abbreviation", null);
-        evm_2.put("semester", null);
-        evm_2.put("minTeamSize", null);
-        evm_2.put("maxTeamSize", null);
-        evm_2.put("courseLecture", null);
-        evm_2.put("courseGroups", null);
-        evm_2.put("fieldOfStudies", null);
-        evm_2.put("singleRegistrations", null);
-        evm_2.put("allCourseRegistrations", null);
-        evm_2.put("teams", null);
+        evm_2.put("name", "Logik und Berechenbarkeit");
+        evm_2.put("abbreviation", "LB");
+        evm_2.put("semester", 2);
+        evm_2.put("minTeamSize", 2);
+        evm_2.put("maxTeamSize", 2);
+        evm_2.put("courseLecture", DatabaseTestUtils.getEntity(CourseLecture.class, 2));
+        evm_2.put("courseGroups", Arrays.asList(
+                DatabaseTestUtils.getEntity(CourseGroup.class, 3),
+                DatabaseTestUtils.getEntity(CourseGroup.class, 4)
+        ));
+        evm_2.put("fieldOfStudies", Arrays.asList(
+                DatabaseTestUtils.getEntity(FieldOfStudy.class, 1)
+        ));
+        evm_2.put("singleRegistrations", Arrays.asList(
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 2),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 4),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 7),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 9),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 11),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 13),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 17),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 19),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 21)
+        ));
+        evm_2.put("allCourseRegistrations", Arrays.asList(
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 2),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 4),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 7),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 9),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 11),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 13),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 17),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 19),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 21)
+        ));
+        evm_2.put("teams", Arrays.asList(
+                DatabaseTestUtils.getEntity(Team.class, 2),
+                DatabaseTestUtils.getEntity(Team.class, 3),
+                DatabaseTestUtils.getEntity(Team.class, 5),
+                DatabaseTestUtils.getEntity(Team.class, 8),
+                DatabaseTestUtils.getEntity(Team.class, 10)
+        ));
         evm_2.makeImmutable();
     }
 
@@ -101,7 +169,7 @@ public class CourseTest extends AbstractTest<Course, Integer, Course.ID, CourseM
     /**
      * Tests the method getEntity of the CourseManager.
      * Following aspects are tested:
-     * - Check if the entity got right values (only the first two entities are tested)
+     * - Check if the entities got right values (only the first two entities are tested)
      */
     @Test
     public void test_getEntity() throws EntityNotFoundException {

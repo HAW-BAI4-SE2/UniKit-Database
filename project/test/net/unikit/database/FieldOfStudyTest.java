@@ -38,8 +38,8 @@ public class FieldOfStudyTest extends AbstractTest<FieldOfStudy, Integer, FieldO
         // Create entity value map for the first entity
         evm_1 = createEntityValueMap();
         evm_1.put("id", manager.createID(1));
-        evm_1.put("name", null);
-        evm_1.put("abbreviation", null);
+        evm_1.put("name", "Bachelor Angewandte Infomatik");
+        evm_1.put("abbreviation", "B-AI");
         evm_1.makeImmutable();
     }
 
@@ -68,6 +68,11 @@ public class FieldOfStudyTest extends AbstractTest<FieldOfStudy, Integer, FieldO
         }
     }
 
+    /**
+     * Tests the method getEntity of the FieldOfStudyManager.
+     * Following aspects are tested:
+     * - Check if the entity got right values
+     */
     @Test
     public void test_getEntity() throws EntityNotFoundException {
         // Check values of the first entity
@@ -75,6 +80,12 @@ public class FieldOfStudyTest extends AbstractTest<FieldOfStudy, Integer, FieldO
         checkValuesEquals(evm_1, getEntityValueMap(entity_1));
     }
 
+    /**
+     * Tests the EntityNotFoundException of the method getEntity of the FieldOfStudyManager.
+     * Following aspects are tested:
+     * - getEntity with an unknown id throws an EntityNotFoundException
+     * - following ids are tested: '-1', '0' and 'DEFAULT_ENTITY_COUNT + 1'
+     */
     @Test
     public void test_getEntity_EntityNotFoundException() {
         // Try to get an object with unknown id '-1'

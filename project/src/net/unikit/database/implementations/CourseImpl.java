@@ -1,6 +1,7 @@
 package net.unikit.database.implementations;
 
 import com.google.common.collect.ImmutableList;
+import net.unikit.database.exceptions.EntityNotFoundException;
 import net.unikit.database.external.interfaces.entities.CourseGroupModel;
 import net.unikit.database.external.interfaces.entities.CourseModel;
 import net.unikit.database.external.interfaces.entities.FieldOfStudyModel;
@@ -11,17 +12,10 @@ import java.util.List;
 /**
  * Created by Andreas on 26.11.2015.
  */
-final class CourseImpl implements Course {
-    static class IDImpl implements Course.ID {
-        private Integer value;
-
-        IDImpl(Integer value) {
-            this.value = value;
-        }
-
-        @Override
-        public Integer getValue() {
-            return value;
+final class CourseImpl extends AbstractEntityImpl implements Course {
+    static class IDImpl extends AbstractEntityImpl.IDImpl<Integer> implements Course.ID  {
+        public IDImpl(Integer value) {
+            super(value);
         }
     }
 
@@ -121,32 +115,34 @@ final class CourseImpl implements Course {
     }
 
     @Override
-    public List<CourseRegistration> getSingleRegistrations() {
+    public List<CourseRegistration> getSingleRegistrations() throws EntityNotFoundException {
         List<CourseRegistration> allEntities = DatabaseManagerFactory.getDatabaseManager().getCourseRegistrationManager().getAllEntities();
         ImmutableList.Builder<CourseRegistration> builder = ImmutableList.builder();
         for (CourseRegistration courseRegistration : allEntities) {
-            if (!courseRegistration.isCurrentlyAssignedToTeam())
+            if (courseRegistration.getCourse().equals(this) && !courseRegistration.isCurrentlyAssignedToTeam())
                 builder.add(courseRegistration);
         }
         return builder.build();
     }
 
     @Override
-    public List<CourseRegistration> getAllCourseRegistrations() {
+    public List<CourseRegistration> getAllCourseRegistrations() throws EntityNotFoundException {
         List<CourseRegistration> allEntities = DatabaseManagerFactory.getDatabaseManager().getCourseRegistrationManager().getAllEntities();
         ImmutableList.Builder<CourseRegistration> builder = ImmutableList.builder();
         for (CourseRegistration courseRegistration : allEntities) {
-            builder.add(courseRegistration);
+            if (courseRegistration.getCourse().equals(this))
+                builder.add(courseRegistration);
         }
         return builder.build();
     }
 
     @Override
-    public List<Team> getTeams() {
+    public List<Team> getTeams() throws EntityNotFoundException {
         List<Team> allEntities = DatabaseManagerFactory.getDatabaseManager().getTeamManager().getAllEntities();
         ImmutableList.Builder<Team> builder = ImmutableList.builder();
         for (Team team : allEntities) {
-            builder.add(team);
+            if (team.getCourse().equals(this))
+                builder.add(team);
         }
         return builder.build();
     }

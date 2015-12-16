@@ -6,17 +6,10 @@ import net.unikit.database.interfaces.entities.FieldOfStudy;
 /**
  * Created by Andreas on 26.11.2015.
  */
-final class FieldOfStudyImpl implements FieldOfStudy {
-    static class IDImpl implements FieldOfStudy.ID {
-        private Integer value;
-
-        IDImpl(Integer value) {
-            this.value = value;
-        }
-
-        @Override
-        public Integer getValue() {
-            return value;
+final class FieldOfStudyImpl extends AbstractEntityImpl implements FieldOfStudy {
+    static class IDImpl extends AbstractEntityImpl.IDImpl<Integer> implements FieldOfStudy.ID  {
+        public IDImpl(Integer value) {
+            super(value);
         }
     }
 

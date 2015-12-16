@@ -1,11 +1,13 @@
 package net.unikit.database;
 
 import net.unikit.database.exceptions.EntityNotFoundException;
-import net.unikit.database.interfaces.entities.Team;
+import net.unikit.database.interfaces.entities.*;
 import net.unikit.database.interfaces.managers.TeamManager;
+import net.unikit.database.test_utils.DatabaseTestUtils;
 import net.unikit.database.test_utils.EntityValueMap;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -39,11 +41,16 @@ public class TeamTest extends AbstractTest<Team, Integer, Team.ID, TeamManager> 
         // Create entity value map for the first entity
         evm_1 = createEntityValueMap();
         evm_1.put("id", manager.createID(1));
-        evm_1.put("course", null);
-        evm_1.put("createdBy", null);
-        evm_1.put("membershipRequests", null);
-        evm_1.put("teamInvitations", null);
-        evm_1.put("teamRegistrations", null);
+        evm_1.put("course", DatabaseTestUtils.getEntity(Course.class, 1));
+        evm_1.put("createdBy", DatabaseTestUtils.getEntity(Student.class, "2055120"));
+        evm_1.put("membershipRequests", Arrays.asList(
+        ));
+        evm_1.put("teamInvitations", Arrays.asList(
+        ));
+        evm_1.put("teamRegistrations", Arrays.asList(
+                DatabaseTestUtils.getEntity(TeamRegistration.class, 1),
+                DatabaseTestUtils.getEntity(TeamRegistration.class, 3)
+        ));
         evm_1.put("createdAt", getCreatedAtRange());
         evm_1.put("updatedAt", getCreatedAtRange());
         evm_1.makeImmutable();
@@ -51,11 +58,16 @@ public class TeamTest extends AbstractTest<Team, Integer, Team.ID, TeamManager> 
         // Create entity value map for the second entity
         evm_2 = createEntityValueMap();
         evm_2.put("id", manager.createID(2));
-        evm_2.put("course", null);
-        evm_2.put("createdBy", null);
-        evm_2.put("membershipRequests", null);
-        evm_2.put("teamInvitations", null);
-        evm_2.put("teamRegistrations", null);
+        evm_2.put("course", DatabaseTestUtils.getEntity(Course.class, 2));
+        evm_2.put("createdBy", DatabaseTestUtils.getEntity(Student.class, "2055120"));
+        evm_2.put("membershipRequests", Arrays.asList(
+        ));
+        evm_2.put("teamInvitations", Arrays.asList(
+                DatabaseTestUtils.getEntity(TeamInvitation.class, 1)
+        ));
+        evm_2.put("teamRegistrations", Arrays.asList(
+                DatabaseTestUtils.getEntity(TeamRegistration.class, 2)
+        ));
         evm_2.put("createdAt", getCreatedAtRange());
         evm_2.put("updatedAt", getCreatedAtRange());
         evm_2.makeImmutable();
@@ -90,6 +102,11 @@ public class TeamTest extends AbstractTest<Team, Integer, Team.ID, TeamManager> 
         }
     }
 
+    /**
+     * Tests the method getEntity of the TeamManager.
+     * Following aspects are tested:
+     * - Check if the entities got right values (only the first two entities are tested)
+     */
     @Test
     public void test_getEntity() throws EntityNotFoundException {
         // Check values of the first entity
@@ -101,6 +118,12 @@ public class TeamTest extends AbstractTest<Team, Integer, Team.ID, TeamManager> 
         checkValuesEquals(evm_2, getEntityValueMap(entity_2));
     }
 
+    /**
+     * Tests the EntityNotFoundException of the method getEntity of the TeamManager.
+     * Following aspects are tested:
+     * - getEntity with an unknown id throws an EntityNotFoundException
+     * - following ids are tested: '-1', '0' and 'DEFAULT_ENTITY_COUNT + 1'
+     */
     @Test
     public void test_getEntity_EntityNotFoundException() {
         // Try to get an object with unknown id '-1'

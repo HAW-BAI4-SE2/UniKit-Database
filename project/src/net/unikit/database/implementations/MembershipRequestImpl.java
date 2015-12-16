@@ -11,7 +11,7 @@ import java.util.Date;
 /**
  * Created by Andreas on 26.11.2015.
  */
-final class MembershipRequestImpl implements MembershipRequest {
+final class MembershipRequestImpl extends AbstractEntityImpl implements MembershipRequest {
     static class IDImpl extends AbstractEntityImpl.IDImpl<Integer> implements MembershipRequest.ID  {
         public IDImpl(Integer value) {
             super(value);

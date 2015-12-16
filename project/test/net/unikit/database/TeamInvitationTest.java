@@ -1,8 +1,11 @@
 package net.unikit.database;
 
 import net.unikit.database.exceptions.EntityNotFoundException;
+import net.unikit.database.interfaces.entities.Student;
+import net.unikit.database.interfaces.entities.Team;
 import net.unikit.database.interfaces.entities.TeamInvitation;
 import net.unikit.database.interfaces.managers.TeamInvitationManager;
+import net.unikit.database.test_utils.DatabaseTestUtils;
 import net.unikit.database.test_utils.EntityValueMap;
 import org.junit.Test;
 
@@ -39,9 +42,9 @@ public class TeamInvitationTest extends AbstractTest<TeamInvitation, Integer, Te
         // Create entity value map for the first entity
         evm_1 = createEntityValueMap();
         evm_1.put("id", manager.createID(1));
-        evm_1.put("invitee", null);
-        evm_1.put("team", null);
-        evm_1.put("createdBy", null);
+        evm_1.put("invitee", DatabaseTestUtils.getEntity(Student.class, "2055121"));
+        evm_1.put("team", DatabaseTestUtils.getEntity(Team.class, 2));
+        evm_1.put("createdBy", DatabaseTestUtils.getEntity(Student.class, "2055120"));
         evm_1.put("createdAt", getCreatedAtRange());
         evm_1.put("updatedAt", getCreatedAtRange());
         evm_1.makeImmutable();
@@ -49,19 +52,12 @@ public class TeamInvitationTest extends AbstractTest<TeamInvitation, Integer, Te
         // Create entity value map for the second entity
         evm_2 = createEntityValueMap();
         evm_2.put("id", manager.createID(1));
-        evm_2.put("invitee", null);
-        evm_2.put("team", null);
-        evm_2.put("createdBy", null);
+        evm_2.put("invitee", DatabaseTestUtils.getEntity(Student.class, "2055174"));
+        evm_2.put("team", DatabaseTestUtils.getEntity(Team.class, 4));
+        evm_2.put("createdBy", DatabaseTestUtils.getEntity(Student.class, "2055129"));
         evm_2.put("createdAt", getCreatedAtRange());
         evm_2.put("updatedAt", getCreatedAtRange());
         evm_2.makeImmutable();
-    }
-
-    // TODO: REMOVE (ONLY NEEDED FOR DEVELOPMENT)
-    @Test
-    public void test_printAttributes() {
-        EntityValueMap entityValueMap = createEntityValueMap();
-        System.out.println("ATTRIBUTES OF " + getInterfaceClass().getSimpleName() + ": " + entityValueMap.keySet());
     }
 
     /**
@@ -93,6 +89,11 @@ public class TeamInvitationTest extends AbstractTest<TeamInvitation, Integer, Te
         }
     }
 
+    /**
+     * Tests the method getEntity of the TeamInvitationManager.
+     * Following aspects are tested:
+     * - Check if the entities got right values (only the first two entities are tested)
+     */
     @Test
     public void test_getEntity() throws EntityNotFoundException {
         // Check values of the first entity
@@ -104,6 +105,12 @@ public class TeamInvitationTest extends AbstractTest<TeamInvitation, Integer, Te
         checkValuesEquals(evm_2, getEntityValueMap(entity_2));
     }
 
+    /**
+     * Tests the EntityNotFoundException of the method getEntity of the TeamInvitationManager.
+     * Following aspects are tested:
+     * - getEntity with an unknown id throws an EntityNotFoundException
+     * - following ids are tested: '-1', '0' and 'DEFAULT_ENTITY_COUNT + 1'
+     */
     @Test
     public void test_getEntity_EntityNotFoundException() {
         // Try to get an object with unknown id '-1'

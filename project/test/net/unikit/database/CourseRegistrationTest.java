@@ -1,8 +1,11 @@
 package net.unikit.database;
 
 import net.unikit.database.exceptions.EntityNotFoundException;
+import net.unikit.database.interfaces.entities.Course;
 import net.unikit.database.interfaces.entities.CourseRegistration;
+import net.unikit.database.interfaces.entities.Student;
 import net.unikit.database.interfaces.managers.CourseRegistrationManager;
+import net.unikit.database.test_utils.DatabaseTestUtils;
 import net.unikit.database.test_utils.EntityValueMap;
 import org.junit.Test;
 
@@ -39,9 +42,9 @@ public class CourseRegistrationTest extends AbstractTest<CourseRegistration, Int
         // Create entity value map for the first entity
         evm_1 = createEntityValueMap();
         evm_1.put("id", manager.createID(1));
-        evm_1.put("student", null);
-        evm_1.put("course", null);
-        evm_1.put("currentlyAssignedToTeam", null);
+        evm_1.put("student", DatabaseTestUtils.getEntity(Student.class, "2055120"));
+        evm_1.put("course", DatabaseTestUtils.getEntity(Course.class, 1));
+        evm_1.put("currentlyAssignedToTeam", false);
         evm_1.put("createdAt", getCreatedAtRange());
         evm_1.put("updatedAt", getCreatedAtRange());
         evm_1.makeImmutable();
@@ -49,9 +52,9 @@ public class CourseRegistrationTest extends AbstractTest<CourseRegistration, Int
         // Create entity value map for the second entity
         evm_2 = createEntityValueMap();
         evm_2.put("id", manager.createID(2));
-        evm_2.put("student", null);
-        evm_2.put("course", null);
-        evm_2.put("currentlyAssignedToTeam", null);
+        evm_2.put("student", DatabaseTestUtils.getEntity(Student.class, "2055120"));
+        evm_2.put("course", DatabaseTestUtils.getEntity(Course.class, 2));
+        evm_2.put("currentlyAssignedToTeam", false);
         evm_2.put("createdAt", getCreatedAtRange());
         evm_2.put("updatedAt", getCreatedAtRange());
         evm_2.makeImmutable();
@@ -89,7 +92,7 @@ public class CourseRegistrationTest extends AbstractTest<CourseRegistration, Int
     /**
      * Tests the method getEntity of the CourseRegistrationManager.
      * Following aspects are tested:
-     * - Check if the entity got right values (only the first two entities are tested)
+     * - Check if the entities got right values (only the first two entities are tested)
      */
     @Test
     public void test_getEntity() throws EntityNotFoundException {

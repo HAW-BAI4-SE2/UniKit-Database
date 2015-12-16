@@ -1,11 +1,16 @@
 package net.unikit.database;
 
 import net.unikit.database.exceptions.EntityNotFoundException;
+import net.unikit.database.interfaces.entities.CourseGroup;
 import net.unikit.database.interfaces.entities.CourseGroupAppointment;
 import net.unikit.database.interfaces.managers.CourseGroupAppointmentManager;
+import net.unikit.database.test_utils.DatabaseTestUtils;
 import net.unikit.database.test_utils.EntityValueMap;
 import org.junit.Test;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -39,17 +44,17 @@ public class CourseGroupAppointmentTest extends AbstractTest<CourseGroupAppointm
         // Create entity value map for the first entity
         evm_1 = createEntityValueMap();
         evm_1.put("id", manager.createID(1));
-        evm_1.put("courseGroup", null);
-        evm_1.put("startDate", null);
-        evm_1.put("endDate", null);
+        evm_1.put("courseGroup", DatabaseTestUtils.getEntity(CourseGroup.class, 1));
+        evm_1.put("startDate", toDate("2015-10-06 08:15:00"));
+        evm_1.put("endDate", toDate("2015-10-06 11:30:00"));
         evm_1.makeImmutable();
 
         // Create entity value map for the second entity
         evm_2 = createEntityValueMap();
         evm_2.put("id", manager.createID(2));
-        evm_2.put("courseGroup", null);
-        evm_2.put("startDate", null);
-        evm_2.put("endDate", null);
+        evm_2.put("courseGroup", DatabaseTestUtils.getEntity(CourseGroup.class, 1));
+        evm_2.put("startDate", toDate("2015-10-27 08:15:00"));
+        evm_2.put("endDate", toDate("2015-10-27 11:30:00"));
         evm_2.makeImmutable();
     }
 
@@ -85,7 +90,7 @@ public class CourseGroupAppointmentTest extends AbstractTest<CourseGroupAppointm
     /**
      * Tests the method getEntity of the CourseGroupAppointmentManager.
      * Following aspects are tested:
-     * - Check if the entity got right values (only the first two entities are tested)
+     * - Check if the entities got right values (only the first two entities are tested)
      */
     @Test
     public void test_getEntity() throws EntityNotFoundException {
@@ -128,6 +133,24 @@ public class CourseGroupAppointmentTest extends AbstractTest<CourseGroupAppointm
             fail();
         } catch (EntityNotFoundException e) {
             // expected
+        }
+    }
+
+    /**
+     * Generates a Date object form a string in format "dd.MM.yyyy HH:mm:ss".
+     * Example: toDate("2015-10-06 08:15:00")
+     * @param date The String in format "dd.MM.yyyy HH:mm:ss"
+     * @return The generated date
+     */
+    public static Date toDate(String date) {
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+
+        try {
+            Date result = format.parse(date);
+            return result;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }

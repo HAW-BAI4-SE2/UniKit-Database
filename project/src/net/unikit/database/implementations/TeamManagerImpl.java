@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by Andreas on 26.11.2015.
  */
-final class TeamManagerImpl implements TeamManager {
+final class TeamManagerImpl extends AbstractEntityImpl implements TeamManager {
     private DatabaseManagerImpl databaseManager;
 
     private TeamManagerImpl(DatabaseManagerImpl databaseManager) {

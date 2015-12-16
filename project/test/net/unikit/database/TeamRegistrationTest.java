@@ -1,8 +1,11 @@
 package net.unikit.database;
 
 import net.unikit.database.exceptions.EntityNotFoundException;
+import net.unikit.database.interfaces.entities.Student;
+import net.unikit.database.interfaces.entities.Team;
 import net.unikit.database.interfaces.entities.TeamRegistration;
 import net.unikit.database.interfaces.managers.TeamRegistrationManager;
+import net.unikit.database.test_utils.DatabaseTestUtils;
 import net.unikit.database.test_utils.EntityValueMap;
 import org.junit.Test;
 
@@ -39,8 +42,8 @@ public class TeamRegistrationTest extends AbstractTest<TeamRegistration, Integer
         // Create entity value map for the first entity
         evm_1 = createEntityValueMap();
         evm_1.put("id", manager.createID(1));
-        evm_1.put("student", null);
-        evm_1.put("team", null);
+        evm_1.put("student", DatabaseTestUtils.getEntity(Student.class, "2055120"));
+        evm_1.put("team", DatabaseTestUtils.getEntity(Team.class, 1));
         evm_1.put("createdAt", getCreatedAtRange());
         evm_1.put("updatedAt", getCreatedAtRange());
         evm_1.makeImmutable();
@@ -48,8 +51,8 @@ public class TeamRegistrationTest extends AbstractTest<TeamRegistration, Integer
         // Create entity value map for the second entity
         evm_2 = createEntityValueMap();
         evm_2.put("id", manager.createID(2));
-        evm_2.put("student", null);
-        evm_2.put("team", null);
+        evm_2.put("student", DatabaseTestUtils.getEntity(Student.class, "2055120"));
+        evm_2.put("team", DatabaseTestUtils.getEntity(Team.class, 2));
         evm_2.put("createdAt", getCreatedAtRange());
         evm_2.put("updatedAt", getCreatedAtRange());
         evm_2.makeImmutable();
@@ -84,6 +87,11 @@ public class TeamRegistrationTest extends AbstractTest<TeamRegistration, Integer
         }
     }
 
+    /**
+     * Tests the method getEntity of the TeamRegistrationManager.
+     * Following aspects are tested:
+     * - Check if the entities got right values (only the first two entities are tested)
+     */
     @Test
     public void test_getEntity() throws EntityNotFoundException {
         // Check values of the first entity
@@ -95,6 +103,12 @@ public class TeamRegistrationTest extends AbstractTest<TeamRegistration, Integer
         checkValuesEquals(evm_2, getEntityValueMap(entity_2));
     }
 
+    /**
+     * Tests the EntityNotFoundException of the method getEntity of the TeamRegistrationManager.
+     * Following aspects are tested:
+     * - getEntity with an unknown id throws an EntityNotFoundException
+     * - following ids are tested: '-1', '0' and 'DEFAULT_ENTITY_COUNT + 1'
+     */
     @Test
     public void test_getEntity_EntityNotFoundException() {
         // Try to get an object with unknown id '-1'

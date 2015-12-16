@@ -1,11 +1,13 @@
 package net.unikit.database;
 
 import net.unikit.database.exceptions.EntityNotFoundException;
-import net.unikit.database.interfaces.entities.Student;
+import net.unikit.database.interfaces.entities.*;
 import net.unikit.database.interfaces.managers.StudentManager;
+import net.unikit.database.test_utils.DatabaseTestUtils;
 import net.unikit.database.test_utils.EntityValueMap;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -39,31 +41,51 @@ public class StudentTest extends AbstractTest<Student, String, Student.StudentNu
         // Create entity value map for the first entity
         evm_2055120 = createEntityValueMap();
         evm_2055120.put("studentNumber", manager.createID("2055120"));
-        evm_2055120.put("firstName", null);
-        evm_2055120.put("lastName", null);
-        evm_2055120.put("email", null);
-        evm_2055120.put("fieldOfStudy", null);
-        evm_2055120.put("semester", null);
-        evm_2055120.put("completedCourses", null);
-        evm_2055120.put("courseRegistrations", null);
-        evm_2055120.put("membershipRequests", null);
-        evm_2055120.put("teamInvitations", null);
-        evm_2055120.put("teamRegistrations", null);
+        evm_2055120.put("firstName", "Ralf");
+        evm_2055120.put("lastName", "Stoeckmann");
+        evm_2055120.put("email", "ralf.stoeckmann@haw-hamburg.de");
+        evm_2055120.put("fieldOfStudy", DatabaseTestUtils.getEntity(FieldOfStudy.class, 1));
+        evm_2055120.put("semester", 2);
+        evm_2055120.put("completedCourses", Arrays.asList(
+        ));
+        evm_2055120.put("courseRegistrations", Arrays.asList(
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 1),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 2)
+        ));
+        evm_2055120.put("membershipRequests", Arrays.asList(
+                DatabaseTestUtils.getEntity(MembershipRequest.class, 1)
+        ));
+        evm_2055120.put("teamInvitations", Arrays.asList(
+        ));
+        evm_2055120.put("teamRegistrations", Arrays.asList(
+                DatabaseTestUtils.getEntity(TeamRegistration.class, 1),
+                DatabaseTestUtils.getEntity(TeamRegistration.class, 2)
+        ));
         evm_2055120.makeImmutable();
 
         // Create entity value map for the second entity
         evm_2055121 = createEntityValueMap();
         evm_2055121.put("studentNumber", manager.createID("2055121"));
-        evm_2055121.put("firstName", null);
-        evm_2055121.put("lastName", null);
-        evm_2055121.put("email", null);
-        evm_2055121.put("fieldOfStudy", null);
-        evm_2055121.put("semester", null);
-        evm_2055121.put("completedCourses", null);
-        evm_2055121.put("courseRegistrations", null);
-        evm_2055121.put("membershipRequests", null);
-        evm_2055121.put("teamInvitations", null);
-        evm_2055121.put("teamRegistrations", null);
+        evm_2055121.put("firstName", "Gordon");
+        evm_2055121.put("lastName", "Dohrmann");
+        evm_2055121.put("email", "gordon.dohrmann@haw-hamburg.de");
+        evm_2055121.put("fieldOfStudy", DatabaseTestUtils.getEntity(FieldOfStudy.class, 1));
+        evm_2055121.put("semester", 2);
+        evm_2055121.put("completedCourses", Arrays.asList(
+        ));
+        evm_2055121.put("courseRegistrations", Arrays.asList(
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 3),
+                DatabaseTestUtils.getEntity(CourseRegistration.class, 4)
+        ));
+        evm_2055121.put("membershipRequests", Arrays.asList(
+        ));
+        evm_2055121.put("teamInvitations", Arrays.asList(
+                DatabaseTestUtils.getEntity(TeamInvitation.class, 1)
+        ));
+        evm_2055121.put("teamRegistrations", Arrays.asList(
+                DatabaseTestUtils.getEntity(TeamRegistration.class, 3),
+                DatabaseTestUtils.getEntity(TeamRegistration.class, 4)
+        ));
         evm_2055121.makeImmutable();
     }
 
@@ -96,6 +118,11 @@ public class StudentTest extends AbstractTest<Student, String, Student.StudentNu
         }
     }
 
+    /**
+     * Tests the method getEntity of the StudentManager.
+     * Following aspects are tested:
+     * - Check if the entities got right values (only the first two entities are tested)
+     */
     @Test
     public void test_getEntity() throws EntityNotFoundException {
         // Check values of the first entity
@@ -107,6 +134,12 @@ public class StudentTest extends AbstractTest<Student, String, Student.StudentNu
         checkValuesEquals(evm_2055121, getEntityValueMap(entity_2055121));
     }
 
+    /**
+     * Tests the EntityNotFoundException of the method getEntity of the StudentManager.
+     * Following aspects are tested:
+     * - getEntity with an unknown id throws an EntityNotFoundException
+     * - following ids are tested: '0000000', '2055119' and '2055224'
+     */
     @Test
     public void test_getEntity_EntityNotFoundException() {
         // Try to get an object with unknown id '0000000'

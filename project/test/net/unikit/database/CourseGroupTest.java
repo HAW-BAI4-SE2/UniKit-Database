@@ -1,11 +1,15 @@
 package net.unikit.database;
 
 import net.unikit.database.exceptions.EntityNotFoundException;
+import net.unikit.database.interfaces.entities.Course;
 import net.unikit.database.interfaces.entities.CourseGroup;
+import net.unikit.database.interfaces.entities.CourseGroupAppointment;
 import net.unikit.database.interfaces.managers.CourseGroupManager;
+import net.unikit.database.test_utils.DatabaseTestUtils;
 import net.unikit.database.test_utils.EntityValueMap;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -39,19 +43,25 @@ public class CourseGroupTest extends AbstractTest<CourseGroup, Integer, CourseGr
         // Create entity value map for the first entity
         evm_1 = createEntityValueMap();
         evm_1.put("id", manager.createID(1));
-        evm_1.put("course", null);
-        evm_1.put("groupNumber", null);
-        evm_1.put("maxGroupSize", null);
-        evm_1.put("appointments", null);
+        evm_1.put("course", DatabaseTestUtils.getEntity(Course.class, 1));
+        evm_1.put("groupNumber", 1);
+        evm_1.put("maxGroupSize", 30);
+        evm_1.put("appointments", Arrays.asList(
+                DatabaseTestUtils.getEntity(CourseGroupAppointment.class, 1),
+                DatabaseTestUtils.getEntity(CourseGroupAppointment.class, 2)
+        ));
         evm_1.makeImmutable();
 
         // Create entity value map for the second entity
         evm_2 = createEntityValueMap();
         evm_2.put("id", manager.createID(2));
-        evm_2.put("course", null);
-        evm_2.put("groupNumber", null);
-        evm_2.put("maxGroupSize", null);
-        evm_2.put("appointments", null);
+        evm_2.put("course", DatabaseTestUtils.getEntity(Course.class, 1));
+        evm_2.put("groupNumber", 2);
+        evm_2.put("maxGroupSize", 30);
+        evm_2.put("appointments", Arrays.asList(
+                DatabaseTestUtils.getEntity(CourseGroupAppointment.class, 3),
+                DatabaseTestUtils.getEntity(CourseGroupAppointment.class, 4)
+        ));
         evm_2.makeImmutable();
     }
 
@@ -87,7 +97,7 @@ public class CourseGroupTest extends AbstractTest<CourseGroup, Integer, CourseGr
     /**
      * Tests the method getEntity of the CourseGroupManager.
      * Following aspects are tested:
-     * - Check if the entity got right values (only the first two entities are tested)
+     * - Check if the entities got right values (only the first two entities are tested)
      */
     @Test
     public void test_getEntity() throws EntityNotFoundException {

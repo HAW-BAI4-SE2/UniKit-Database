@@ -14,17 +14,10 @@ import java.util.List;
 /**
  * Created by Andreas on 26.11.2015.
  */
-final class TeamImpl implements Team {
-    static class IDImpl implements Team.ID {
-        private Integer value;
-
-        IDImpl(Integer value) {
-            this.value = value;
-        }
-
-        @Override
-        public Integer getValue() {
-            return value;
+final class TeamImpl extends AbstractEntityImpl implements Team {
+    static class IDImpl extends AbstractEntityImpl.IDImpl<Integer> implements Team.ID  {
+        public IDImpl(Integer value) {
+            super(value);
         }
     }
 

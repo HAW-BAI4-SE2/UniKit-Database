@@ -11,17 +11,10 @@ import java.util.List;
 /**
  * Created by Andreas on 26.11.2015.
  */
-final class StudentImpl implements Student {
-    static class StudentNumberImpl implements Student.StudentNumber {
-        private String value;
-
-        StudentNumberImpl(String value) {
-            this.value = value;
-        }
-
-        @Override
-        public String getValue() {
-            return value;
+final class StudentImpl extends AbstractEntityImpl implements Student {
+    static class StudentNumberImpl extends AbstractEntityImpl.IDImpl<String> implements Student.StudentNumber  {
+        public StudentNumberImpl(String value) {
+            super(value);
         }
     }
 

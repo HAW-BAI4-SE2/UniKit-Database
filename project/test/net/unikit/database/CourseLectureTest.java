@@ -1,11 +1,15 @@
 package net.unikit.database;
 
 import net.unikit.database.exceptions.EntityNotFoundException;
+import net.unikit.database.interfaces.entities.Course;
 import net.unikit.database.interfaces.entities.CourseLecture;
+import net.unikit.database.interfaces.entities.CourseLectureAppointment;
 import net.unikit.database.interfaces.managers.CourseLectureManager;
+import net.unikit.database.test_utils.DatabaseTestUtils;
 import net.unikit.database.test_utils.EntityValueMap;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -39,15 +43,25 @@ public class CourseLectureTest extends AbstractTest<CourseLecture, Integer, Cour
         // Create entity value map for the first entity
         evm_1 = createEntityValueMap();
         evm_1.put("id", manager.createID(1));
-        evm_1.put("course", null);
-        evm_1.put("appointments", null);
+        evm_1.put("course", DatabaseTestUtils.getEntity(Course.class, 1));
+        evm_1.put("appointments", Arrays.asList(
+                DatabaseTestUtils.getEntity(CourseLectureAppointment.class, 1),
+                DatabaseTestUtils.getEntity(CourseLectureAppointment.class, 2),
+                DatabaseTestUtils.getEntity(CourseLectureAppointment.class, 3),
+                DatabaseTestUtils.getEntity(CourseLectureAppointment.class, 4)
+        ));
         evm_1.makeImmutable();
 
         // Create entity value map for the second entity
         evm_2 = createEntityValueMap();
         evm_2.put("id", manager.createID(2));
-        evm_2.put("course", null);
-        evm_2.put("appointments", null);
+        evm_2.put("course", DatabaseTestUtils.getEntity(Course.class, 2));
+        evm_2.put("appointments", Arrays.asList(
+                DatabaseTestUtils.getEntity(CourseLectureAppointment.class, 5),
+                DatabaseTestUtils.getEntity(CourseLectureAppointment.class, 6),
+                DatabaseTestUtils.getEntity(CourseLectureAppointment.class, 7),
+                DatabaseTestUtils.getEntity(CourseLectureAppointment.class, 8)
+        ));
         evm_2.makeImmutable();
     }
 
@@ -83,7 +97,7 @@ public class CourseLectureTest extends AbstractTest<CourseLecture, Integer, Cour
     /**
      * Tests the method getEntity of the CourseLectureManager.
      * Following aspects are tested:
-     * - Check if the entity got right values (only the first two entities are tested)
+     * - Check if the entities got right values (only the first two entities are tested)
      */
     @Test
     public void test_getEntity() throws EntityNotFoundException {
