@@ -19,32 +19,11 @@ import java.util.List;
 /**
  * Created by Andreas on 28.11.2015.
  */
-public class MembershipRequestTestOLD extends AbstractTest<MembershipRequest, Integer, MembershipRequest.ID, MembershipRequestManager> {
+public class OLD_Finished extends AbstractTest<MembershipRequest, Integer, MembershipRequest.ID, MembershipRequestManager> {
     private MembershipRequestManager manager;
-    private EntityValueMap evm_1;
-    private EntityValueMap evm_2;
 
     @Override
     public void init() throws Exception {
-        manager = getEntityManager();
-
-        // Create entity value map for the first entity
-        evm_1 = createEntityValueMap();
-        evm_1.put("id", manager.createID(1));
-        evm_1.put("applicant", DatabaseTestUtils.getEntity(Student.class, "2055120"));
-        evm_1.put("team", DatabaseTestUtils.getEntity(Team.class, 3));
-        evm_1.put("createdAt", getCreatedAtRange());
-        evm_1.put("updatedAt", getCreatedAtRange());
-        evm_1.makeImmutable();
-
-        // Create entity value map for the second entity
-        evm_2 = createEntityValueMap();
-        evm_2.put("id", manager.createID(2));
-        evm_2.put("applicant", DatabaseTestUtils.getEntity(Student.class, "2055178"));
-        evm_2.put("team", DatabaseTestUtils.getEntity(Team.class, 9));
-        evm_2.put("createdAt", getCreatedAtRange());
-        evm_2.put("updatedAt", getCreatedAtRange());
-        evm_2.makeImmutable();
     }
 
     @Override
@@ -52,31 +31,21 @@ public class MembershipRequestTestOLD extends AbstractTest<MembershipRequest, In
         return MembershipRequest.class;
     }
 
-    @Test
-    public void test_getAllEntities() {
-        // Check size of the entity list
-        List<MembershipRequest> allEntities = manager.getAllEntities();
-        assertEquals(4, allEntities.size());
 
-        // Check values of the first entity
-        MembershipRequest entity_1 = allEntities.get(0);
-        checkValuesEquals(evm_1, getEntityValueMap(entity_1));
 
-        // Check values of the second entity
-        MembershipRequest entity_2 = allEntities.get(1);
-        checkValuesEquals(evm_2, getEntityValueMap(entity_2));
-    }
 
-    @Test
-    public void test_getEntity() throws EntityNotFoundException {
-        // Check values of the first entity
-        MembershipRequest entity_1 = manager.getEntity(manager.createID(1));
-        checkValuesEquals(evm_1, getEntityValueMap(entity_1));
 
-        // Check values of the second entity
-        MembershipRequest entity_2 = manager.getEntity(manager.createID(2));
-        checkValuesEquals(evm_2, getEntityValueMap(entity_2));
-    }
+
+
+
+
+
+
+
+
+
+
+
 
     @Test
     public void test_updateEntity_setApplicant() {

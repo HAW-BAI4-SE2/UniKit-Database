@@ -19,33 +19,41 @@ import java.util.List;
 /**
  * Unit tests for CourseGroupAppointment and CourseGroupAppointmentManager.
  */
-// TODO: REPLACE 'CourseGroupAppointment' WITH TARGET CLASS NAME
-// TODO: IF TARGET CLASS IS STUDENT, MAYBE REPLACE 'Integer' WITH 'String'
-public class CourseGroupAppointmentTestOLD extends AbstractTest<CourseGroupAppointment, Integer, CourseGroupAppointment.ID, CourseGroupAppointmentManager> {
-    private static final int DEFAULT_ENTITY_COUNT = 16; // TODO: SET DEFAULT ENTITY COUNT
-
+public class OLD_Refactored extends AbstractTest<CourseGroupAppointment, Integer, CourseGroupAppointment.ID, CourseGroupAppointmentManager> {
+    private static final int DEFAULT_ENTITY_COUNT = 16;
     private CourseGroupAppointmentManager manager;
-    private EntityValueMap evm_1;
-    private EntityValueMap evm_2;
 
-    /**
-     * Getter for the class object of the entity interface.
-     * Used for internal implementations of the abstract class AbstractTest.
-     * @return The class object of the entity interface
-     */
     @Override
     protected Class<CourseGroupAppointment> getInterfaceClass() {
         return CourseGroupAppointment.class;
     }
 
-    /**
-     * Initialize all CourseGroupAppointment specific attributes
-     * @throws Exception if any error occurs
-     */
     @Override
     protected void init() throws Exception {
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * TODO: Improve description

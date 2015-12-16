@@ -17,7 +17,6 @@ import static net.unikit.database.implementations.DatabaseConfigurationUtils.cre
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        //MembershipRequestTestOLD.class,
         CourseGroupAppointmentTest.class,
         CourseGroupTest.class,
         CourseLectureAppointmentTest.class,

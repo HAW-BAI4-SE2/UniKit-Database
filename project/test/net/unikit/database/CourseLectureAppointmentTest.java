@@ -137,13 +137,13 @@ public class CourseLectureAppointmentTest extends AbstractTest<CourseLectureAppo
     }
 
     /**
-     * Generates a Date object form a string in format "dd.MM.yyyy HH:mm:ss".
+     * Generates a Date object form a string in format "yyyy-MM-dd HH:mm:ss".
      * Example: toDate("2015-10-06 08:15:00")
      * @param date The String in format "dd.MM.yyyy HH:mm:ss"
      * @return The generated date
      */
     public static Date toDate(String date) {
-        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         try {
             Date result = format.parse(date);
