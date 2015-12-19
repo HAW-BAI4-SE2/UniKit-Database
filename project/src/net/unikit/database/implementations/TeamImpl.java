@@ -38,7 +38,7 @@ final class TeamImpl extends AbstractEntityImpl implements Team {
 
     @Override
     public String getName() {
-        model.getName();
+        return model.getName();
     }
 
     @Override
