@@ -37,6 +37,16 @@ final class TeamImpl extends AbstractEntityImpl implements Team {
     }
 
     @Override
+    public String getName() {
+        model.getName();
+    }
+
+    @Override
+    public void setName(String name) {
+        model.setName(name);
+    }
+
+    @Override
     public Course getCourse() throws EntityNotFoundException {
         Course.ID id = new CourseImpl.IDImpl(model.getCourseId());
         return DatabaseManagerFactory.getDatabaseManager().getCourseManager().getEntity(id);

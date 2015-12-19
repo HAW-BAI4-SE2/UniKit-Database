@@ -23,6 +23,18 @@ public interface Team extends AbstractEntity {
 	ID getId();
 
 	/**
+	 * Getter for the name of the team.
+	 * @return The name of the team
+	 */
+	String getName();
+
+	/**
+	 * Setter for the name of the team.
+	 * @param name The name of the team
+	 */
+	void setName(String name);
+
+	/**
 	 * Getter for the course which is associated to the team.
 	 * @return The course which is associated to the team
 	 */
