@@ -41,6 +41,7 @@ public class TeamTest extends AbstractTest<Team, Integer, Team.ID, TeamManager> 
         // Create entity value map for the first entity
         evm_1 = createEntityValueMap();
         evm_1.put("id", manager.createID(1));
+        evm_1.put("name", "DB_001");
         evm_1.put("course", DatabaseTestUtils.getEntity(Course.class, 1));
         evm_1.put("createdBy", DatabaseTestUtils.getEntity(Student.class, "2055120"));
         evm_1.put("membershipRequests", Arrays.asList(
@@ -58,6 +59,7 @@ public class TeamTest extends AbstractTest<Team, Integer, Team.ID, TeamManager> 
         // Create entity value map for the second entity
         evm_2 = createEntityValueMap();
         evm_2.put("id", manager.createID(2));
+        evm_2.put("name", "LB_001");
         evm_2.put("course", DatabaseTestUtils.getEntity(Course.class, 2));
         evm_2.put("createdBy", DatabaseTestUtils.getEntity(Student.class, "2055120"));
         evm_2.put("membershipRequests", Arrays.asList(
